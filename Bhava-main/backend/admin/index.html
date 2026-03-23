@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhava Admin | Manage Challenges</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+    <div id="app">
+        <!-- Login Section -->
+        <section id="login-section" class="glass-container active">
+            <div class="login-card">
+                <h1 class="brand">Bhava Admin</h1>
+                <p class="subtitle">Enter your credentials to manage sacred journeys</p>
+                <form id="login-form">
+                    <div class="input-group">
+                        <input type="email" id="email" placeholder="Admin Email" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="password" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Sign In</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard-section" class="hidden">
+            <header class="main-header">
+                <div class="header-content">
+                    <h1 class="page-title">Active Challenges</h1>
+                    <div class="header-actions">
+                        <button id="btn-add-challenge" class="btn-accent">+ New Challenge</button>
+                        <button id="btn-logout" class="btn-outline">Logout</button>
+                    </div>
+                </div>
+            </header>
+
+            <main class="content-grid" id="challenge-list">
+                <!-- Challenges will be injected here -->
+                <div class="loading-spinner"></div>
+            </main>
+        </section>
+
+        <!-- Modal for Add/Edit -->
+        <div id="challenge-modal" class="modal hidden">
+            <div class="modal-content glass-card">
+                <span class="close-modal">&times;</span>
+                <h2 id="modal-title">Add New Challenge</h2>
+                <form id="challenge-form">
+                    <div class="form-scrollable">
+                        <div class="form-section">
+                            <h3>Basic Information</h3>
+                            <div class="input-row">
+                                <input type="text" id="c-title" placeholder="Challenge Title" required>
+                                <input type="text" id="c-category" placeholder="Category (e.g. Featured, New)">
+                            </div>
+                            <textarea id="c-description" placeholder="Description" rows="3"></textarea>
+                            <input type="text" id="c-image" placeholder="Image URL">
+                            <div class="input-row">
+                                <input type="text" id="c-joined" placeholder="Joined Count (e.g. 1.2k)">
+                                <input type="text" id="c-duration" placeholder="Duration Text (e.g. 21 days)">
+                            </div>
+                            <input type="text" id="c-badge" placeholder="Badge Text (e.g. ● 16,087 Live)">
+                        </div>
+
+                        <div class="form-section">
+                            <div class="section-header">
+                                <h3>Hosts</h3>
+                                <button type="button" id="add-host" class="btn-small">+ Add Host</button>
+                            </div>
+                            <div id="hosts-container"></div>
+                        </div>
+
+                        <div class="form-section">
+                            <div class="section-header">
+                                <h3>Sessions</h3>
+                                <button type="button" id="add-session" class="btn-small">+ Add Session</button>
+                            </div>
+                            <div id="sessions-container"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="save-challenge" class="btn-primary">Save Challenge</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

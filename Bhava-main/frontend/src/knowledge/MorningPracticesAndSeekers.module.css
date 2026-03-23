@@ -1,0 +1,285 @@
+.section {
+  position: relative;
+  background: #111111;
+  padding: 48px 0 8px;
+  overflow: hidden;
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("/tigerEyeBg.png");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.22;
+  z-index: 0;
+}
+
+/* ── Block ── */
+.block {
+  position: relative;
+  z-index: 1;
+  padding-bottom: 44px;
+}
+
+.blockHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 56px 24px;
+}
+
+.blockHeading {
+  font-size: 30px;
+  font-weight: 700;
+  color: #ffffff;
+  font-family: 'Canela', Cormorant, serif;
+  margin-bottom: 6px;
+}
+
+.blockSubheading {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.headingLine {
+  width: 200px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  margin-top: 8px;
+}
+
+/* Nav */
+.nav {
+  display: flex;
+  gap: 10px;
+}
+
+.navBtn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  line-height: 1;
+}
+
+.navBtn:hover {
+  background: rgba(224, 123, 57, 0.2);
+  border-color: #E07B39;
+  color: #E07B39;
+}
+
+/* ── Morning Practices Track ── */
+.practicesTrack {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 0 56px 16px;
+  scrollbar-width: none;
+}
+
+.practicesTrack::-webkit-scrollbar { display: none; }
+
+/* Practice Card - horizontal layout like screenshot */
+.practiceCard {
+  flex-shrink: 0;
+  width: 440px;
+  border-radius: 16px;
+  padding: 24px 26px 22px;
+  scroll-snap-align: start;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.practiceCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.55);
+}
+
+.cardBg {
+  position: absolute;
+  inset: 0;
+  background-image: url("/tigerEyeBg.png");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.2;
+}
+
+/* Top row: icon + title/sub */
+.practiceTop {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.practiceIconBox {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.practiceTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 3px;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.practiceSub {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.55);
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.practiceDesc {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.65);
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 1;
+  line-height: 1.5;
+}
+
+.practiceDetail {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  position: relative;
+  z-index: 1;
+}
+
+.detailDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  flex-shrink: 0;
+}
+
+.detailText {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.35);
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+/* ── Seekers Track ── */
+.seekersTrack {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 0 56px 16px;
+  scrollbar-width: none;
+}
+
+.seekersTrack::-webkit-scrollbar { display: none; }
+
+/* Seeker Card - dark near-black */
+.seekerCard {
+  flex-shrink: 0;
+  width: 310px;
+  border-radius: 16px;
+  padding: 24px 22px 22px;
+  scroll-snap-align: start;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.seekerCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.seekerIconBox {
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.seekerTitle {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 5px;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.seekerSub {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  margin-bottom: 10px;
+}
+
+.seekerSessions {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.28);
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+/* Progress bar */
+.progressBar {
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 4px 56px 0;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #E07B39, #C65C3A);
+  border-radius: 2px;
+  transition: width 0.2s ease;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .practiceCard { width: 360px; }
+  .seekerCard { width: 260px; }
+}
+
+@media (max-width: 768px) {
+  .blockHeader { padding: 0 24px 20px; }
+  .practicesTrack, .seekersTrack { padding: 0 24px 14px; gap: 12px; }
+  .progressBar { margin: 4px 24px 0; }
+  .practiceCard { width: 290px; }
+  .seekerCard { width: 230px; }
+  .blockHeading { font-size: 24px; }
+}
+
+@media (max-width: 480px) {
+  .practiceCard { width: 250px; }
+  .seekerCard { width: 200px; }
+  .practiceTitle { font-size: 16px; }
+}

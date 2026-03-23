@@ -1,0 +1,329 @@
+.page {
+  background-color: #F4EFE6;
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+/* ── Hero ── */
+.hero {
+  background: linear-gradient(160deg, #173927 0%, #255c3f 60%, #1a4a30 100%);
+  padding: 72px 24px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/tigerEyeBg.png");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.06;
+}
+
+.heroTitle {
+  font-size: 84px;
+  font-weight: 900;
+  color: #ffffff;
+  font-family: 'Canela', Cormorant, serif;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+  line-height: 1.05;
+  letter-spacing: -1px;
+}
+
+.heroAccent {
+  color: #E07B39;
+}
+
+.heroSub {
+  font-size: 19px;
+  color: rgba(255, 255, 255, 0.68);
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  max-width: 570px;
+  margin: 0 auto;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Filter row ── */
+.filterRow {
+  display: flex;
+  gap: 14px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding: 36px 48px 0;
+  max-width: 1400px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.filterBtn {
+  padding: 13px 36px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(37, 92, 63, 0.25);
+  background: transparent;
+  color: #255c3f;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  flex: 1;
+  min-width: 100px;
+  text-align: center;
+}
+
+.filterBtn:hover {
+  border-color: #255c3f;
+  background: rgba(37, 92, 63, 0.06);
+}
+
+.filterActive {
+  background: #255c3f;
+  color: #ffffff;
+  border-color: #255c3f;
+}
+
+/* ── Grid ── */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 36px 48px 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* ── Flip card shell (matches SacredCollection) ── */
+.cardOuter {
+  height: 560px;
+  perspective: 1200px;
+  cursor: pointer;
+}
+
+.cardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+
+/* ── BACK — image face (default) ── */
+.cardBack {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.cardBackImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Overlay when product images are missing */
+.comingSoonOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(245, 230, 211, 0.7);
+  z-index: 12;
+}
+
+.comingSoonText {
+  color: #255c3f;
+  background: rgba(255,255,255,0.9);
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Add to Cart button — slides up on hover */
+.addToCart {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 48px 26px 26px;
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+  color: white;
+}
+
+.cardBackCategory {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #E07B39;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.cardBackTitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  font-family: 'Canela', Cormorant, serif;
+}
+
+/* ── FRONT — details face (revealed on hover) ── */
+.cardFront {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: rotateY(180deg);
+  background-color: #0f1f17;
+}
+
+.cardFrontContent {
+  width: 100%;
+  height: 100%;
+  padding: 36px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+}
+
+.frontTop {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.frontCategory {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #E07B39;
+}
+
+.frontTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.25;
+  font-family: 'Canela', Cormorant, serif;
+  margin: 0;
+}
+
+.frontPrice {
+  font-size: 30px;
+  font-weight: 700;
+  color: #E07B39;
+  margin: 0;
+}
+
+.frontBottom {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.frontDescription {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.75;
+  margin: 0;
+}
+
+.frontBtn {
+  align-self: flex-start;
+  background-color: #E07B39;
+  color: white;
+  border: none;
+  padding: 13px 30px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.frontBtn:hover {
+  background-color: #c96a28;
+  transform: translateY(-2px);
+}
+
+.frontBtnAdded {
+  background-color: #2e7d52 !important;
+  transform: none !important;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ── Coming Soon ── */
+.comingSoon {
+  text-align: center;
+  padding: 60px 0 20px;
+}
+
+.comingSoonText {
+  font-family: 'Canela', Cormorant, serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: #255c3f;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1280px) {
+  .container { padding: 36px 32px 0; }
+  .filterRow { padding: 36px 32px 0; }
+}
+
+@media (max-width: 1024px) {
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .heroTitle { font-size: 64px; }
+  .filterRow { padding: 32px 24px 0; }
+  .filterBtn { padding: 11px 28px; font-size: 14px; }
+  .cardOuter { height: 500px; }
+}
+
+@media (max-width: 768px) {
+  .container { padding: 28px 20px 0; }
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .heroTitle { font-size: 48px; }
+  .hero { padding: 52px 20px 44px; }
+  .cardOuter { height: 460px; }
+  .filterRow { padding: 28px 20px 0; gap: 10px; }
+  .filterBtn { padding: 10px 20px; font-size: 13px; flex: none; }
+}
+
+@media (max-width: 480px) {
+  .grid { grid-template-columns: 1fr; gap: 16px; }
+  .heroTitle { font-size: 38px; }
+  .cardOuter { height: 420px; }
+}
+
+/* Row below grid indicating more products coming */
+.comingSoonRow {
+  text-align: center;
+  margin: 18px 0 48px;
+  color: #255c3f;
+  font-weight: 700;
+  font-size: 16px;
+  background: transparent;
+}

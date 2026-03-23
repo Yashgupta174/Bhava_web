@@ -1,0 +1,370 @@
+/* ── Page wrapper ── */
+.page {
+  min-height: 100vh;
+  background: linear-gradient(to top left, #E6C19C 0%, #EDD9BC 50%, #F4EFE6 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+/* ── Form card ── */
+.card {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(30, 45, 30, 0.08);
+  border-radius: 20px;
+  padding: 52px 56px;
+  width: 100%;
+  max-width: 560px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 40px rgba(120, 80, 30, 0.10);
+  position: relative;
+}
+
+/* ── Back arrow ── */
+.backArrow {
+  background: none;
+  border: none;
+  color: #8b7355;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 28px;
+  transition: color 0.2s ease;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.backArrow:hover {
+  color: #1e2d1e;
+}
+
+/* ── Header ── */
+.header {
+  margin-bottom: 36px;
+}
+
+.title {
+  font-family: 'Canela', Cormorant, serif;
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #1e2d1e;
+  margin: 0 0 10px;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #8b7355;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Form ── */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ── Field ── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #3d4d42;
+  letter-spacing: 0.3px;
+}
+
+.required {
+  color: #e07b39;
+  margin-left: 2px;
+}
+
+.optional {
+  color: #b8a898;
+  font-weight: 400;
+  font-size: 0.82rem;
+  margin-left: 4px;
+}
+
+/* ── Inputs ── */
+.input,
+.textarea {
+  background: #ffffff;
+  border: 1px solid rgba(30, 45, 30, 0.15);
+  border-radius: 10px;
+  padding: 13px 16px;
+  font-size: 0.95rem;
+  color: #1e2d1e;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: #b8a898;
+}
+
+.input:focus,
+.textarea:focus {
+  border-color: rgba(224, 123, 57, 0.5);
+  box-shadow: 0 0 0 3px rgba(224, 123, 57, 0.08);
+}
+
+.inputError {
+  border-color: rgba(200, 70, 50, 0.5) !important;
+  box-shadow: 0 0 0 3px rgba(200, 70, 50, 0.06) !important;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* ── File upload ── */
+.fileDropZone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #F4EFE6;
+  border: 1.5px dashed rgba(30, 45, 30, 0.2);
+  border-radius: 12px;
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.fileDropZone:hover {
+  border-color: rgba(224, 123, 57, 0.45);
+  background: #F4EFE6;
+}
+
+.fileInput {
+  display: none;
+}
+
+.fileIcon {
+  font-size: 1.15rem;
+}
+
+.fileText {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1e2d1e;
+  letter-spacing: 0.2px;
+}
+
+.fileHint {
+  font-size: 0.8rem;
+  color: #8b7355;
+  margin: 6px 0 0;
+  line-height: 1.5;
+}
+
+.fileList {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fileItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 1px solid rgba(30, 45, 30, 0.1);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.fileName {
+  font-size: 0.85rem;
+  color: #3d4d42;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 400px;
+}
+
+.fileRemove {
+  background: none;
+  border: none;
+  color: #c84030;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+  transition: opacity 0.2s ease;
+}
+
+.fileRemove:hover {
+  opacity: 0.7;
+}
+
+
+/* ── Error message ── */
+.errorMsg {
+  font-size: 0.8rem;
+  color: #c84030;
+  margin-top: 2px;
+}
+
+/* ── API error banner ── */
+.apiError {
+  font-size: 0.9rem;
+  color: #c84030;
+  background: rgba(200, 64, 48, 0.07);
+  border: 1px solid rgba(200, 64, 48, 0.2);
+  border-radius: 8px;
+  padding: 10px 14px;
+  text-align: center;
+}
+
+/* ── Submit button ── */
+.sendBtn {
+  background: transparent;
+  border: 2px solid #e07b39;
+  color: #e07b39;
+  padding: 10px 36px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  margin-top: 4px;
+  align-self: flex-start;
+}
+
+.sendBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(135deg, #e07b39 0%, #d06b29 100%);
+  transition: width 0.4s ease;
+  z-index: 0;
+}
+
+.sendBtn:hover::before {
+  width: 100%;
+}
+
+.sendBtn:hover {
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(224, 123, 57, 0.28);
+}
+
+.sendBtn span,
+.sendBtn {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Success state ── */
+.successCard {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(30, 45, 30, 0.08);
+  border-radius: 20px;
+  padding: 64px 56px;
+  width: 100%;
+  max-width: 460px;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 40px rgba(120, 80, 30, 0.10);
+}
+
+.successIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid #e07b39;
+  color: #e07b39;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+.successTitle {
+  font-family: 'Canela', Cormorant, serif;
+  font-size: 2rem;
+  color: #1e2d1e;
+  margin: 0 0 12px;
+}
+
+.successText {
+  font-size: 0.95rem;
+  color: #8b7355;
+  line-height: 1.6;
+  margin: 0 0 32px;
+}
+
+.backBtn {
+  background: transparent;
+  border: 2px solid #e07b39;
+  color: #e07b39;
+  padding: 12px 32px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.backBtn:hover {
+  background: rgba(224, 123, 57, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(224, 123, 57, 0.18);
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .card {
+    padding: 36px 28px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .successCard {
+    padding: 44px 28px;
+  }
+}
+
+@media (max-width: 400px) {
+  .card {
+    padding: 28px 20px;
+  }
+
+  .toggleBtn {
+    padding: 9px 16px;
+  }
+}

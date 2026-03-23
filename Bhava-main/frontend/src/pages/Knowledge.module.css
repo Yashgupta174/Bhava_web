@@ -1,0 +1,1095 @@
+/* ============================================
+   BHAVA — KNOWLEDGE PAGE
+   Color System from PDF Brand Guide
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+/* ── CSS Variables (PDF Color System) ── */
+:root {
+  --temple-ivory: #F4EFE6;        /* Light Background */
+  --warm-beige: #E6C19C;          /* Warm Beige Section */
+  --deep-sacred-green: #1E3A2F;   /* Deep Sacred Green */
+  --near-black: #0F1413;          /* Near Black / Deep Sections */
+  --kumkum-maroon: #7A1F25;       /* Kumkum Maroon */
+  --royal-purple: #4A2D73;        /* Scripture/Path Cards */
+  --forest-green: #1F4D36;        /* Forest Meditation Green */
+  --burnished-gold: #C6A14A;      /* Burnished Gold */
+  --gold-start: #D4AF37;          /* Gold Gradient Start */
+  --gold-end: #B8922E;            /* Gold Gradient End */
+  --muted-body: #6A625A;          /* Muted Body Text */
+  --light-on-dark: #F7F3EC;       /* Light Text on Dark */
+}
+
+.knowledgePagesWrapper {
+  background: var(--temple-ivory);
+  min-height: 100vh;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+/* ══════════════════════════════════════
+   HERO SECTION
+   Background: #F4EFE6 → #E6C19C gradient
+   ══════════════════════════════════════ */
+.knowledgeHeroesSection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: linear-gradient(135deg, var(--temple-ivory) 0%, #EDD9BC 55%, var(--warm-beige) 100%);
+  min-height: 100vh; /* fill viewport so hero covers bottom of page */
+  overflow: hidden;
+}
+
+/* ── Left: text content ── */
+.heroesLeft {
+  flex: 1;
+  padding: 100px 60px 40px 120px; /* reduce bottom padding so hero reaches bottom */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* ── Right: bhakti image ── */
+.heroesRight {
+  flex: 0 0 55%;
+  width: 55%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 60px 20px 20px; /* reduce vertical padding to align to viewport bottom */
+}
+
+.heroesBhaktiImg {
+  width: 100%;
+  max-width: 820px;
+  height: auto;
+  max-height: 760px;
+  object-fit: contain;
+  border-radius: 12px;
+  display: block;
+}
+
+.knowledgeSubtitlesText {
+  font-size: 11px;
+  letter-spacing: 3.5px;
+  color: var(--burnished-gold);
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+/* Hero headline — Canela, elegant, large */
+.knowledgeMainTitles {
+  font-size: 62px !important;
+  font-weight: 800 !important;
+  line-height: 1.18 !important;
+  margin-bottom: 28px !important;
+  color: #1E3A2F !important;
+  font-family: 'Canela', Cormorant, serif !important;
+  letter-spacing: -0.5px !important;
+}
+
+.knowledgeDescriptionsText {
+  font-size: 18px;
+  color: var(--muted-body);
+  line-height: 1.65;
+  max-width: 480px;
+  margin: 0 0 36px 0;
+  font-family: 'Canela', Cormorant, serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.knowledgeDescriptionsText em {
+  font-style: italic;
+  color: var(--burnished-gold);
+}
+
+/* Trust line — from PDF */
+.heroTrustLine {
+  font-size: 12px;
+  color: var(--muted-body);
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  letter-spacing: 0.5px;
+  margin-top: 16px;
+  opacity: 0.8;
+}
+
+.heroBtns {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* PDF: Primary CTA — Deep Sacred Green */
+.btnPrimary {
+  background: var(--deep-sacred-green);
+  color: var(--light-on-dark);
+  border: none;
+  padding: 16px 40px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 16px rgba(30, 58, 47, 0.25);
+}
+
+.btnPrimary:hover {
+  background: var(--forest-green);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(30, 58, 47, 0.35);
+}
+
+/* PDF: Secondary CTA — transparent with subtle border */
+.btnSecondary {
+  background: transparent;
+  color: var(--near-black);
+  border: 1.5px solid rgba(30, 58, 47, 0.3);
+  padding: 16px 40px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.btnSecondary:hover {
+  border-color: var(--burnished-gold);
+  color: var(--burnished-gold);
+}
+
+/* ══════════════════════════════════════
+   SACRED COMMITMENTS SECTION
+   Background: #E6C19C (Warm Beige)
+   ══════════════════════════════════════ */
+/* ══════════════════════════════════════
+   SACRED COMMITMENTS — Full Width Slider
+   Background: #F4EFE6 (warm ivory, matches TrendingTeachings)
+   ══════════════════════════════════════ */
+.commitmentsSection {
+  background: #F4EFE6;
+  padding: 56px 0 48px;
+  border-top: 1px solid rgba(198, 161, 74, 0.15);
+}
+
+.commitmentsHeader {
+  text-align: center;
+  padding: 0 20px;
+  margin-bottom: 40px;
+}
+
+.commitmentsHeading {
+  font-size: 36px;
+  font-weight: 700;
+  color: #E07B39;
+  margin-bottom: 10px;
+  font-family: 'Canela', Cormorant, serif;
+  line-height: 1.2;
+  letter-spacing: -0.3px;
+}
+
+.commitmentsSubheading {
+  font-size: 16px;
+  color: var(--deep-sacred-green);
+  font-family: 'Canela', Cormorant, serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* ── Peek carousel track ── */
+.commitTrackWrapper {
+  position: relative;
+}
+
+.commitTrackOuter {
+  overflow: hidden;
+  padding: 0 60px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.commitTrack {
+  display: flex;
+  gap: 12px;
+  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+/* ── Full width split card ── */
+.commitmentCard {
+  flex-shrink: 0;
+  height: 480px;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
+  background-color: var(--card-color);
+  /* width is set inline via JS for accurate peek calculation */
+  min-width: calc(100vw - 272px); /* fallback before JS measures */
+}
+
+/* ── Bottom nav row: dots only ── */
+.commitNavRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
+  padding: 0 60px;
+}
+
+.commitArrow {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1.5px solid rgba(30, 58, 47, 0.18);
+  color: #1e2d1e;
+  font-size: 28px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  line-height: 1;
+}
+
+.commitArrowHidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.commitArrow:hover {
+  background: rgba(192, 103, 30, 0.12);
+  border-color: #C0671E;
+  color: #C0671E;
+  transform: scale(1.08);
+}
+
+/* ── Edge arrows (left & right, appear on hover) ── */
+.commitEdgeArrow {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(15, 15, 15, 0.72);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-size: 26px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.28);
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.25s ease;
+  line-height: 1;
+}
+
+.commitEdgeArrowHidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%) scale(0.88);
+}
+
+.commitEdgeArrowVisible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-50%) scale(1);
+}
+
+.commitEdgeArrow:hover {
+  background: rgba(30, 30, 30, 0.9);
+}
+
+.commitEdgeArrowLeft {
+  right: auto;
+  left: 14px;
+}
+
+/* Left — text content, 40% width */
+.commitCardLeft {
+  flex: 0 0 40%;
+  max-width: 40%;
+  display: flex;
+  align-items: center;
+  padding: 0 52px;
+  position: relative;
+  overflow: hidden;
+}
+
+.commitCardLeft::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 32px;
+  right: 32px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(198, 161, 74, 0.35), transparent);
+}
+
+.commitCardLeftInner {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+}
+
+.commitSubtitle {
+  font-size: 11px;
+  color: rgba(247, 243, 236, 0.6);
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.commitDevotees {
+  font-size: 13px;
+  color: rgba(247, 243, 236, 0.75);
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  margin-bottom: 18px;
+}
+
+.commitTitle {
+  font-size: 32px;
+  font-weight: 400;
+  color: #F7F3EC;
+  font-family: 'Canela', Cormorant, serif;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  letter-spacing: -0.2px;
+}
+
+.commitDescription {
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(247, 243, 236, 0.7);
+  font-family: 'Canela', Cormorant, serif;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.commitHighlights {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.commitHighlights li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: rgba(247, 243, 236, 0.7);
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.commitDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold-start);
+  flex-shrink: 0;
+}
+
+/* PDF: Burnished Gold button */
+.btnJoinChallenge {
+  background: #ffffff;
+  color: var(--near-black);
+  border: 1.5px solid transparent;
+  padding: 10px 44px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  align-self: flex-start;
+  letter-spacing: 0.3px;
+  text-align: center;
+  min-width: 180px;
+}
+
+.btnJoinChallenge:hover {
+  background: var(--card-color);
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+/* Right — image, 60% width */
+.commitCardRight {
+  flex: 0 0 60%;
+  max-width: 60%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--card-color);
+}
+
+.commitCardImage {
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.commitCardImageOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Dots navigation ── */
+.commitDots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.commitDot2 {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(30, 45, 30, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.commitDotActive {
+  width: 28px;
+  border-radius: 4px;
+  background: #C0671E;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .commitmentCard { height: 420px; min-width: calc(100vw - 180px); }
+  .commitCardLeft { padding: 0 36px; }
+  .commitTitle { font-size: 26px; }
+}
+
+@media (max-width: 768px) {
+  .commitTrackOuter { padding: 0 20px; }
+  .commitNavRow { padding: 0 20px; }
+  .commitmentCard {
+    flex-direction: column;
+    height: auto;
+    min-width: calc(100vw - 72px);
+  }
+  .commitCardLeft {
+    flex: none;
+    max-width: 100%;
+    padding: 36px 28px;
+  }
+  .commitCardRight { flex: none; max-width: 100%; height: 240px; }
+  .commitArrow { width: 40px; height: 40px; font-size: 22px; }
+}
+
+@media (max-width: 480px) {
+  .commitmentsHeading { font-size: 28px; }
+  .commitTitle { font-size: 22px; }
+  .commitCardLeft { padding: 28px 20px; }
+}
+
+.sacredCollectionSection {
+  background-color: var(--temple-ivory);
+  padding: 0 0 92px;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 240px;
+}
+
+/* PDF: Gold divider line */
+.sectionGoldDivider {
+  width: 50px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold-start), var(--gold-end));
+  margin: 0 auto 20px;
+}
+
+.sectionTitle {
+  text-align: center;
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 50px;
+  color: #255c3f;
+  font-family: 'Canela', Cormorant, serif;
+}
+
+.sectionSubtitle {
+  text-align: center;
+  font-size: 16px;
+  color: var(--muted-body);
+  font-family: 'Canela', Cormorant, serif;
+  font-style: italic;
+  margin-bottom: 56px;
+  letter-spacing: 0.02em;
+}
+
+.highlight {
+  color: #E07B39;
+}
+
+/* ── Wisdom Flip Card Slider ── */
+.wisdomSliderWrapper {
+  position: relative;
+  padding: 0 16px;
+}
+
+.wisdomTrackOuter {
+  width: 100%;
+  overflow: hidden;
+}
+
+.wisdomTrack {
+  display: flex;
+  gap: 12px;
+  will-change: transform;
+}
+
+.wisdomArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1.5px solid rgba(198, 161, 74, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: #1E3A2F;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+  line-height: 1;
+  padding-bottom: 2px;
+}
+
+.wisdomArrowLeft {
+  left: 20px;
+}
+
+.wisdomArrowRight {
+  right: 20px;
+}
+
+.wisdomArrow:hover:not(:disabled) {
+  background: #1E3A2F;
+  color: #fff;
+  border-color: #1E3A2F;
+}
+
+.wisdomArrow:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+/* ── Flip card shell ── */
+.wisdomCardOuter {
+  flex-shrink: 0;
+  flex: 0 0 200px; /* fallback until JS measures exact width */
+  min-width: 0;
+  height: 560px;
+  perspective: 1200px;
+  cursor: pointer;
+}
+
+.wisdomCardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 6px 28px rgba(0,0,0,0.14);
+}
+
+/* Back — image visible by default */
+.wisdomCardBack {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.wisdomCardBackImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.wisdomCardBackOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 56px 28px 28px;
+  background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 100%);
+}
+
+.wisdomCardBackTitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+  font-family: 'Canela', Cormorant, serif;
+}
+
+/* Front — details revealed on hover flip */
+.wisdomCardFront {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: rotateY(180deg);
+  background: #0F1F17;
+  display: flex;
+  align-items: center;
+}
+
+.wisdomCardFrontContent {
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.wisdomFrontTitle {
+  font-size: 26px;
+  font-weight: 700;
+  color: #F7F3EC;
+  font-family: 'Canela', Cormorant, serif;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.wisdomFrontDesc {
+  font-size: 15px;
+  color: rgba(247, 243, 236, 0.75);
+  line-height: 1.65;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.wisdomFrontBtn {
+  display: inline-block;
+  background: linear-gradient(135deg, #D4AF37, #B8922E);
+  color: #0F1413;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: opacity 0.2s;
+  align-self: flex-start;
+}
+
+.wisdomFrontBtn:hover {
+  opacity: 0.9;
+}
+
+/* ══════════════════════════════════════
+   TIGER EYE / SUMMARY SECTIONS
+   Background: #F4EFE6
+   ══════════════════════════════════════ */
+.tigerSummarySection {
+  background: var(--temple-ivory);
+  padding: 52px 20px 44px;
+  border-top: 1px solid rgba(198, 161, 74, 0.15);
+}
+
+.tigerSummaryHeading {
+  font-size: 26px;
+  font-weight: 400;
+  text-align: center;
+  color: var(--deep-sacred-green);
+  margin-bottom: 14px;
+  font-family: 'Canela', Cormorant, serif;
+}
+
+.tigerSummaryText {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--muted-body);
+  max-width: 820px;
+  margin: 0 auto;
+  text-align: center;
+  font-family: 'Canela', Cormorant, serif;
+}
+
+/* ══════════════════════════════════════
+   KNOWLEDGE DEEP DIVE
+   ══════════════════════════════════════ */
+.tigerKnowledgeSection {
+  background-color: var(--temple-ivory);
+  padding: 69px 20px 52px;      /* +15% whitespace */
+  border-top: 1px solid rgba(198, 161, 74, 0.12);
+}
+
+.tigerKnowledgeGrid {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr;
+  gap: 48px;
+  align-items: flex-start;
+}
+
+.tigerKnowledgeTextBlock {
+  max-width: 720px;
+}
+
+.tigerKnowledgeEyebrow {
+  font-size: 10px;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--burnished-gold);
+  font-weight: 600;
+  margin-bottom: 14px;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.tigerKnowledgeTitle {
+  font-size: 30px;
+  font-weight: 400;
+  color: var(--deep-sacred-green);
+  margin-bottom: 20px;
+  font-family: 'Canela', Cormorant, serif;
+  letter-spacing: -0.2px;
+}
+
+.tigerKnowledgeParagraph {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--muted-body);
+  margin-bottom: 14px;
+  font-family: 'Canela', Cormorant, serif;
+}
+
+.tigerKnowledgeCard {
+  background: #FEFCF8;
+  border-radius: 20px;          /* PDF: 20–24px */
+  border: 1px solid rgba(198, 161, 74, 0.18);       /* PDF: subtle gold divider */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);       /* PDF: no heavy shadows */
+  padding: 28px 24px 24px;      /* PDF: +15% whitespace */
+}
+
+.tigerKnowledgeCardTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--deep-sacred-green);
+  margin-bottom: 18px;
+  letter-spacing: 0.02em;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.tigerKnowledgeList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tigerKnowledgeListItem {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--muted-body);
+  padding-left: 0;
+  position: relative;
+  margin-bottom: 12px;
+  font-family: 'Canela', Cormorant, serif;
+  font-size: 15px;
+  /* PDF: subtle gold divider between items */
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(198, 161, 74, 0.08);
+}
+
+.tigerKnowledgeListItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.tigerKnowledgeListItem span {
+  font-weight: 600;
+  color: var(--burnished-gold);
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  font-size: 13px;
+}
+
+/* ══════════════════════════════════════
+   GITA FULL WIDTH — Dark Section
+   Background: #0F1413 (Near Black)
+   ══════════════════════════════════════ */
+.gitaFullWidthSection {
+  background: var(--near-black);
+  padding: 56px 0 64px;
+}
+
+.gitaFullWidthInner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 52px 48px 48px;      /* PDF: +15% whitespace */
+  border-radius: 24px;
+  background: #f4dafe;
+  text-align: center;
+  /* PDF: subtle gold divider line at top */
+  border-top: 2px solid rgba(212, 175, 55, 0.3);
+}
+
+.gitaFullWidthQuoteMark {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: var(--royal-purple);
+  font-family: 'Canela', Cormorant, serif;
+}
+
+.gitaFullWidthText {
+  font-size: 22px;
+  line-height: 1.7;
+  font-family: 'Canela', Cormorant, serif;
+  color: #261933;
+  max-width: 1000px;
+  margin: 0 auto 32px;
+  font-weight: 400;
+}
+
+.gitaFullWidthMeta {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #5b4675;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.gitaFullWidthRef {
+  font-weight: 700;
+}
+
+.gitaFullWidthSub {
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+/* ══════════════════════════════════════
+   TOP CONTEXT (commented out in JSX but styled)
+   ══════════════════════════════════════ */
+.topContextSection {
+  background: var(--temple-ivory);
+  padding: 44px 20px 32px;
+  border-top: 1px solid rgba(198, 161, 74, 0.1);
+  border-bottom: 1px solid rgba(198, 161, 74, 0.08);
+}
+
+.topContextHeading {
+  font-size: 24px;
+  font-weight: 400;
+  text-align: center;
+  color: var(--deep-sacred-green);
+  margin-bottom: 12px;
+  font-family: 'Canela', Cormorant, serif;
+}
+
+.topContextText {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--muted-body);
+  max-width: 780px;
+  margin: 0 auto;
+  text-align: center;
+  font-family: 'Canela', Cormorant, serif;
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════ */
+@media (max-width: 1400px) {
+  .container {
+    padding: 0 180px;
+  }
+  .tigerKnowledgeGrid {
+    gap: 36px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .container {
+    padding: 0 120px;
+  }
+  .tigerKnowledgeGrid {
+    grid-template-columns: 3fr 2fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  .heroesLeft {
+    padding: 80px 40px 80px 80px;
+  }
+  .heroesRight {
+    padding: 40px 40px 40px 20px;
+  }
+  .heroesBhaktiImg {
+    max-width: 640px;
+    max-height: 600px;
+  }
+  .knowledgeMainTitles {
+    font-size: 50px !important;
+  }
+  .container {
+    padding: 0 80px;
+  }
+  .wisdomCardOuter {
+    height: 460px;
+  }
+  .sectionTitle {
+    font-size: 36px;
+    margin-bottom: 44px;
+  }
+  .commitmentsGrid {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+  }
+  .tigerKnowledgeGrid {
+    grid-template-columns: 1fr;
+  }
+  .tigerKnowledgeCard {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+  .gitaFullWidthInner {
+    padding: 44px 32px 36px;
+  }
+  .gitaFullWidthText {
+    font-size: 19px;
+  }
+}
+
+@media (max-width: 768px) {
+  .knowledgeHeroesSection {
+    flex-direction: column;
+    min-height: auto;
+  }
+  .heroesLeft {
+    padding: 64px 32px 32px;
+    text-align: center;
+  }
+  .heroesRight {
+    flex: none;
+    width: 100%;
+    padding: 0 32px 56px;
+  }
+  .heroesBhaktiImg {
+    max-width: 100%;
+    max-height: 320px;
+    border-radius: 16px;
+  }
+  .heroBtns {
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  .knowledgeMainTitles {
+    font-size: 40px !important;
+  }
+  .commitmentsSection {
+    padding: 72px 20px;
+  }
+  .commitmentsHeading {
+    font-size: 32px;
+  }
+  .container {
+    padding: 0 40px;
+  }
+  .tigerKnowledgeTitle {
+    font-size: 24px;
+  }
+  .tigerKnowledgeParagraph {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 20px;
+  }
+  .wisdomArrow {
+    width: 38px;
+    height: 38px;
+    font-size: 22px;
+  }
+  .wisdomCardOuter {
+    height: 420px;
+  }
+  .sectionTitle {
+    font-size: 32px;
+    margin-bottom: 34px;
+  }
+  .sacredCollectionSection {
+    padding: 48px 16px;
+  }
+  .gitaFullWidthInner {
+    padding: 36px 20px 28px;
+  }
+  .gitaFullWidthText {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroesLeft {
+    padding: 48px 20px 24px;
+  }
+  .heroesRight {
+    padding: 0 20px 48px;
+  }
+  .knowledgeMainTitles {
+    font-size: 34px !important;
+  }
+  .tigerKnowledgeTitle {
+    font-size: 22px;
+  }
+  .commitmentTitle {
+    font-size: 22px;
+  }
+  .commitmentsHeading {
+    font-size: 28px;
+  }
+}

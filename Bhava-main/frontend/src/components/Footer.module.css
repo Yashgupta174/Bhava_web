@@ -1,0 +1,237 @@
+.footerSection {
+  background: #093c2d;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  padding: 60px 240px 0;
+  color: #b8c5be;
+}
+
+/* Footer Container */
+.footerContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 60px;
+  padding-bottom: 50px;
+}
+
+/* Footer Column */
+.footerColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* Footer Heading */
+.footerHeading {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #e8b86d;
+  margin-bottom: 25px;
+  letter-spacing: 0.3px;
+}
+
+/* Footer Links */
+.footerLinks {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0;
+  margin: 0;
+}
+
+.footerLinks li a {
+  color: #b8c5be;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 400;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.footerLinks li a:hover {
+  color: #ffffff;
+  transform: translateX(5px);
+}
+
+.footerSocialIcons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+}
+
+/* Icon-only circles — no label */
+.socialIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #b8c5be;
+  text-decoration: none;
+  border: 1px solid rgba(184, 197, 190, 0.2);
+  transition: all 0.3s ease;
+}
+
+.socialIcon:hover {
+  color: #e8b86d;
+  border-color: #e8b86d;
+  background: rgba(232, 184, 109, 0.08);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer Bottom */
+.footerBottom {
+  border-top: 1px solid rgba(184, 197, 190, 0.2);
+  padding: 25px 0;
+  text-align: left;
+}
+
+.footerCopyright {
+  font-size: 0.9rem;
+  color: #b8c5be;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* ── Contact Us link in columns ── */
+.contactLink {
+  color: #e8b86d !important;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.contactLink:hover {
+  color: #ffffff !important;
+  transform: translateX(5px);
+}
+
+/* ── Contact Us button row (above copyright) ── */
+.footerContactRow {
+  border-top: 1px solid rgba(184, 197, 190, 0.2);
+  padding: 28px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.footerContactBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1.5px solid rgba(232, 184, 109, 0.5);
+  color: #e8b86d;
+  padding: 11px 32px;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  letter-spacing: 0.4px;
+  transition: all 0.3s ease;
+}
+
+.footerContactBtn:hover {
+  background: rgba(232, 184, 109, 0.1);
+  border-color: #e8b86d;
+  color: #f0c878;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(232, 184, 109, 0.15);
+}
+
+/* ── Responsive Design ── */
+@media (max-width: 1400px) {
+  .footerSection {
+    padding: 60px 180px 0;
+  }
+  .footerContainer {
+    gap: 50px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .footerSection {
+    padding: 60px 120px 0;
+  }
+  .footerContainer {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .footerSection {
+    padding: 50px 80px 0;
+  }
+  .footerContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footerSection {
+    padding: 40px 40px 0;
+  }
+  .footerContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 35px;
+    padding-bottom: 40px;
+  }
+  .footerHeading {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+  .footerLinks {
+    gap: 14px;
+  }
+  .footerLinks li a {
+    font-size: 0.9rem;
+  }
+  .socialIcon {
+    width: 36px;
+    height: 36px;
+  }
+  .footerCopyright {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footerSection {
+    padding: 35px 20px 0;
+  }
+  .footerContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    padding-bottom: 35px;
+  }
+  .footerHeading {
+    font-size: 0.95rem;
+    margin-bottom: 18px;
+  }
+  .footerLinks {
+    gap: 12px;
+  }
+  .footerLinks li a {
+    font-size: 0.85rem;
+  }
+  .footerSocialIcons {
+    gap: 10px;
+  }
+  .socialIcon {
+    width: 34px;
+    height: 34px;
+  }
+  .footerBottom {
+    padding: 20px 0;
+  }
+  .footerCopyright {
+    font-size: 0.8rem;
+  }
+}

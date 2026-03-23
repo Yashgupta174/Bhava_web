@@ -1,0 +1,134 @@
+.ourMissionSection {
+  padding: 48px 32px;
+  background-color: transparent;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  background-color: #281534;
+  border-radius: 24px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.row {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  min-height: 500px;
+}
+
+.missionContent {
+  flex: 1;
+  padding: 72px 60px 72px 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.missionTitle {
+  font-size: 54px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 36px;
+  font-family: 'Canela', Cormorant, serif;
+  line-height: 1.08;
+}
+
+.missionText {
+  font-size: 17px;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.88);
+  margin-bottom: 22px;
+  font-family: 'Neue Haas Grotesk Display', 'Neue Haas Grotesk', Inter, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.missionText strong {
+  font-weight: 700;
+}
+
+.missionImage {
+  flex: 0 0 460px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.missionImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .missionContent {
+    padding: 60px 48px 60px 60px;
+  }
+
+  .missionImage {
+    flex: 0 0 380px;
+  }
+}
+
+@media (max-width: 991px) {
+  .row {
+    flex-direction: column;
+    align-items: stretch;
+    min-height: unset;
+  }
+
+  .missionContent {
+    padding: 48px 40px 36px 40px;
+  }
+
+  .missionImage {
+    flex: 0 0 auto;
+    height: 360px;
+  }
+
+  .missionImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  .missionTitle {
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ourMissionSection {
+    padding: 28px 16px;
+  }
+
+  .container {
+    border-radius: 18px;
+  }
+
+  .missionContent {
+    padding: 36px 28px 28px 28px;
+  }
+
+  .missionTitle {
+    font-size: 34px;
+    margin-bottom: 22px;
+  }
+
+  .missionText {
+    font-size: 15px;
+    margin-bottom: 18px;
+  }
+
+  .missionImage {
+    height: 280px;
+  }
+}

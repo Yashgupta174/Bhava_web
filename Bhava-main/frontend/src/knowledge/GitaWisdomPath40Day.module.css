@@ -1,0 +1,786 @@
+/* ============================================
+   BHAVA — 40-DAY GITA WISDOM PATH
+   Two-panel layout matching 108-Day design
+   ============================================ */
+
+.page {
+  background: #F4EFE6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', 'Work Sans', sans-serif;
+}
+
+/* ── Split layout ── */
+.layout {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 72px 80px 80px;
+  gap: 52px;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+
+/* ══════════════════════════════
+   LEFT PANEL — cream
+   ══════════════════════════════ */
+.leftPanel {
+  flex: 0 0 380px;
+  width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.title {
+  font-family: 'Work Sans', 'Inter', sans-serif;
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #0D2035;
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* ── Image card ── */
+.imageCard {
+  border-radius: 16px;
+  overflow: hidden;
+  background: #1A3A5C;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.progressRow {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 2;
+}
+
+.progressLabel {
+  font-size: 0.72rem;
+  color: #fff;
+  font-weight: 500;
+  white-space: nowrap;
+  font-family: 'Inter', sans-serif;
+}
+
+.progressTrack {
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  width: 20%;
+  background: #C6A14A;
+  border-radius: 99px;
+}
+
+.heroImg {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Controls (inside imageCard) ── */
+.controls {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: #0D2035;
+  padding: 16px 28px 18px;
+}
+
+.controlBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  padding: 0;
+}
+
+.controlBtn .material-symbols-outlined {
+  font-size: 28px;
+  color: #fff;
+}
+
+.controlLabel {
+  font-size: 0.72rem;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+}
+
+/* ── Description ── */
+.description {
+  font-size: 0.875rem;
+  color: #0D2035;
+  line-height: 1.75;
+  font-weight: 600;
+  text-align: center;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ══════════════════════════════
+   RIGHT SIDE WRAPPER
+   ══════════════════════════════ */
+.rightWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sessionsCount {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0D2035;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.2px;
+}
+
+/* ══════════════════════════════
+   RIGHT PANEL — dark blue card
+   ══════════════════════════════ */
+.rightPanel {
+  flex: 1;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Single session block ── */
+.sessionBlock {
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.sessionBlock:last-child {
+  border-bottom: none;
+}
+
+.phaseHeader {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #9A8F8A;
+  margin: 0 0 16px;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.2px;
+}
+
+.sessionRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.sessionNumber {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #9A8F8A;
+  flex-shrink: 0;
+  padding-top: 3px;
+  min-width: 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+.sessionContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sessionTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0D2035;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.3;
+}
+
+.sessionDesc {
+  font-size: 1rem;
+  color: #6A625A;
+  line-height: 1.65;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.duration {
+  font-size: 0.88rem;
+  color: #9A8F8A;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* ── Play circle — filled blue ── */
+.playCircle {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  background: #295F8A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  margin-top: 4px;
+  align-self: flex-start;
+}
+
+.playCircle:hover {
+  background: #1A3A5C;
+}
+
+.playCircle .material-symbols-outlined {
+  font-size: 24px;
+  color: #fff;
+}
+
+/* ══════════════════════════════
+   STAGE HEADER (inside dark panel)
+   ══════════════════════════════ */
+.stageHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  padding: 4px 0;
+  transition: opacity 0.2s ease;
+}
+
+.stageHeader:hover {
+  opacity: 0.85;
+}
+
+.stageBadge {
+  flex-shrink: 0;
+  min-width: 74px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+}
+
+.stageHeaderInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.stageHeaderName {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0D2035;
+  font-family: 'Inter', sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stageHeaderDays {
+  font-size: 0.78rem;
+  color: #6A8AAA;
+  font-family: 'Inter', sans-serif;
+}
+
+.stageHeaderTagline {
+  font-size: 0.82rem;
+  color: #C6A14A;
+  font-family: 'Inter', sans-serif;
+  font-style: italic;
+  flex: 0 0 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chevron {
+  font-size: 0.65rem;
+  color: #6A8AAA;
+  flex-shrink: 0;
+}
+
+/* ── Expanded Day List ── */
+.dayListWrapper {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.stagePurposeInline {
+  font-size: 0.82rem;
+  color: #2A4A6A;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  margin: 0 0 14px;
+  font-style: italic;
+}
+
+.dayList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dayRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(41, 95, 138, 0.04);
+  transition: background 0.2s ease;
+  cursor: default;
+}
+
+.dayRow:hover {
+  background: rgba(41, 95, 138, 0.07);
+}
+
+.dayRowActive {
+  background: rgba(198, 161, 74, 0.10) !important;
+  border: 1px solid rgba(198, 161, 74, 0.30);
+}
+
+.dayBadge {
+  flex-shrink: 0;
+  min-width: 52px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #6A8AAA;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.3px;
+}
+
+.dayInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.dayTheme {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #0D2035;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dayRowActive .dayTheme {
+  color: #295F8A;
+}
+
+.dayVerse {
+  font-size: 0.74rem;
+  color: #6A8AAA;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  letter-spacing: 0.2px;
+}
+
+.audioRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.dayDuration {
+  font-size: 0.74rem;
+  color: #6A8AAA;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  min-width: 36px;
+  text-align: right;
+}
+
+.playCircleDay {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(41, 95, 138, 0.35);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.playCircleDay:hover {
+  background: rgba(41, 95, 138, 0.07);
+  border-color: #295F8A;
+}
+
+.playCircleDayActive {
+  background: #C6A14A !important;
+  border-color: #C6A14A !important;
+}
+
+.playCircleDay .material-symbols-outlined {
+  font-size: 18px;
+  color: #295F8A;
+}
+
+.playCircleDayActive .material-symbols-outlined {
+  color: #fff;
+}
+
+/* ── Animated wave bars (playing indicator) ── */
+.waveBar {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 16px;
+}
+
+.waveBar span {
+  display: block;
+  width: 3px;
+  background: #C6A14A;
+  border-radius: 2px;
+  animation: wave 0.8s ease-in-out infinite;
+}
+
+.waveBar span:nth-child(1) { height: 6px;  animation-delay: 0s; }
+.waveBar span:nth-child(2) { height: 12px; animation-delay: 0.1s; }
+.waveBar span:nth-child(3) { height: 16px; animation-delay: 0.2s; }
+.waveBar span:nth-child(4) { height: 10px; animation-delay: 0.15s; }
+.waveBar span:nth-child(5) { height: 6px;  animation-delay: 0.05s; }
+
+@keyframes wave {
+  0%, 100% { transform: scaleY(1); }
+  50%       { transform: scaleY(0.4); }
+}
+
+.universalMsgInline {
+  font-size: 0.8rem;
+  color: rgba(198, 161, 74, 0.7);
+  font-family: 'Inter', sans-serif;
+  font-style: italic;
+  line-height: 1.6;
+  margin: 14px 0 0;
+  text-align: center;
+}
+
+/* ══════════════════════════════
+   SHARED SECTION STYLES
+   ══════════════════════════════ */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 60px;
+}
+
+.eyebrowCenter {
+  font-size: 10px;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: #295F8A;
+  font-weight: 600;
+  margin: 0 0 12px;
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+}
+
+.sectionTitle {
+  font-family: 'Work Sans', 'Inter', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #1E1E1E;
+  text-align: center;
+  margin: 0 0 12px;
+}
+
+.sectionSubtitle {
+  font-size: 0.95rem;
+  color: #6A625A;
+  text-align: center;
+  line-height: 1.7;
+  margin: 0 auto 48px;
+  max-width: 580px;
+  font-family: 'Inter', sans-serif;
+}
+
+.accent {
+  color: #295F8A;
+}
+
+/* ══════════════════════════════
+   COMPLETION / BENEFITS
+   ══════════════════════════════ */
+.completionSection {
+  background: #F4EFE6;
+  padding: 72px 20px;
+  border-top: 1px solid rgba(41, 95, 138, 0.08);
+}
+
+.benefitsGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px;
+}
+
+.benefitCard {
+  background: #fff;
+  border-radius: 14px;
+  padding: 28px 18px;
+  text-align: center;
+  border: 1px solid rgba(41, 95, 138, 0.08);
+  box-shadow: 0 2px 8px rgba(30, 30, 30, 0.04);
+  transition: transform 0.25s ease;
+}
+
+.benefitCard:hover {
+  transform: translateY(-4px);
+}
+
+.benefitTitle {
+  font-family: 'Work Sans', 'Inter', sans-serif;
+  font-size: 0.97rem;
+  font-weight: 700;
+  color: #1E1E1E;
+  margin: 0 0 8px;
+  line-height: 1.3;
+}
+
+.benefitDesc {
+  font-size: 0.82rem;
+  color: #6A625A;
+  line-height: 1.6;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ══════════════════════════════
+   CTA
+   ══════════════════════════════ */
+.ctaSection {
+  background: linear-gradient(135deg, #0D2035 0%, #295F8A 55%, #0A1825 100%);
+  padding: 72px 20px;
+}
+
+.ctaInner {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.ctaTitle {
+  font-family: 'Work Sans', 'Inter', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #F7F3EC;
+  margin-bottom: 14px;
+}
+
+.ctaSubtext {
+  font-size: 1rem;
+  color: rgba(247, 243, 236, 0.65);
+  line-height: 1.7;
+  margin-bottom: 36px;
+  font-family: 'Inter', sans-serif;
+}
+
+.ctaButtons {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  background: linear-gradient(135deg, #C6A14A 0%, #A8853A 100%);
+  color: #0F1413;
+  border: none;
+  padding: 14px 36px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(198, 161, 74, 0.25);
+}
+
+.btnPrimary:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.btnSecondary {
+  background: transparent;
+  color: rgba(247, 243, 236, 0.8);
+  border: 1.5px solid rgba(247, 243, 236, 0.25);
+  padding: 14px 36px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.btnSecondary:hover {
+  border-color: #C6A14A;
+  color: #C6A14A;
+}
+
+/* ══════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════ */
+@media (max-width: 1200px) {
+  .layout {
+    padding: 64px 60px 72px;
+    gap: 44px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .layout {
+    padding: 52px 40px 64px;
+    gap: 36px;
+  }
+
+  .leftPanel {
+    flex: 0 0 320px;
+    width: 320px;
+  }
+
+  .rightPanel {
+    padding: 28px 32px 36px;
+  }
+
+  .container {
+    padding: 0 40px;
+  }
+}
+
+@media (max-width: 900px) {
+  .layout {
+    flex-direction: column;
+    padding: 40px 32px 56px;
+    gap: 28px;
+  }
+
+  .leftPanel {
+    flex: none;
+    width: 100%;
+  }
+
+  .benefitsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .stageDetailHeader {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .stageDetailTagline {
+    flex: 0 0 100%;
+    white-space: normal;
+    font-size: 0.8rem;
+  }
+
+  .stageDetailGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .sectionTitle {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .layout {
+    padding: 32px 20px 48px;
+  }
+
+  .title {
+    font-size: 1.4rem;
+  }
+
+  .rightPanel {
+    padding: 24px 20px 28px;
+  }
+
+  .sessionBlock {
+    padding: 16px 0;
+  }
+
+  .benefitsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sectionTitle {
+    font-size: 1.6rem;
+  }
+
+  .ctaTitle {
+    font-size: 1.7rem;
+  }
+
+  .ctaButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btnPrimary,
+  .btnSecondary {
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+  }
+}

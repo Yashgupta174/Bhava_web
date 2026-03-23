@@ -1,0 +1,848 @@
+/* ============================================
+   BHAVA — TIGER EYE 108 DETAIL PAGE
+   ============================================ */
+
+/* ── Variables ── */
+:root {
+  --te-ivory: #F4EFE6;
+  --te-beige: #E6C19C;
+  --te-dark-green: #1E3A2F;
+  --te-near-black: #0F1413;
+  --te-gold: #C6A14A;
+  --te-gold-bright: #D4AF37;
+  --te-muted: #6A625A;
+  --te-light: #F7F3EC;
+  --te-maroon: #7A1F25;
+  --te-purple: #4A2D73;
+}
+
+.tigerEyePage {
+  background: var(--te-ivory);
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 60px;
+}
+
+/* ── Hero ── */
+.hero {
+  position: relative;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #0F1413 0%, #1E3A2F 45%, #2C4A1E 100%);
+  overflow: hidden;
+  padding: 100px 20px;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 80% 50%, rgba(198, 161, 74, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 20% 80%, rgba(122, 31, 37, 0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 60px;
+  text-align: center;
+  width: 100%;
+}
+
+.heroEyebrow {
+  font-size: 11px;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--te-gold);
+  font-weight: 600;
+  margin-bottom: 28px;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.heroTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.heroTitleLine1 {
+  font-family: 'Canela', Cormorant, serif;
+  font-size: 7rem;
+  font-weight: 800;
+  color: var(--te-gold-bright);
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.heroTitleAnd {
+  font-family: 'Canela', Cormorant, serif;
+  font-size: 3rem;
+  font-weight: 300;
+  color: rgba(247, 243, 236, 0.4);
+  line-height: 0.8;
+}
+
+.heroTitleLine2 {
+  font-family: 'Canela', Cormorant, serif;
+  font-size: 4.5rem;
+  font-weight: 800;
+  color: var(--te-light);
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.heroSubtitle {
+  font-size: 1.15rem;
+  color: rgba(247, 243, 236, 0.75);
+  line-height: 1.7;
+  margin-bottom: 40px;
+  font-family: 'Canela', Cormorant, serif;
+}
+
+.heroSubtitle em {
+  color: var(--te-gold);
+  font-style: italic;
+}
+
+.heroCtas {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ── Buttons ── */
+.btnPrimary {
+  background: linear-gradient(135deg, #D4AF37 0%, #C6A14A 100%);
+  color: #0F1413;
+  border: none;
+  padding: 15px 36px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
+}
+
+.btnPrimary:hover {
+  opacity: 0.92;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
+}
+
+.btnSecondary {
+  background: transparent;
+  color: var(--te-light);
+  border: 1.5px solid rgba(247, 243, 236, 0.3);
+  padding: 15px 36px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+}
+
+.btnSecondary:hover {
+  border-color: var(--te-gold);
+  color: var(--te-gold);
+}
+
+/* ── Eyebrow Text ── */
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--te-gold);
+  font-weight: 600;
+  margin-bottom: 14px;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.eyebrowCenter {
+  font-size: 10px;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--te-gold);
+  font-weight: 600;
+  margin-bottom: 14px;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  text-align: center;
+}
+
+/* ── Section Titles ── */
+.sectionTitle {
+  font-family: 'Canela', Cormorant, serif;
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: var(--te-dark-green);
+  margin-bottom: 12px;
+  text-align: center;
+  letter-spacing: -0.3px;
+}
+
+.sectionSubtitle {
+  font-size: 1rem;
+  color: var(--te-muted);
+  text-align: center;
+  margin-bottom: 52px;
+  line-height: 1.65;
+  font-family: 'Canela', Cormorant, serif;
+  font-style: italic;
+}
+
+.gold {
+  color: var(--te-gold-bright);
+}
+
+/* ── Intro — 108 & Tiger Eye ── */
+.introSection {
+  background: var(--te-ivory);
+  padding: 80px 20px;
+  border-top: 1px solid rgba(198, 161, 74, 0.15);
+}
+
+.introGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 52px;
+  align-items: start;
+}
+
+.introBlock {
+  background: #FEFCF8;
+  border-radius: 20px;
+  padding: 36px 32px;
+  border: 1px solid rgba(198, 161, 74, 0.15);
+  box-shadow: 0 2px 12px rgba(30, 58, 47, 0.05);
+}
+
+.blockTitle {
+  font-family: 'Canela', Cormorant, serif;
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--te-dark-green);
+  margin-bottom: 14px;
+  letter-spacing: -0.2px;
+}
+
+.blockText {
+  font-size: 0.97rem;
+  color: var(--te-muted);
+  line-height: 1.7;
+  margin-bottom: 22px;
+  font-family: 'Canela', Cormorant, serif;
+}
+
+.factList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.factList li {
+  font-size: 0.93rem;
+  color: #3d4a42;
+  line-height: 1.5;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(198, 161, 74, 0.1);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.factList li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.factList li strong {
+  color: var(--te-dark-green);
+}
+
+.factIcon {
+  flex-shrink: 0;
+  width: 20px;
+  text-align: center;
+}
+
+/* ── 6 Strategic Pillars ── */
+.pillarsSection {
+  background: #F4EFE6;
+  padding: 80px 20px;
+  border-top: 1px solid rgba(198, 161, 74, 0.12);
+}
+
+.pillarsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.pillarCard {
+  background: #FFFFFF;
+  border-radius: 18px;
+  padding: 28px 24px;
+  border: 1px solid rgba(198, 161, 74, 0.12);
+  box-shadow: 0 2px 12px rgba(30, 58, 47, 0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pillarCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(30, 58, 47, 0.09);
+}
+
+.pillarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.pillarNumber {
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: var(--te-gold);
+  font-weight: 700;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.pillarIcon {
+  font-size: 1.5rem;
+}
+
+.pillarThinker {
+  font-size: 0.78rem;
+  color: var(--te-gold);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.pillarConcept {
+  font-family: 'Canela', Cormorant, serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--te-dark-green);
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.pillarDescription {
+  font-size: 0.9rem;
+  color: var(--te-muted);
+  line-height: 1.65;
+  font-family: 'Canela', Cormorant, serif;
+}
+
+/* ── 108-Second Ritual ── */
+.ritualSection {
+  background: var(--te-ivory);
+  padding: 80px 20px;
+  border-top: 1px solid rgba(198, 161, 74, 0.12);
+}
+
+.ritualGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 36px;
+}
+
+.ritualCard {
+  background: #FEFCF8;
+  border-radius: 18px;
+  padding: 28px 20px;
+  border: 1px solid rgba(198, 161, 74, 0.15);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.ritualCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #D4AF37, #C6A14A);
+}
+
+.ritualStepBadge {
+  display: inline-block;
+  background: rgba(212, 175, 55, 0.1);
+  color: var(--te-gold-bright);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.ritualDuration {
+  font-size: 0.82rem;
+  color: var(--te-muted);
+  margin-bottom: 12px;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  letter-spacing: 0.3px;
+}
+
+.ritualStepTitle {
+  font-family: 'Canela', Cormorant, serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--te-dark-green);
+  margin-bottom: 12px;
+}
+
+.ritualInstruction {
+  font-size: 0.9rem;
+  color: var(--te-muted);
+  line-height: 1.65;
+  font-family: 'Canela', Cormorant, serif;
+}
+
+.ritualNote {
+  background: rgba(212, 175, 55, 0.07);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 12px;
+  padding: 20px 28px;
+  text-align: center;
+}
+
+.ritualNote p {
+  font-size: 0.97rem;
+  color: var(--te-dark-green);
+  line-height: 1.7;
+  font-family: 'Canela', Cormorant, serif;
+  margin: 0;
+}
+
+.ritualNote em {
+  color: var(--te-gold-bright);
+}
+
+/* ── Content Pillars with Tabs ── */
+.contentPillarsSection {
+  background: #F4EFE6;
+  padding: 80px 20px;
+  border-top: 1px solid rgba(198, 161, 74, 0.12);
+}
+
+.contentPillarsTabs {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.tabButtons {
+  display: flex;
+  gap: 0;
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+  background: rgba(30, 58, 47, 0.06);
+  border: 1px solid rgba(198, 161, 74, 0.15);
+  border-bottom: none;
+}
+
+.tabBtn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-right: 1px solid rgba(198, 161, 74, 0.12);
+  padding: 13px 12px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--te-muted);
+  cursor: pointer;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  transition: all 0.25s ease;
+  text-align: center;
+}
+
+.tabBtn:last-child {
+  border-right: none;
+}
+
+.tabBtnActive {
+  background: #FEFCF8;
+  color: var(--te-dark-green);
+  font-weight: 700;
+}
+
+.tabContent {
+  background: #FEFCF8;
+  border: 1px solid rgba(198, 161, 74, 0.15);
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  padding: 32px 36px;
+}
+
+.tabContentTitle {
+  font-family: 'Canela', Cormorant, serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.tabContentDescription {
+  font-size: 0.97rem;
+  color: var(--te-muted);
+  line-height: 1.7;
+  margin-bottom: 24px;
+  font-family: 'Canela', Cormorant, serif;
+}
+
+.tabPostGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.postChip {
+  border: 1px solid;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  color: var(--te-muted);
+  font-family: 'Canela', Cormorant, serif;
+  font-style: italic;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+/* ── Products ── */
+.productsSection {
+  background: var(--te-ivory);
+  padding: 80px 20px;
+  border-top: 1px solid rgba(198, 161, 74, 0.12);
+}
+
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.productCard {
+  background: #FEFCF8;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(198, 161, 74, 0.12);
+  box-shadow: 0 2px 12px rgba(30, 58, 47, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.productCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(30, 58, 47, 0.09);
+}
+
+.productImagePlaceholder {
+  height: 200px;
+  background: linear-gradient(135deg, #1E3A2F 0%, #2C4A1E 50%, #0F1413 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.productStoneIcon {
+  font-size: 4rem;
+  opacity: 0.85;
+}
+
+.productBody {
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.productTagline {
+  font-size: 0.78rem;
+  color: var(--te-gold);
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.productName {
+  font-family: 'Canela', Cormorant, serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--te-dark-green);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.productDesc {
+  font-size: 0.88rem;
+  color: var(--te-muted);
+  line-height: 1.6;
+  margin-bottom: 12px;
+  font-family: 'Canela', Cormorant, serif;
+  flex: 1;
+}
+
+.productBenefit {
+  font-size: 0.82rem;
+  color: var(--te-dark-green);
+  font-style: italic;
+  margin-bottom: 18px;
+  font-family: 'Canela', Cormorant, serif;
+}
+
+.productBtn {
+  background: transparent;
+  border: 1.5px solid var(--te-gold);
+  color: var(--te-gold);
+  padding: 10px 0;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  transition: all 0.3s ease;
+}
+
+.productBtn:hover {
+  background: rgba(198, 161, 74, 0.1);
+  transform: translateY(-2px);
+}
+
+/* ── Tribe Section ── */
+.tribeSection {
+  background: linear-gradient(135deg, #0F1413 0%, #1E3A2F 60%, #2C4A1E 100%);
+  padding: 80px 20px;
+}
+
+.tribeInner {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.tribeTitleLarge {
+  font-family: 'Canela', Cormorant, serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--te-light);
+  line-height: 1.2;
+  margin-bottom: 28px;
+  letter-spacing: -0.5px;
+}
+
+.tribeSubtext {
+  font-size: 1.05rem;
+  color: rgba(247, 243, 236, 0.7);
+  line-height: 1.75;
+  margin-bottom: 52px;
+  font-family: 'Canela', Cormorant, serif;
+}
+
+.tribeSubtext em {
+  color: var(--te-gold);
+  font-style: italic;
+}
+
+.tribeStats {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+}
+
+.tribeStat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.tribeStatNumber {
+  font-family: 'Canela', Cormorant, serif;
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--te-gold-bright);
+  line-height: 1;
+}
+
+.tribeStatLabel {
+  font-size: 0.82rem;
+  color: rgba(247, 243, 236, 0.5);
+  letter-spacing: 0.5px;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  text-align: center;
+}
+
+/* ── CTA Section ── */
+.ctaSection {
+  background: var(--te-ivory);
+  padding: 80px 20px;
+  border-top: 1px solid rgba(198, 161, 74, 0.15);
+  text-align: center;
+}
+
+.ctaTitle {
+  font-family: 'Canela', Cormorant, serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--te-dark-green);
+  margin-bottom: 16px;
+  letter-spacing: -0.3px;
+}
+
+.ctaSubtext {
+  font-size: 1rem;
+  color: var(--te-muted);
+  line-height: 1.7;
+  margin-bottom: 36px;
+  font-family: 'Canela', Cormorant, serif;
+}
+
+.ctaButtons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ctaButtons .btnSecondary {
+  color: var(--te-dark-green);
+  border-color: rgba(30, 58, 47, 0.3);
+}
+
+.ctaButtons .btnSecondary:hover {
+  border-color: var(--te-gold);
+  color: var(--te-gold);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 40px;
+  }
+  .heroContent {
+    padding: 0 40px;
+  }
+  .pillarsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ritualGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 24px;
+  }
+  .heroContent {
+    padding: 0 24px;
+  }
+  .heroTitleLine1 {
+    font-size: 5rem;
+  }
+  .heroTitleLine2 {
+    font-size: 3rem;
+  }
+  .heroTitleAnd {
+    font-size: 2rem;
+  }
+  .introGrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .pillarsGrid {
+    grid-template-columns: 1fr;
+  }
+  .ritualGrid {
+    grid-template-columns: 1fr;
+  }
+  .productsGrid {
+    grid-template-columns: 1fr;
+  }
+  .tabButtons {
+    flex-direction: column;
+    border-radius: 10px 10px 0 0;
+  }
+  .tabBtn {
+    border-right: none;
+    border-bottom: 1px solid rgba(198, 161, 74, 0.12);
+    text-align: left;
+    padding: 12px 16px;
+  }
+  .tabBtn:last-child {
+    border-bottom: none;
+  }
+  .tabPostGrid {
+    grid-template-columns: 1fr;
+  }
+  .tribeStats {
+    gap: 32px;
+  }
+  .tribeTitleLarge {
+    font-size: 2.4rem;
+  }
+  .sectionTitle {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroTitleLine1 {
+    font-size: 3.5rem;
+  }
+  .heroTitleLine2 {
+    font-size: 2.2rem;
+  }
+  .heroCtas {
+    flex-direction: column;
+    align-items: center;
+  }
+  .btnPrimary,
+  .btnSecondary {
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+  }
+  .tribeStats {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .tribeTitleLarge {
+    font-size: 1.9rem;
+  }
+  .tabContent {
+    padding: 24px 20px;
+  }
+}

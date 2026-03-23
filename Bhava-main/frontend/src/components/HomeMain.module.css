@@ -1,0 +1,130 @@
+.homeMainHero {
+  background: #F4EFE6;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Right image ── */
+.homeMainHeroBgImage {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* ── Left content ── */
+.homeMainContainer {
+  width: 100%;
+  padding: 60px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+.homeMainTextLeft {
+  max-width: 560px;
+}
+
+.homeMainHeroTitle {
+  font-size: 64px;
+  font-weight: 400;
+  margin-bottom: 14px;
+  line-height: 1;
+}
+
+.homeMainElevateText {
+  color: #1e2d1e;
+  font-family: 'Canela', Cormorant, serif;
+  font-weight: 900;
+  display: block;
+  font-size: 68px;
+  letter-spacing: -1px;
+}
+
+.homeMainHighlight {
+  color: #e07b39;
+  font-family: 'Canela', Cormorant, serif;
+  font-weight: 700;
+  display: block;
+  font-size: 62px;
+}
+
+.homeMainHeroDescription {
+  font-size: 16px;
+  color: #3d4d42;
+  margin-bottom: 20px;
+  line-height: 1.6;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.homeMainHeroButtons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.homeMainBtnPrimary,
+.homeMainBtnSecondary {
+  background: transparent;
+  color: #e07b39;
+  border: 2px solid #e07b39;
+  padding: 12px 33px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.homeMainBtnPrimary:hover,
+.homeMainBtnSecondary:hover {
+  background: #e07b39;
+  color: #ffffff;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .homeMainContainer {
+    padding: 60px 56px;
+  }
+  .homeMainElevateText { font-size: 52px; }
+  .homeMainHighlight   { font-size: 48px; }
+}
+
+@media (max-width: 768px) {
+  .homeMainHero {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .homeMainContainer {
+    padding: 60px 24px;
+  }
+  .homeMainTextLeft {
+    max-width: 100%;
+    text-align: center;
+  }
+  .homeMainHeroBgImage {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    top: auto;
+    right: auto;
+  }
+  .homeMainElevateText { font-size: 40px; }
+  .homeMainHighlight   { font-size: 36px; }
+  .homeMainHeroButtons {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .homeMainElevateText { font-size: 34px; }
+  .homeMainHighlight   { font-size: 30px; }
+  .homeMainHeroDescription { font-size: 14px; }
+}

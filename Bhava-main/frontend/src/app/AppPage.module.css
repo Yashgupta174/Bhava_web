@@ -1,0 +1,157 @@
+/* ========================= SECTION ========================= */
+.appSection {
+  background: #F4EFE6;
+  width: 100%;
+  overflow: hidden;
+}
+
+.inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 80px 80px 0 100px;
+  gap: 40px;
+  min-height: 580px;
+}
+
+/* ========================= LEFT CONTENT ========================= */
+.content {
+  flex: 0 0 44%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 80px;
+}
+
+.title {
+  font-family: 'Canela', Cormorant, serif;
+  font-size: 72px;
+  font-weight: 700;
+  color: #1f4a2e;
+  line-height: 1.05;
+  margin: 0;
+}
+
+.titleAccent {
+  font-family: 'Canela', Cormorant, serif;
+  font-size: 72px;
+  font-weight: 700;
+  color: #C0671E;
+  line-height: 1.05;
+  margin: 0 0 32px 0;
+}
+
+.description {
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  font-size: 17px;
+  line-height: 1.75;
+  color: #2d2d2d;
+  margin: 0 0 40px 0;
+  max-width: 480px;
+}
+
+/* ========================= STORE BADGES ========================= */
+.badges {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #111111;
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 10px 20px;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+  min-width: 148px;
+}
+
+.badge:hover {
+  background: #2a2a2a;
+  transform: translateY(-2px);
+}
+
+.badgeIcon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  color: #ffffff;
+}
+
+.badgeText {
+  display: flex;
+  flex-direction: column;
+}
+
+.badgeSub {
+  font-size: 9px;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  letter-spacing: 0.5px;
+  opacity: 0.85;
+  line-height: 1;
+}
+
+.badgeMain {
+  font-size: 16px;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.2px;
+}
+
+/* ========================= RIGHT: MOCKUPS ========================= */
+.visual {
+  flex: 0 0 54%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.mockupImg {
+  width: 100%;
+  max-width: 660px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* ========================= RESPONSIVE ========================= */
+@media (max-width: 1200px) {
+  .inner { padding: 70px 60px 0 60px; }
+  .title, .titleAccent { font-size: 60px; }
+}
+
+@media (max-width: 1024px) {
+  .inner {
+    flex-direction: column;
+    padding: 60px 48px 0 48px;
+    align-items: flex-start;
+    min-height: unset;
+  }
+  .content { flex: none; padding-bottom: 0; }
+  .visual { flex: none; width: 100%; justify-content: center; }
+  .mockupImg { max-width: 500px; }
+}
+
+@media (max-width: 768px) {
+  .inner { padding: 48px 28px 0 28px; }
+  .title, .titleAccent { font-size: 48px; }
+  .description { font-size: 15px; }
+  .mockupImg { max-width: 380px; }
+}
+
+@media (max-width: 480px) {
+  .inner { padding: 36px 20px 0 20px; }
+  .title, .titleAccent { font-size: 38px; }
+  .description { font-size: 14px; }
+  .badges { gap: 10px; }
+  .badge { min-width: unset; padding: 8px 14px; }
+  .badgeMain { font-size: 14px; }
+  .mockupImg { max-width: 100%; }
+}

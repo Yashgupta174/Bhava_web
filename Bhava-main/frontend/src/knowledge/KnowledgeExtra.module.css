@@ -1,0 +1,211 @@
+/* =========================
+   🎨 COLOR TOKENS
+========================= */
+:root {
+  --color-bg-ivory: #F4EFE6;
+  --color-bg-beige: #E6C19C;
+  --color-deep-green: #1E3A2F;
+  --color-black: #0F1413;
+  --color-gold: #C6A14A;
+  --color-gold-light: rgba(198,161,74,0.25);
+  --color-text-muted: #6A625A;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 240px;
+}
+
+/* ── 108 + Tiger Eye Summary ── */
+.tigerSummarySection {
+  background: var(--color-bg-ivory);
+  padding: 40px 20px 32px;
+  border-top: 1px solid var(--color-gold-light);
+}
+
+.tigerSummaryHeading {
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--color-deep-green);
+  margin-bottom: 12px;
+  font-family: 'Canela', Cormorant, serif;
+}
+
+.tigerSummaryText {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  max-width: 820px;
+  margin: 0 auto;
+  text-align: center;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+/* ── 108 + Tiger Eye Deep Knowledge ── */
+.tigerKnowledgeSection {
+  background-color: var(--color-bg-ivory);
+  padding: 56px 20px 40px;
+  border-top: 1px solid var(--color-gold-light);
+}
+
+.tigerKnowledgeGrid {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.tigerKnowledgeTextBlock {
+  max-width: 720px;
+}
+
+.tigerKnowledgeEyebrow {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  font-weight: 600;
+  margin-bottom: 12px;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.tigerKnowledgeTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-deep-green);
+  margin-bottom: 18px;
+  font-family: 'Canela', Cormorant, serif;
+}
+
+.tigerKnowledgeParagraph {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  margin-bottom: 12px;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.tigerKnowledgeCard {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid var(--color-gold-light);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.04);
+  padding: 22px 20px 20px;
+}
+
+.tigerKnowledgeCardTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-deep-green);
+  margin-bottom: 14px;
+  letter-spacing: 0.02em;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.tigerKnowledgeList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tigerKnowledgeListItem {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  margin-bottom: 12px;
+  padding-left: 12px;
+  border-left: 2px solid var(--color-gold-light);
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.tigerKnowledgeListItem span {
+  font-weight: 700;
+  color: var(--color-deep-green);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1400px) {
+  .container {
+    padding: 0 180px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .container {
+    padding: 0 120px;
+  }
+
+  .tigerKnowledgeGrid {
+    grid-template-columns: 3fr 2fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 80px;
+  }
+
+  .tigerKnowledgeGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .tigerKnowledgeCard {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 40px;
+  }
+
+  .tigerSummarySection {
+    padding: 32px 20px 26px;
+  }
+
+  .tigerSummaryHeading {
+    font-size: 21px;
+  }
+
+  .tigerSummaryText {
+    font-size: 14px;
+  }
+
+  .tigerKnowledgeSection {
+    padding: 40px 20px 32px;
+  }
+
+  .tigerKnowledgeTitle {
+    font-size: 24px;
+  }
+
+  .tigerKnowledgeParagraph {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 20px;
+  }
+
+  .tigerKnowledgeCard {
+    padding: 18px 16px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tigerSummaryHeading {
+    font-size: 18px;
+  }
+
+  .tigerKnowledgeTitle {
+    font-size: 21px;
+  }
+}

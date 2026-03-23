@@ -1,0 +1,291 @@
+.sacredCollectionSection {
+  background-color: #F4EFE6;
+  padding: 60px 0;
+}
+
+.container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 28px;
+  background-color: #F4EFE6;
+}
+
+.sectionTitle {
+  text-align: center;
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 44px;
+  color: #255c3f;
+  font-family: 'Canela', Cormorant, serif;
+}
+
+.highlight {
+  color: #E07B39;
+}
+
+/* ── Slider container (holds arrows + wrapper) ── */
+.sliderContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* ── Navigation arrows ── */
+.arrow {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(37, 92, 63, 0.35);
+  background: rgba(244, 239, 230, 0.85);
+  backdrop-filter: blur(6px);
+  color: #255c3f;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s ease, background 0.22s ease, border-color 0.22s ease, transform 0.2s ease;
+}
+
+.arrowVisible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.arrow:hover {
+  background: #255c3f;
+  border-color: #255c3f;
+  color: #F4EFE6;
+  transform: scale(1.08);
+}
+
+.arrowLeft {
+  left: -24px;
+}
+
+.arrowRight {
+  right: -24px;
+}
+
+/* ── Slider track ── */
+.sliderWrapper {
+  overflow: hidden;
+  width: 100%;
+  min-width: 0; /* prevents flex child from overflowing */
+  flex: 1;
+}
+
+.sliderTrack {
+  display: flex;
+  gap: 12px;
+  will-change: transform;
+  background-color: #F4EFE6;
+}
+
+/* ── Flip card shell ── */
+.cardOuter {
+  /* JS sets width dynamically; fallback: 3 cards, 2 gaps of 12px */
+  flex: 0 0 calc((100% - 24px) / 3);
+  height: 560px;
+  perspective: 1200px;
+  cursor: pointer;
+}
+
+.cardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+
+/* ── BACK — image face (default) ── */
+.cardBack {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.cardBackImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cardBackOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 60px 26px 28px;
+  background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, transparent 100%);
+  color: white;
+}
+
+.cardBackCategory {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #E07B39;
+  display: block;
+  margin-bottom: 8px;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.cardBackTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  font-family: 'Canela', Cormorant, serif;
+  line-height: 1.2;
+}
+
+/* ── FRONT — details face (revealed on hover) ── */
+.cardFront {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: rotateY(180deg);
+  background-color: #0f1f17;
+}
+
+.cardFrontContent {
+  width: 100%;
+  height: 100%;
+  padding: 36px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+}
+
+.frontTop {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.frontCategory {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #E07B39;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.frontTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.25;
+  font-family: 'Canela', Cormorant, serif;
+  margin: 0;
+}
+
+.frontPrice {
+  font-size: 30px;
+  font-weight: 700;
+  color: #E07B39;
+  margin: 0;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.frontBottom {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.frontDescription {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.75;
+  margin: 0;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.frontBtn {
+  align-self: flex-start;
+  background-color: #E07B39;
+  color: white;
+  border: none;
+  padding: 13px 30px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  transition: background 0.25s ease, transform 0.2s ease;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.frontBtn:hover {
+  background-color: #c96a28;
+  transform: translateY(-2px);
+}
+
+.frontBtnAdded {
+  background-color: #2e7d52 !important;
+  transform: none !important;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1200px) {
+  .container { padding: 0 40px; }
+  .arrowLeft { left: -20px; }
+  .arrowRight { right: -20px; }
+}
+
+@media (max-width: 1024px) {
+  .sectionTitle { font-size: 36px; margin-bottom: 36px; }
+  .cardOuter { height: 500px; }
+  .container { padding: 0 32px; }
+}
+
+@media (max-width: 900px) {
+  /* 2 cards visible */
+  .cardOuter { height: 480px; }
+}
+
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+  .cardOuter { height: 460px; }
+  .arrow { width: 40px; height: 40px; }
+  .arrowLeft { left: -16px; }
+  .arrowRight { right: -16px; }
+  /* Always show arrows on touch devices */
+  .arrow {
+    opacity: 0.85;
+    pointer-events: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .sectionTitle { font-size: 28px; margin-bottom: 28px; }
+  .sacredCollectionSection { padding: 40px 0; }
+  .container { padding: 0 16px; }
+  /* 1 card visible */
+  .cardOuter { height: 440px; }
+  .sliderTrack { gap: 8px; }
+  .arrowLeft { left: -12px; }
+  .arrowRight { right: -12px; }
+}

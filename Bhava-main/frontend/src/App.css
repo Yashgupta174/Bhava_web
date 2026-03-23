@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #F4EFE6;
+  font-family: 'Neue Haas Grotesk', Inter, 'Helvetica Neue', Arial, sans-serif;
+}
+
+#root {
+  background-color: #F4EFE6;
+}

@@ -1,0 +1,158 @@
+.section {
+  position: relative;
+  background: #111111;
+  padding: 48px 0 52px;
+  overflow: hidden;
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("/tigerEyeBg.png");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.22;
+  z-index: 0;
+}
+
+.header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 56px 28px;
+}
+
+.heading {
+  font-size: 30px;
+  font-weight: 700;
+  color: #ffffff;
+  font-family: 'Canela', Cormorant, serif;
+  margin-bottom: 6px;
+}
+
+.subheading {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.nav {
+  display: flex;
+  gap: 10px;
+}
+
+.navBtn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  line-height: 1;
+}
+
+.navBtn:hover {
+  background: rgba(224, 123, 57, 0.2);
+  border-color: #E07B39;
+  color: #E07B39;
+}
+
+.track {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 0 56px 16px;
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar { display: none; }
+
+.card {
+  flex-shrink: 0;
+  width: 300px;
+  height: 220px;
+  border-radius: 18px;
+  scroll-snap-align: start;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+}
+
+.cardBg {
+  position: absolute;
+  inset: 0;
+  background-image: url("/tigerEyeBg.png");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.18;
+}
+
+.cardContent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px 20px;
+  z-index: 1;
+}
+
+.cardTitle {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  font-family: 'Canela', Cormorant, serif;
+  line-height: 1.2;
+}
+
+.cardSub {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.progressBar {
+  position: relative;
+  z-index: 1;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 4px 56px 0;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #E07B39, #C65C3A);
+  border-radius: 2px;
+  transition: width 0.2s ease;
+}
+
+@media (max-width: 768px) {
+  .header { padding: 0 24px 24px; }
+  .track { padding: 0 24px 14px; gap: 12px; }
+  .progressBar { margin: 4px 24px 0; }
+  .card { width: 250px; height: 190px; }
+  .heading { font-size: 24px; }
+  .cardTitle { font-size: 17px; }
+}
+
+@media (max-width: 480px) {
+  .card { width: 220px; height: 170px; }
+}

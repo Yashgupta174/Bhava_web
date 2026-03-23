@@ -1,0 +1,631 @@
+/* ============================================
+   BHAVA — DAILY PUJA VIDHI PAGE
+   ============================================ */
+
+.page {
+  background: #F4EFE6;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 60px;
+}
+
+/* ── Shared Typography ── */
+.eyebrowCenter {
+  font-size: 10px;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: #5a2a1a;
+  font-weight: 600;
+  margin-bottom: 12px;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  text-align: center;
+}
+
+.sectionTitle {
+  font-family: 'Canela', Cormorant, serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #1E3A2F;
+  text-align: center;
+  margin-bottom: 12px;
+  letter-spacing: -0.3px;
+}
+
+.sectionSubtitle {
+  font-size: 0.97rem;
+  color: #6A625A;
+  text-align: center;
+  line-height: 1.7;
+  margin-bottom: 48px;
+  font-family: 'Canela', Cormorant, serif;
+  font-style: italic;
+}
+
+.accent {
+  color: #C6A14A;
+}
+
+/* ══════════════════════════════════════
+   HERO — Split Layout
+   ══════════════════════════════════════ */
+.hero {
+  position: relative;
+  background: linear-gradient(135deg, #3a1a0e 0%, #5a2a1a 55%, #2a0f08 100%);
+  min-height: 560px;
+  overflow: hidden;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 80% 50%, rgba(198, 161, 74, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at 10% 70%, rgba(110, 27, 33, 0.06) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.heroSplit {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  min-height: 560px;
+}
+
+.heroLeft {
+  flex: 0 0 50%;
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 52px 80px 80px;
+  position: relative;
+  z-index: 2;
+}
+
+.heroRight {
+  flex: 0 0 50%;
+  max-width: 50%;
+  position: relative;
+  overflow: hidden;
+  background-color: #5a2a1a;
+}
+
+.heroImage {
+  position: absolute;
+  top: -15%;
+  left: -15%;
+  width: 130%;
+  height: 130%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.heroImageOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.heroEyebrow {
+  font-size: 10px;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: rgba(198, 161, 74, 0.8);
+  font-weight: 600;
+  margin-bottom: 20px;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.heroTitle {
+  font-family: 'Canela', Cormorant, serif;
+  font-size: 4.5rem;
+  font-weight: 800;
+  color: #F7F3EC;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+
+.heroSubtitle {
+  font-size: 1.1rem;
+  color: rgba(247, 243, 236, 0.72);
+  line-height: 1.7;
+  margin-bottom: 32px;
+  font-family: 'Canela', Cormorant, serif;
+}
+
+.heroSubtitle em {
+  color: #C6A14A;
+  font-style: italic;
+}
+
+.heroMeta {
+  display: flex;
+  gap: 28px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+
+.heroMetaItem {
+  font-size: 0.88rem;
+  color: rgba(247, 243, 236, 0.65);
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  letter-spacing: 0.3px;
+}
+
+.btnJoinHero {
+  background: linear-gradient(135deg, #C6A14A 0%, #A8853A 100%);
+  color: #0F1413;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(198, 161, 74, 0.25);
+  width: fit-content;
+  align-self: flex-start;
+}
+
+.btnJoinHero:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* ══════════════════════════════════════
+   OVERVIEW CARDS
+   ══════════════════════════════════════ */
+.overviewSection {
+  background: #F4EFE6;
+  padding: 72px 20px;
+  border-top: 1px solid rgba(198, 161, 74, 0.15);
+}
+
+.overviewGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 8px;
+}
+
+.overviewCard {
+  background: #FEFCF8;
+  border-radius: 16px;
+  padding: 28px 22px;
+  border: 1px solid rgba(198, 161, 74, 0.12);
+  box-shadow: 0 2px 10px rgba(30, 58, 47, 0.04);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.overviewCard:hover {
+  transform: translateY(-4px);
+}
+
+.overviewIcon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.overviewCardTitle {
+  font-family: 'Canela', Cormorant, serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1E3A2F;
+  margin-bottom: 8px;
+}
+
+.overviewCardDesc {
+  font-size: 0.88rem;
+  color: #6A625A;
+  line-height: 1.6;
+  font-family: 'Canela', Cormorant, serif;
+}
+
+/* ══════════════════════════════════════
+   STEP-BY-STEP PUJA GUIDE (Accordion)
+   ══════════════════════════════════════ */
+.stepsSection {
+  background: #F4EFE6;
+  padding: 72px 20px;
+  border-top: 1px solid rgba(198, 161, 74, 0.12);
+}
+
+.stepsList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stepRow {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(198, 161, 74, 0.12);
+  background: #FEFCF8;
+  transition: box-shadow 0.25s ease;
+}
+
+.stepRowOpen {
+  box-shadow: 0 4px 20px rgba(90, 42, 26, 0.1);
+}
+
+.stepHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: background 0.2s ease;
+}
+
+.stepHeader:hover {
+  background: rgba(90, 42, 26, 0.03);
+}
+
+.stepNumber {
+  flex-shrink: 0;
+  min-width: 72px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  text-align: center;
+}
+
+.stepTitleText {
+  flex: 1;
+  font-size: 0.97rem;
+  font-weight: 600;
+  color: #1E3A2F;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.stepDuration {
+  font-size: 0.82rem;
+  color: #C6A14A;
+  font-family: 'Canela', Cormorant, serif;
+  font-style: italic;
+  flex: 0 0 180px;
+  text-align: right;
+}
+
+.stepChevron {
+  font-size: 0.7rem;
+  color: #9A8F8A;
+  flex-shrink: 0;
+  width: 16px;
+  text-align: center;
+}
+
+.stepBody {
+  border-top: 1px solid rgba(198, 161, 74, 0.1);
+  padding: 24px 20px 28px;
+  background: rgba(90, 42, 26, 0.02);
+}
+
+.stepBodyGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.stepBlock {
+  padding: 0;
+}
+
+.stepBodyLabel {
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #9A8F8A;
+  font-weight: 600;
+  margin-bottom: 12px;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+}
+
+.stepUl {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stepUl li {
+  font-size: 0.9rem;
+  color: #3d4a42;
+  font-family: 'Canela', Cormorant, serif;
+  padding-left: 14px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.stepUl li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: #C6A14A;
+  font-size: 1.2rem;
+  line-height: 1;
+  top: 2px;
+}
+
+.chantTimes {
+  font-size: 0.85rem;
+  color: #5a2a1a;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.sanskritText {
+  font-family: 'Canela', Cormorant, serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #5a2a1a;
+  line-height: 1.7;
+  margin-bottom: 16px;
+  white-space: pre-line;
+  background: rgba(198, 161, 74, 0.06);
+  padding: 16px 20px;
+  border-radius: 10px;
+  border-left: 3px solid #C6A14A;
+}
+
+.meaningText {
+  font-size: 0.9rem;
+  color: #6A625A;
+  font-family: 'Canela', Cormorant, serif;
+  font-style: italic;
+  line-height: 1.65;
+}
+
+/* ══════════════════════════════════════
+   BENEFITS
+   ══════════════════════════════════════ */
+.benefitsSection {
+  background: #F4EFE6;
+  padding: 72px 20px;
+  border-top: 1px solid rgba(198, 161, 74, 0.12);
+}
+
+.benefitsGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px;
+}
+
+.benefitCard {
+  background: #FEFCF8;
+  border-radius: 14px;
+  padding: 24px 16px;
+  text-align: center;
+  border: 1px solid rgba(198, 161, 74, 0.12);
+  box-shadow: 0 2px 8px rgba(30, 58, 47, 0.03);
+  transition: transform 0.3s ease;
+}
+
+.benefitCard:hover {
+  transform: translateY(-4px);
+}
+
+.benefitIcon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.benefitTitle {
+  font-family: 'Canela', Cormorant, serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1E3A2F;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.benefitDesc {
+  font-size: 0.85rem;
+  color: #6A625A;
+  line-height: 1.55;
+  font-family: 'Canela', Cormorant, serif;
+}
+
+/* ══════════════════════════════════════
+   CTA
+   ══════════════════════════════════════ */
+.ctaSection {
+  background: linear-gradient(135deg, #3a1a0e 0%, #5a2a1a 55%, #2a0f08 100%);
+  padding: 72px 20px;
+}
+
+.ctaInner {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.ctaTitle {
+  font-family: 'Canela', Cormorant, serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #F7F3EC;
+  margin-bottom: 14px;
+  letter-spacing: -0.3px;
+}
+
+.ctaSubtext {
+  font-size: 1rem;
+  color: rgba(247, 243, 236, 0.65);
+  line-height: 1.7;
+  margin-bottom: 36px;
+  font-family: 'Canela', Cormorant, serif;
+}
+
+.ctaButtons {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  background: linear-gradient(135deg, #C6A14A 0%, #A8853A 100%);
+  color: #0F1413;
+  border: none;
+  padding: 14px 36px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(198, 161, 74, 0.25);
+}
+
+.btnPrimary:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.btnSecondary {
+  background: transparent;
+  color: rgba(247, 243, 236, 0.8);
+  border: 1.5px solid rgba(247, 243, 236, 0.25);
+  padding: 14px 36px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'Neue Haas Grotesk', Inter, sans-serif;
+  transition: all 0.3s ease;
+}
+
+.btnSecondary:hover {
+  border-color: #C6A14A;
+  color: #C6A14A;
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 40px;
+  }
+  .heroLeft {
+    padding: 60px 36px 60px 60px;
+  }
+  .heroTitle {
+    font-size: 3.5rem;
+  }
+  .overviewGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .benefitsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 24px;
+  }
+  .heroSplit {
+    flex-direction: column;
+    min-height: auto;
+  }
+  .heroLeft {
+    flex: none;
+    max-width: 100%;
+    padding: 60px 28px 36px;
+  }
+  .heroRight {
+    flex: none;
+    max-width: 100%;
+    height: 280px;
+  }
+  .heroTitle {
+    font-size: 2.8rem;
+  }
+  .heroMeta {
+    justify-content: flex-start;
+  }
+  .overviewGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .stepHeader {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .stepDuration {
+    flex: 0 0 100%;
+    text-align: left;
+    font-size: 0.8rem;
+  }
+  .stepBodyGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .benefitsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .sectionTitle {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroTitle {
+    font-size: 2rem;
+  }
+  .heroLeft {
+    padding: 48px 20px 28px;
+  }
+  .heroRight {
+    height: 220px;
+  }
+  .heroMeta {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .benefitsGrid {
+    grid-template-columns: 1fr;
+  }
+  .ctaButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+  .btnPrimary,
+  .btnSecondary {
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+  }
+}

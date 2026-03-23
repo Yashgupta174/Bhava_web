@@ -1,0 +1,397 @@
+/* ─── PAGE ──────────────────────────────────────────────────── */
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F0EBE1;
+  font-family: 'Neue Haas Grotesk', Inter, -apple-system, sans-serif;
+  position: relative;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* ─── CLOSE BUTTON ──────────────────────────────────────────── */
+.closeBtn {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.06);
+  border: none;
+  color: rgba(0, 0, 0, 0.45);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.closeBtn:hover {
+  background: rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/* ─── CARD ──────────────────────────────────────────────────── */
+.card {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: cardEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes cardEntrance {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── LOGO IMAGE ─────────────────────────────────────────────── */
+.logoMark {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 0;
+}
+
+/* ─── LOGO TEXT ──────────────────────────────────────────────── */
+.logoText {
+  font-family: 'Canela', Cormorant, Georgia, serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 5px;
+  color: #1a1a1a;
+  text-align: center;
+  margin-top: 6px;
+  margin-bottom: 20px;
+}
+
+/* ─── TITLE ─────────────────────────────────────────────────── */
+.title {
+  font-family: 'Canela', Cormorant, Georgia, serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 10px;
+  text-align: center;
+  letter-spacing: -0.3px;
+}
+
+/* ─── SUBTITLE ──────────────────────────────────────────────── */
+.subtitle {
+  text-align: center;
+  color: #6A625A;
+  font-size: 14.5px;
+  margin: 0 0 28px;
+  font-weight: 400;
+  line-height: 1.55;
+  max-width: 340px;
+}
+
+/* ─── MAIN FORM ─────────────────────────────────────────────── */
+.mainForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 4px;
+  animation: fadeSlideUp 0.3s ease both;
+}
+
+/* ─── SOCIAL GROUP ───────────────────────────────────────────── */
+.socialGroup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+/* ─── INFO MESSAGE ───────────────────────────────────────────── */
+.infoMsg {
+  width: 100%;
+  color: #7A5C1E;
+  font-size: 13.5px;
+  text-align: center;
+  margin: 0 0 4px;
+  padding: 10px 14px;
+  background: rgba(192, 103, 30, 0.08);
+  border: 1px solid rgba(192, 103, 30, 0.22);
+  border-radius: 10px;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+
+/* ─── CHOOSE SECTION (legacy, kept for safety) ───────────────── */
+.chooseSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: fadeSlideUp 0.3s ease both;
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── INPUT ──────────────────────────────────────────────────── */
+.inputGroup {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  padding: 16px 18px;
+  background: #ffffff;
+  border: 1.5px solid #D8D0C4;
+  border-radius: 12px;
+  color: #1a1a1a;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.input::placeholder {
+  color: #AAA09A;
+}
+
+.input:focus {
+  border-color: #C0671E;
+  box-shadow: 0 0 0 3px rgba(192, 103, 30, 0.1);
+}
+
+/* ─── CONTINUE BUTTON ────────────────────────────────────────── */
+.btnContinue {
+  width: 100%;
+  padding: 16px;
+  background: #C0671E;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: inherit;
+  letter-spacing: 0.2px;
+}
+
+.btnContinue:hover:not(:disabled) {
+  background: #a8581a;
+  transform: translateY(-1px);
+}
+
+.btnContinue:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* ─── OR DIVIDER ─────────────────────────────────────────────── */
+.orDivider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 4px 0;
+}
+
+.orLine {
+  flex: 1;
+  height: 1px;
+  background: #D8D0C4;
+}
+
+.orText {
+  font-size: 13px;
+  color: #AAA09A;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+/* ─── SOCIAL BUTTONS ─────────────────────────────────────────── */
+.btnSocial {
+  width: 100%;
+  padding: 15px 20px;
+  background: #ffffff;
+  color: #1a1a1a;
+  border: 1.5px solid #D8D0C4;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  font-family: inherit;
+}
+
+.btnSocial:hover {
+  background: #f7f2ec;
+  border-color: #C0C4BC;
+}
+
+.socialIcon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* ─── TERMS ─────────────────────────────────────────────────── */
+.termsText {
+  text-align: center;
+  font-size: 12.5px;
+  color: #AAA09A;
+  margin: 4px 0 0;
+  line-height: 1.6;
+}
+
+.termsLink {
+  color: #C0671E;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.termsLink:hover {
+  opacity: 0.75;
+}
+
+/* ─── EMAIL SECTION ─────────────────────────────────────────── */
+.emailSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  animation: fadeSlideUp 0.3s ease both;
+}
+
+/* ─── TAB TOGGLE ─────────────────────────────────────────────── */
+.tabRow {
+  display: flex;
+  background: #E8E2D8;
+  border-radius: 10px;
+  padding: 4px;
+  margin-bottom: 20px;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: #6A625A;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.tabActive {
+  background: #ffffff;
+  color: #1a1a1a;
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ─── FORM ───────────────────────────────────────────────────── */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+/* ─── MESSAGES ───────────────────────────────────────────────── */
+.errorMsg {
+  color: #C0392B;
+  font-size: 13.5px;
+  text-align: center;
+  margin: 0;
+  padding: 10px 14px;
+  background: rgba(192, 57, 43, 0.07);
+  border: 1px solid rgba(192, 57, 43, 0.18);
+  border-radius: 10px;
+  animation: shake 0.35s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25%       { transform: translateX(-6px); }
+  75%       { transform: translateX(6px); }
+}
+
+.successMsg {
+  color: #2E7D52;
+  font-size: 14px;
+  text-align: center;
+  margin: 0;
+  padding: 10px 14px;
+  background: rgba(46, 125, 82, 0.07);
+  border: 1px solid rgba(46, 125, 82, 0.18);
+  border-radius: 10px;
+}
+
+/* ─── SPINNER ─────────────────────────────────────────────────── */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── BACK BUTTON ─────────────────────────────────────────────── */
+.backBtn {
+  background: none;
+  border: none;
+  color: #AAA09A;
+  font-size: 13.5px;
+  cursor: pointer;
+  text-align: center;
+  padding: 8px 0;
+  transition: color 0.2s;
+  font-family: inherit;
+  margin-bottom: 10px;
+}
+
+.backBtn:hover {
+  color: #6A625A;
+}
+
+/* ─── RESPONSIVE ──────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .page {
+    padding: 16px;
+    align-items: flex-start;
+    padding-top: 60px;
+  }
+
+  .title {
+    font-size: 30px;
+  }
+
+  .logoMark {
+    font-size: 32px;
+  }
+}
