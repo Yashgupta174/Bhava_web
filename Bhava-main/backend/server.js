@@ -61,23 +61,20 @@ app.use((err, req, res, next) => {
 });
 
 // ── Database + Start ─────────────────────────────────────────
-if (process.env.NODE_ENV !== "production") {
-  mongoose
-    .connect(process.env.MONGODB_URL)
-    .then(() => {
-      console.log("Connected to MongoDB");
+mongoose
+  .connect(process.env.MONGODB_URL)
+  .then(() => {
+    console.log("Connected to MongoDB");
+    
+    // Vercel handles requests via serverless file exports, but Render/Local need app.listen
+    if (!process.env.VERCEL) {
       app.listen(PORT, () => {
         console.log(`Server running at http://localhost:${PORT}`);
       });
-    })
-    .catch((err) => {
-      console.error("MongoDB connection error:", err.message);
-    });
-} else {
-  // In production (Vercel), we just connect to DB
-  mongoose.connect(process.env.MONGODB_URL).catch((err) => {
+    }
+  })
+  .catch((err) => {
     console.error("MongoDB connection error:", err.message);
   });
-}
 
 export default app;
