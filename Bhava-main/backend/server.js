@@ -21,14 +21,21 @@ const __dirname = path.dirname(__filename);
 
 // ── Middleware ────────────────────────────────────────────────
 const corsOptions = {
-  origin: [
-    "http://localhost:5173",
-    "http://localhost:3000",
-    "https://bhava-web-team.vercel.app",
-    "https://bhava-web.vercel.app",
-    "https://bhava-fkv3.vercel.app",
-    process.env.CLIENT_URL,
-  ].filter(Boolean),
+  origin: function (origin, callback) {
+    // Allow all origins for Vercel testing temporarily or match against whitelist
+    const whitelist = [
+      "http://localhost:5173",
+      "http://localhost:3000",
+      "https://bhava-web-team.vercel.app",
+      "https://bhava-web.vercel.app",
+      "https://bhava-fkv3.vercel.app"
+    ];
+    if (!origin || whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error(`CORS blocked for origin: ${origin}`));
+    }
+  },
   credentials: true,
 };
 app.use(cors(corsOptions));
