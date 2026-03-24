@@ -16,6 +16,7 @@ import CartPage from "./cart/CartPage";
 import ProfilePage from "./account/ProfilePage";
 import OrdersPage from "./account/OrdersPage";
 import AddressesPage from "./account/AddressesPage";
+import AdminDashboard from "./admin/AdminDashboard";
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
         <Routes>
           {/* Auth page — outside Layout (no navbar/footer) */}
           <Route path="/auth" element={<AuthPage />} />
+          
+          {/* Admin page — outside Layout for dedicated focus */}
+          <Route path="/admin" element={<AdminDashboard />} />
 
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
