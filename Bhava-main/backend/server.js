@@ -33,14 +33,6 @@ app.options("*", cors(corsOptions));
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
-// Admin Panel Serving (Static Assets First)
-app.use("/admin", express.static(path.join(__dirname, "admin")));
-
-// Catch-all route for any /admin sub-route to serve index.html (SPA support)
-app.get("/admin*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "admin", "index.html"));
-});
-
 // ── Routes ────────────────────────────────────────────────────
 app.use("/api/auth",    authRoutes);
 app.use("/api/contact", contactRoutes);
@@ -49,6 +41,10 @@ app.use("/api/orders",  orderRoutes);
 app.use("/api/challenges", challengeRoutes);
 
 // Health check
+app.get("/", (req, res) => {
+  res.json({ success: true, message: "Bhava API is active! Use /admin to access the dashboard." });
+});
+
 app.get("/api/health", (req, res) => {
   res.json({ success: true, message: "Bhava API is running" });
 });
@@ -65,17 +61,23 @@ app.use((err, req, res, next) => {
 });
 
 // ── Database + Start ─────────────────────────────────────────
-mongoose
-  .connect(process.env.MONGODB_URL)
-  .then(() => {
-    console.log("Connected to MongoDB");
-    app.listen(PORT, "0.0.0.0", () => {
-      console.log(`Server running at http://0.0.0.0:${PORT}`);
-      console.log(`Local Access: http://localhost:${PORT}`);
-      console.log(`Network Access: http://192.168.1.3:${PORT}`);
+if (process.env.NODE_ENV !== "production") {
+  mongoose
+    .connect(process.env.MONGODB_URL)
+    .then(() => {
+      console.log("Connected to MongoDB");
+      app.listen(PORT, "0.0.0.0", () => {
+        console.log(`Server running at http://0.0.0.0:${PORT}`);
+      });
+    })
+    .catch((err) => {
+      console.error("MongoDB connection error:", err.message);
     });
-  })
-  .catch((err) => {
+} else {
+  // In production (Vercel), we just connect to DB
+  mongoose.connect(process.env.MONGODB_URL).catch((err) => {
     console.error("MongoDB connection error:", err.message);
-    process.exit(1);
   });
+}
+
+export default app;

@@ -20,7 +20,7 @@ const challengeSchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String },
   image: { type: String }, // URL to image
-  category: { type: String, enum: ["Trending", "New", "Featured", "Live"], default: "New" },
+  category: { type: String, enum: ["Trending", "New", "Featured", "Live", "Active Challenges"], default: "New" },
   badgeText: { type: String }, // e.g., "● 16,087 Live"
   joinedCount: { type: String, default: "0" }, // e.g., "1.2k"
   durationText: { type: String }, // e.g., "21 days" or "108 sessions"
