@@ -24,6 +24,9 @@ const corsOptions = {
   origin: [
     "http://localhost:5173",
     "http://localhost:3000",
+    "https://bhava-web-team.vercel.app",
+    "https://bhava-web.vercel.app",
+    "https://bhava-fkv3.vercel.app",
     process.env.CLIENT_URL,
   ].filter(Boolean),
   credentials: true,
