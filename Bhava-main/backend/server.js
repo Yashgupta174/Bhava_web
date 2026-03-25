@@ -10,26 +10,24 @@ import cartRoutes from "./routes/cartRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import challengeRoutes from "./routes/challengeRoutes.js";
 
+// Load environment variables
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 10000;
 
-// ESM Fix for static files
+// ── 1. PORT CONFIGURATION ─────────────────────────────────────
+const PORT = process.env.PORT || 5000;
+
+// ESM Fix for pathing
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// ── CORS Configuration ────────────────────────────────────────
-const allowedOrigins = [
-  "http://localhost:5173",
-  "http://localhost:3000",
-  "https://bhava-web.vercel.app",
-];
-
+// ── 2. CORS CONFIGURATION ─────────────────────────────────────
+// Allows your Vercel frontend to talk to this Render backend
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) !== -1 || origin.endsWith(".vercel.app")) {
+    if (origin.endsWith(".vercel.app") || origin.includes("localhost")) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
@@ -43,18 +41,19 @@ app.use(cors({
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
-// ── Routes ────────────────────────────────────────────────────
+// ── 3. ROUTES ─────────────────────────────────────────────────
+// Test route for Render deployment verification
+app.get("/", (req, res) => {
+  res.send("Backend running");
+});
+
 app.use("/api/auth", authRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/challenges", challengeRoutes);
 
-// Health check
-app.get("/", (req, res) => {
-  res.json({ success: true, message: "Bhava API is active!" });
-});
-
+// Health check JSON
 app.get("/api/health", (req, res) => {
   res.json({ success: true, message: "Bhava API is running" });
 });
@@ -66,23 +65,29 @@ app.use((req, res) => {
 
 // Global error handler
 app.use((err, req, res, next) => {
-  console.error(err.stack);
+  console.error("Server Error:", err.stack);
   res.status(500).json({ success: false, message: "Internal server error" });
 });
 
-// ── Database + Start ─────────────────────────────────────────
+// ── 4. DATABASE & SERVER START ────────────────────────────────
+const MONGO_URI = process.env.MONGO_URI;
+
+if (!MONGO_URI) {
+  console.error("FATAL ERROR: MONGO_URI is not defined in environment variables.");
+  process.exit(1);
+}
+
 mongoose
-  .connect(process.env.MONGODB_URL)
+  .connect(MONGO_URI)
   .then(() => {
-    console.log("Connected to MongoDB");
-    if (!process.env.VERCEL) {
-      app.listen(PORT, () => {
-        console.log(`Server running at http://localhost:${PORT}`);
-      });
-    }
+    console.log("✅ Successfully connected to MongoDB Atlas");
+    app.listen(PORT, () => {
+      console.log(`🚀 Server is live on port ${PORT}`);
+      console.log(`📡 URL: http://localhost:${PORT}`);
+    });
   })
   .catch((err) => {
-    console.error("MongoDB connection error:", err.message);
+    console.error("❌ MongoDB connection failed:", err.message);
   });
 
 export default app;
