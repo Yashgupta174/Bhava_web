@@ -24,8 +24,31 @@ function AdminDashboard() {
     description: "",
     image: "",
     badgeText: "",
-    durationText: ""
+    durationText: "",
+    fullSubtitle: "",
+    detailsLongDescription: ""
   });
+
+  const [hosts, setHosts] = useState([{ name: "", title: "", initials: "" }]);
+  const [sessions, setSessions] = useState([{ title: "", subtitle: "", audioUrl: "", tags: "" }]);
+
+  // ── Host Handlers ──
+  const addHost = () => setHosts([...hosts, { name: "", title: "", initials: "" }]);
+  const removeHost = (index) => setHosts(hosts.filter((_, i) => i !== index));
+  const handleHostChange = (index, e) => {
+    const newHosts = [...hosts];
+    newHosts[index][e.target.name] = e.target.value;
+    setHosts(newHosts);
+  };
+
+  // ── Session Handlers ──
+  const addSession = () => setSessions([...sessions, { title: "", subtitle: "", audioUrl: "", tags: "" }]);
+  const removeSession = (index) => setSessions(sessions.filter((_, i) => i !== index));
+  const handleSessionChange = (index, e) => {
+    const newSessions = [...sessions];
+    newSessions[index][e.target.name] = e.target.value;
+    setSessions(newSessions);
+  };
 
   const fetchChallenges = async () => {
     setLoading(true);
@@ -115,7 +138,7 @@ function AdminDashboard() {
 
     const BASE = import.meta.env.VITE_API_URL || "";
     const token = localStorage.getItem("bhava_token");
-    const newChallenge = { ...formData, category: activeTab };
+    const newChallenge = { ...formData, category: activeTab, hosts, sessions };
 
     try {
       const res = await fetch(`${BASE}/api/challenges`, {
@@ -130,7 +153,12 @@ function AdminDashboard() {
 
       if (data.success) {
         setSuccess("Tile saved successfully into MongoDB!");
-        setFormData({ title: "", description: "", image: "", badgeText: "", durationText: "" });
+        setFormData({ 
+          title: "", description: "", image: "", badgeText: "", durationText: "",
+          fullSubtitle: "", detailsLongDescription: "" 
+        });
+        setHosts([{ name: "", title: "", initials: "" }]);
+        setSessions([{ title: "", subtitle: "", audioUrl: "", tags: "" }]);
         fetchChallenges();
       } else {
         setError(data.message || "Failed to add tile");
