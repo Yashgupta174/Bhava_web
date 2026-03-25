@@ -352,3 +352,83 @@
 .logoutBtn:hover {
   background-color: #e0e0e0;
 }
+
+/* Dynamic Form Enhancements */
+.formSection {
+  background: #fff;
+  border: 1px solid #eee;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+
+.formSection h4 {
+  margin: 0 0 20px 0;
+  font-size: 1.1rem;
+  color: #e65100;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.formHint {
+  font-size: 0.9rem;
+  color: #888;
+  margin-top: -15px;
+  margin-bottom: 25px;
+}
+
+.arrayItem {
+  margin-bottom: 10px;
+}
+
+.arrayItemCard {
+  background: #fdfdfd;
+  border: 1px solid #f0f0f0;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.itemHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.addBtn {
+  background: #fff3e0;
+  color: #e65100;
+  border: 1px dashed #e65100;
+  padding: 10px 15px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.addBtn:hover {
+  background: #ffe0b2;
+}
+
+.removeBtn {
+  background: #fff;
+  color: #ff5252;
+  border: 1px solid #ffcdd2;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.removeBtn:hover {
+  background: #ffebee;
+}

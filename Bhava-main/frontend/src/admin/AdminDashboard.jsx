@@ -229,32 +229,84 @@ function AdminDashboard() {
           {success && <div className={styles.successAlert}>{success}</div>}
 
           <div className={styles.formCard}>
-            <h3>Add New Tile</h3>
+            <h3>Configure Dynamic Content</h3>
+            <p className={styles.formHint}>Fill this to generate the Stage 1 (Detail) and Stage 2 (Player) views.</p>
+            
             <form onSubmit={handleAddTile} className={styles.form}>
-              <div className={styles.inputGroup}>
-                <label>Title *</label>
-                <input type="text" name="title" value={formData.title} onChange={handleChange} required />
-              </div>
-              <div className={styles.inputGroup}>
-                <label>Description</label>
-                <textarea name="description" value={formData.description} onChange={handleChange} rows="3" />
-              </div>
-              <div className={styles.inputGroup}>
-                <label>Image URL</label>
-                <input type="text" name="image" value={formData.image} onChange={handleChange} placeholder="https://..." />
-              </div>
-              <div className={styles.row}>
+              <div className={styles.formSection}>
+                <h4>1. Basic Tile Info</h4>
                 <div className={styles.inputGroup}>
-                  <label>Badge Text</label>
-                  <input type="text" name="badgeText" value={formData.badgeText} onChange={handleChange} placeholder="e.g. ● 1.2k Live" />
+                  <label>Content Title *</label>
+                  <input type="text" name="title" value={formData.title} onChange={handleChange} placeholder="e.g. Daily Pooja" required />
                 </div>
                 <div className={styles.inputGroup}>
-                  <label>Duration Text</label>
-                  <input type="text" name="durationText" value={formData.durationText} onChange={handleChange} placeholder="e.g. 21 Days" />
+                  <label>Detail Page Subtitle</label>
+                  <input type="text" name="fullSubtitle" value={formData.fullSubtitle} onChange={handleChange} placeholder="e.g. Guided Contemplative Prayer · 27 min" />
+                </div>
+                <div className={styles.row}>
+                  <div className={styles.inputGroup}>
+                    <label>Badge Status</label>
+                    <input type="text" name="badgeText" value={formData.badgeText} onChange={handleChange} placeholder="● 1,247 listening now" />
+                  </div>
+                  <div className={styles.inputGroup}>
+                    <label>Duration Info</label>
+                    <input type="text" name="durationText" value={formData.durationText} onChange={handleChange} placeholder="27 min" />
+                  </div>
+                </div>
+                <div className={styles.inputGroup}>
+                  <label>Quick Summary</label>
+                  <textarea name="description" value={formData.description} onChange={handleChange} rows="2" placeholder="Brief hint for the main listing card..." />
+                </div>
+                <div className={styles.inputGroup}>
+                  <label>Background Image URL</label>
+                  <input type="text" name="image" value={formData.image} onChange={handleChange} placeholder="https://..." />
+                </div>
+                <div className={styles.inputGroup}>
+                  <label>Full Content Description (Stage 1)</label>
+                  <textarea name="detailsLongDescription" value={formData.detailsLongDescription} onChange={handleChange} rows="4" placeholder="The long text that appears on the Stage 1 Detail page..." />
                 </div>
               </div>
+
+              <div className={styles.formSection}>
+                <h4>2. Mentors / Guides (Stage 1 "Featuring")</h4>
+                {hosts.map((host, index) => (
+                  <div key={index} className={styles.arrayItem}>
+                    <div className={styles.row}>
+                      <input type="text" name="name" value={host.name} onChange={(e) => handleHostChange(index, e)} placeholder="Name (e.g. Fr. Thomas)" />
+                      <input type="text" name="title" value={host.title} onChange={(e) => handleHostChange(index, e)} placeholder="Title (e.g. Spiritual Director)" />
+                      <input type="text" name="initials" value={host.initials} onChange={(e) => handleHostChange(index, e)} placeholder="Initials" style={{width: '80px'}} />
+                      <button type="button" onClick={() => removeHost(index)} className={styles.removeBtn}>✕</button>
+                    </div>
+                  </div>
+                ))}
+                <button type="button" onClick={addHost} className={styles.addBtn}>+ Add Mentor</button>
+              </div>
+
+              <div className={styles.formSection}>
+                <h4>3. Session / Player Tracks (Stage 2)</h4>
+                {sessions.map((session, index) => (
+                  <div key={index} className={styles.arrayItemCard}>
+                    <div className={styles.itemHeader}>
+                      <span>Track #{index + 1}</span>
+                      <button type="button" onClick={() => removeSession(index)} className={styles.removeBtn}>✕</button>
+                    </div>
+                    <div className={styles.inputGroup}>
+                      <input type="text" name="title" value={session.title} onChange={(e) => handleSessionChange(index, e)} placeholder="Track Title (e.g. Om Namah Shivaya)" />
+                    </div>
+                    <div className={styles.inputGroup}>
+                      <input type="text" name="subtitle" value={session.subtitle} onChange={(e) => handleSessionChange(index, e)} placeholder="Sub-subtitle (e.g. 108 Sacred Chants)" />
+                    </div>
+                    <div className={styles.row}>
+                      <input type="text" name="audioUrl" value={session.audioUrl} onChange={(e) => handleSessionChange(index, e)} placeholder="Audio URL (.mp3)" />
+                      <input type="text" name="tags" value={session.tags} onChange={(e) => handleSessionChange(index, e)} placeholder="Tags (comma separated e.g. Mantra, 108 BPM)" />
+                    </div>
+                  </div>
+                ))}
+                <button type="button" onClick={addSession} className={styles.addBtn}>+ Add Media Track</button>
+              </div>
+
               <button type="submit" className={styles.submitBtn} disabled={loading}>
-                {loading ? "Adding to Database..." : "Add Tile"}
+                {loading ? "Syncing with MongoDB..." : "Save Content Tile"}
               </button>
             </form>
           </div>
