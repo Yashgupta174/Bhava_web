@@ -6,7 +6,8 @@ const CATEGORIES = [
   "Morning Routine",
   "Daily Practise",
   "Learning Path",
-  "Timeless Wisdom"
+  "Timeless Wisdom",
+  "Latest Teachings"
 ];
 
 function AdminDashboard() {

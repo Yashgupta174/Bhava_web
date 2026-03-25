@@ -26,7 +26,7 @@ const challengeSchema = new mongoose.Schema({
   image: { type: String }, // Main tile image
   category: { 
     type: String, 
-    enum: ["Active Challenges", "Morning Routine", "Daily Practise", "Learning Path", "Timeless Wisdom", "Trending", "New", "Featured", "Live"], 
+    enum: ["Active Challenges", "Morning Routine", "Daily Practise", "Learning Path", "Timeless Wisdom", "Latest Teachings", "Trending", "New", "Featured", "Live"], 
     default: "Active Challenges" 
   },
   badgeText: { type: String }, // e.g., "● 1,247 listening now"
