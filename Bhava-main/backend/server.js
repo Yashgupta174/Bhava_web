@@ -23,7 +23,6 @@ const __dirname = path.dirname(__filename);
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:3000",
-  "https://bhava-fkv3.vercel.app",
   "https://bhava-web.vercel.app",
 ];
 
