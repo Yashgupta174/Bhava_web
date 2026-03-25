@@ -53,7 +53,7 @@ app.use("/api/challenges", challengeRoutes);
 
 // Health check
 app.get("/", (req, res) => {
-  res.json({ success: true, message: "Bhava API is active! Use /admin to access the dashboard." });
+  res.json({ success: true, message: "Bhava API is active!" });
 });
 
 app.get("/api/health", (req, res) => {
