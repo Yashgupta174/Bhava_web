@@ -67,6 +67,12 @@ function AdminDashboard() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginForm)
       });
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        return setError(errorData.message || `Server responded with status ${res.status}`);
+      }
+
       const data = await res.json();
 
       if (data.success) {
@@ -79,7 +85,8 @@ function AdminDashboard() {
         setError(data.message || "Invalid Admin Credentials");
       }
     } catch (err) {
-      setError(`Unable to connect to backend at ${BASE || 'localhost:5173'}/api/auth/login. Error: ${err.message}`);
+      console.error("Login error:", err);
+      setError(`Connection Failed. Ensure the backend at ${BASE || 'local server'} is reachable. Error: ${err.message}`);
     } finally {
       setLoading(false);
     }
