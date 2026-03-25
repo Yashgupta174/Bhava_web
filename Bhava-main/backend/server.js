@@ -23,23 +23,17 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // ── 2. CORS CONFIGURATION ─────────────────────────────────────
-// Allows your Vercel frontend to talk to this Render backend
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin) return callback(null, true);
-    if (origin.endsWith(".vercel.app") || origin.includes("localhost")) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
-  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept"],
-  credentials: true
-}));
+// Temporarily allow all origins for debugging connection issues
+app.use(cors({ origin: "*" }));
 
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
+
+// Request Logger (Helpful for debugging "Not Found" on Render)
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
+  next();
+});
 
 // ── 3. ROUTES ─────────────────────────────────────────────────
 // Test route for Render deployment verification
@@ -55,7 +49,7 @@ app.use("/api/challenges", challengeRoutes);
 
 // Health check JSON
 app.get("/api/health", (req, res) => {
-  res.json({ success: true, message: "Bhava API is running" });
+  res.json({ success: true });
 });
 
 // 404 fallback
