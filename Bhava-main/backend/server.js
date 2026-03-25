@@ -29,7 +29,6 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps)
     if (!origin) return callback(null, true);
     if (allowedOrigins.indexOf(origin) !== -1 || origin.endsWith(".vercel.app")) {
       callback(null, true);
@@ -41,6 +40,7 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept"],
   credentials: true
 }));
+
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
@@ -76,8 +76,6 @@ mongoose
   .connect(process.env.MONGODB_URL)
   .then(() => {
     console.log("Connected to MongoDB");
-    
-    // Vercel handles requests via serverless file exports, but Render/Local need app.listen
     if (!process.env.VERCEL) {
       app.listen(PORT, () => {
         console.log(`Server running at http://localhost:${PORT}`);

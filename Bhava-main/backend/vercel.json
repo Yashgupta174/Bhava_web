@@ -6,11 +6,6 @@
       "dest": "server.js"
     }
   ],
-  "functions": {
-    "server.js": {
-      "includeFiles": "admin/**"
-    }
-  },
   "headers": [
     {
       "source": "/api/(.*)",
