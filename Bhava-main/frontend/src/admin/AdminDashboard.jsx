@@ -375,7 +375,7 @@ function AdminDashboard() {
                     <div className={styles.row}>
                       <div className={styles.inputGroup}>
                         <label>Audio File {session.audioUrl instanceof File ? "(Selected)" : ""}</label>
-                        <input type="file" name="audioUrl" onChange={(e) => handleSessionChange(index, e)} accept="audio/*" />
+                        <input type="file" name="audioUrl" onChange={(e) => handleSessionChange(index, e)} accept="audio/*,.mp3,.wav,.ogg,.m4a,.aac" />
                       </div>
                       <div className={styles.inputGroup}>
                         <label>Or Audio URL</label>
