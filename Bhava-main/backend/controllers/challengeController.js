@@ -17,9 +17,34 @@ export const getChallenges = async (req, res) => {
 // @access  Private/Admin
 export const createChallenge = async (req, res) => {
   try {
-    const challenge = await Challenge.create(req.body);
+    const data = { ...req.body };
+
+    // Parse JSON strings from FormData
+    if (typeof data.sessions === "string") {
+      data.sessions = JSON.parse(data.sessions);
+    }
+    if (typeof data.hosts === "string") {
+      data.hosts = JSON.parse(data.hosts);
+    }
+
+    // Handle uploaded files
+    if (req.files && req.files.length > 0) {
+      req.files.forEach((file) => {
+        if (file.fieldname === "image") {
+          data.image = `/uploads/${file.filename}`;
+        } else if (file.fieldname.startsWith("audio_")) {
+          const index = parseInt(file.fieldname.split("_")[1]);
+          if (data.sessions && data.sessions[index]) {
+            data.sessions[index].audioUrl = `/uploads/${file.filename}`;
+          }
+        }
+      });
+    }
+
+    const challenge = await Challenge.create(data);
     res.status(201).json({ success: true, data: challenge });
   } catch (err) {
+    console.error("Create Challenge Error:", err);
     res.status(400).json({ success: false, message: err.message });
   }
 };
@@ -29,7 +54,31 @@ export const createChallenge = async (req, res) => {
 // @access  Private/Admin
 export const updateChallenge = async (req, res) => {
   try {
-    const challenge = await Challenge.findByIdAndUpdate(req.params.id, req.body, {
+    const data = { ...req.body };
+
+    // Parse JSON strings from FormData (if provided)
+    if (typeof data.sessions === "string") {
+      data.sessions = JSON.parse(data.sessions);
+    }
+    if (typeof data.hosts === "string") {
+      data.hosts = JSON.parse(data.hosts);
+    }
+
+    // Handle uploaded files
+    if (req.files && req.files.length > 0) {
+      req.files.forEach((file) => {
+        if (file.fieldname === "image") {
+          data.image = `/uploads/${file.filename}`;
+        } else if (file.fieldname.startsWith("audio_")) {
+          const index = parseInt(file.fieldname.split("_")[1]);
+          if (data.sessions && data.sessions[index]) {
+            data.sessions[index].audioUrl = `/uploads/${file.filename}`;
+          }
+        }
+      });
+    }
+
+    const challenge = await Challenge.findByIdAndUpdate(req.params.id, data, {
       new: true,
       runValidators: true
     });
@@ -40,9 +89,11 @@ export const updateChallenge = async (req, res) => {
 
     res.status(200).json({ success: true, data: challenge });
   } catch (err) {
+    console.error("Update Challenge Error:", err);
     res.status(400).json({ success: false, message: err.message });
   }
 };
+
 
 // @desc    Delete a challenge
 // @route   DELETE /api/challenges/:id

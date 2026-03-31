@@ -46,10 +46,16 @@ function AdminDashboard() {
   const addSession = () => setSessions([...sessions, { title: "", subtitle: "", audioUrl: "", tags: "" }]);
   const removeSession = (index) => setSessions(sessions.filter((_, i) => i !== index));
   const handleSessionChange = (index, e) => {
+    const { name, type, files, value } = e.target;
     const newSessions = [...sessions];
-    newSessions[index][e.target.name] = e.target.value;
+    if (type === "file") {
+      newSessions[index][name] = files[0];
+    } else {
+      newSessions[index][name] = value;
+    }
     setSessions(newSessions);
   };
+
 
   const fetchChallenges = async () => {
     setLoading(true);
@@ -126,8 +132,14 @@ function AdminDashboard() {
   };
 
   const handleChange = (e) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, type, files, value } = e.target;
+    if (type === "file") {
+      setFormData((prev) => ({ ...prev, [name]: files[0] }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
+
 
   const handleAddTile = async (e) => {
     e.preventDefault();
@@ -139,20 +151,50 @@ function AdminDashboard() {
 
     const BASE = import.meta.env.VITE_API_URL || "";
     const token = localStorage.getItem("bhava_token");
-    const newChallenge = { ...formData, category: activeTab, hosts, sessions };
+
+    const data = new FormData();
+    // Basic fields
+    Object.keys(formData).forEach((key) => {
+      if (key !== "image") {
+        data.append(key, formData[key]);
+      }
+    });
+
+    data.append("category", activeTab);
+    data.append("hosts", JSON.stringify(hosts));
+
+    // Sessions metadata and files
+    const sessionsMetadata = sessions.map((s) => {
+      const { audioUrl, ...rest } = s;
+      return { ...rest, audioUrl: typeof audioUrl === "string" ? audioUrl : "" };
+    });
+    data.append("sessions", JSON.stringify(sessionsMetadata));
+
+    // Main image file
+    if (formData.image instanceof File) {
+      data.append("image", formData.image);
+    } else if (formData.image) {
+      data.append("image", formData.image);
+    }
+
+    // Audio files
+    sessions.forEach((s, i) => {
+      if (s.audioUrl instanceof File) {
+        data.append(`audio_${i}`, s.audioUrl);
+      }
+    });
 
     try {
       const res = await fetch(`${BASE}/api/challenges`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify(newChallenge)
+        body: data
       });
-      const data = await res.json();
+      const resData = await res.json();
 
-      if (data.success) {
+      if (resData.success) {
         setSuccess("Tile saved successfully into MongoDB!");
         setFormData({ 
           title: "", description: "", image: "", badgeText: "", durationText: "",
@@ -162,7 +204,7 @@ function AdminDashboard() {
         setSessions([{ title: "", subtitle: "", audioUrl: "", tags: "" }]);
         fetchChallenges();
       } else {
-        setError(data.message || "Failed to add tile");
+        setError(resData.message || "Failed to add tile");
       }
     } catch (err) {
       setError("Error adding tile. Ensure backend is running.");
@@ -170,6 +212,7 @@ function AdminDashboard() {
       setLoading(false);
     }
   };
+
 
   const handleDeleteTile = async (id) => {
     if (!window.confirm("Are you sure you want to delete this tile?")) return;
@@ -287,9 +330,13 @@ function AdminDashboard() {
                   <textarea name="description" value={formData.description} onChange={handleChange} rows="2" placeholder="Brief hint for the main listing card..." />
                 </div>
                 <div className={styles.inputGroup}>
-                  <label>Background Image URL</label>
-                  <input type="text" name="image" value={formData.image} onChange={handleChange} placeholder="https://..." />
+                  <label>Background Image {formData.image instanceof File ? "(Selected)" : "URL"}</label>
+                  <div className={styles.row}>
+                    <input type="file" name="image" onChange={handleChange} accept="image/*" />
+                    <input type="text" name="image" value={typeof formData.image === 'string' ? formData.image : ''} onChange={handleChange} placeholder="Or enter URL..." />
+                  </div>
                 </div>
+
                 <div className={styles.inputGroup}>
                   <label>Full Content Description (Stage 1)</label>
                   <textarea name="detailsLongDescription" value={formData.detailsLongDescription} onChange={handleChange} rows="4" placeholder="The long text that appears on the Stage 1 Detail page..." />
@@ -326,9 +373,19 @@ function AdminDashboard() {
                       <input type="text" name="subtitle" value={session.subtitle} onChange={(e) => handleSessionChange(index, e)} placeholder="Sub-subtitle (e.g. 108 Sacred Chants)" />
                     </div>
                     <div className={styles.row}>
-                      <input type="text" name="audioUrl" value={session.audioUrl} onChange={(e) => handleSessionChange(index, e)} placeholder="Audio URL (.mp3)" />
+                      <div className={styles.inputGroup}>
+                        <label>Audio File {session.audioUrl instanceof File ? "(Selected)" : ""}</label>
+                        <input type="file" name="audioUrl" onChange={(e) => handleSessionChange(index, e)} accept="audio/*" />
+                      </div>
+                      <div className={styles.inputGroup}>
+                        <label>Or Audio URL</label>
+                        <input type="text" name="audioUrl" value={typeof session.audioUrl === 'string' ? session.audioUrl : ''} onChange={(e) => handleSessionChange(index, e)} placeholder="Audio URL (.mp3)" />
+                      </div>
+                    </div>
+                    <div className={styles.inputGroup}>
                       <input type="text" name="tags" value={session.tags} onChange={(e) => handleSessionChange(index, e)} placeholder="Tags (comma separated e.g. Mantra, 108 BPM)" />
                     </div>
+
                   </div>
                 ))}
                 <button type="button" onClick={addSession} className={styles.addBtn}>+ Add Media Track</button>
@@ -351,10 +408,11 @@ function AdminDashboard() {
                 {filteredChallenges.map((tile) => (
                   <div key={tile._id} className={styles.tileCard}>
                     {tile.image ? (
-                      <img src={tile.image} alt={tile.title} className={styles.tileImg} />
+                      <img src={tile.image.startsWith('/') ? `${import.meta.env.VITE_API_URL || ''}${tile.image}` : tile.image} alt={tile.title} className={styles.tileImg} />
                     ) : (
                       <div className={styles.tileImgPlaceholder}>No Image</div>
                     )}
+
                     <div className={styles.tileBody}>
                       <h4>{tile.title}</h4>
                       <p className={styles.tileDesc}>{tile.description?.substring(0, 50)}...</p>
