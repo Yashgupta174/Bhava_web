@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
 import fs from "fs";
+import multer from "multer";
 
 import { fileURLToPath } from "url";
 import authRoutes from "./routes/authRoutes.js";
@@ -70,11 +71,33 @@ app.use((req, res) => {
 // Global error handler
 app.use((err, req, res, next) => {
   console.error("Server Error:", err.stack);
-  res.status(500).json({ success: false, message: "Internal server error" });
+
+  // Handle Multer errors specifically
+  if (err instanceof multer.MulterError) {
+    return res.status(400).json({
+      success: false,
+      message: `Upload Error: ${err.message}`
+    });
+  }
+
+  // Handle our custom file filter errors
+  if (err.message && err.message.includes("Invalid file type")) {
+    return res.status(400).json({
+      success: false,
+      message: err.message
+    });
+  }
+
+  res.status(500).json({ 
+    success: false, 
+    message: process.env.NODE_ENV === "production" 
+      ? "Internal server error" 
+      : err.message 
+  });
 });
 
 // ── 4. DATABASE & SERVER START ────────────────────────────────
-const MONGO_URI = process.env.MONGO_URI;
+const MONGO_URI = process.env.MONGODB_URL || process.env.MONGO_URI;
 
 if (!MONGO_URI) {
   console.error("FATAL ERROR: MONGO_URI is not defined in environment variables.");

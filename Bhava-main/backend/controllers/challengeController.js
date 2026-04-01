@@ -20,22 +20,35 @@ export const createChallenge = async (req, res) => {
     const data = { ...req.body };
 
     // Parse JSON strings from FormData
-    if (typeof data.sessions === "string") {
-      data.sessions = JSON.parse(data.sessions);
+    try {
+      if (typeof data.sessions === "string") data.sessions = JSON.parse(data.sessions);
+      if (typeof data.hosts === "string") data.hosts = JSON.parse(data.hosts);
+    } catch (parseErr) {
+      console.error("JSON Parsing Error:", parseErr);
+      return res.status(400).json({ success: false, message: "Invalid JSON format for sessions or hosts" });
     }
-    if (typeof data.hosts === "string") {
-      data.hosts = JSON.parse(data.hosts);
+
+    // Process sessions (e.g. split tags string into array)
+    if (Array.isArray(data.sessions)) {
+      data.sessions = data.sessions.map(session => {
+        if (typeof session.tags === "string") {
+          session.tags = session.tags.split(",").map(t => t.trim()).filter(t => t !== "");
+        }
+        return session;
+      });
     }
 
     // Handle uploaded files
     if (req.files && req.files.length > 0) {
       req.files.forEach((file) => {
         if (file.fieldname === "image") {
-          data.image = `/uploads/${file.filename}`;
+          data.image = file.path; // Cloudinary URL
         } else if (file.fieldname.startsWith("audio_")) {
-          const index = parseInt(file.fieldname.split("_")[1]);
-          if (data.sessions && data.sessions[index]) {
-            data.sessions[index].audioUrl = `/uploads/${file.filename}`;
+          const part = file.fieldname.split("_")[1];
+          const index = parseInt(part);
+          
+          if (!isNaN(index) && data.sessions && data.sessions[index]) {
+            data.sessions[index].audioUrl = file.path; // Cloudinary URL
           }
         }
       });
@@ -57,22 +70,34 @@ export const updateChallenge = async (req, res) => {
     const data = { ...req.body };
 
     // Parse JSON strings from FormData (if provided)
-    if (typeof data.sessions === "string") {
-      data.sessions = JSON.parse(data.sessions);
+    try {
+      if (typeof data.sessions === "string") data.sessions = JSON.parse(data.sessions);
+      if (typeof data.hosts === "string") data.hosts = JSON.parse(data.hosts);
+    } catch (parseErr) {
+      return res.status(400).json({ success: false, message: "Invalid JSON format for sessions or hosts" });
     }
-    if (typeof data.hosts === "string") {
-      data.hosts = JSON.parse(data.hosts);
+
+    // Process sessions (e.g. split tags string into array)
+    if (Array.isArray(data.sessions)) {
+      data.sessions = data.sessions.map(session => {
+        if (typeof session.tags === "string") {
+          session.tags = session.tags.split(",").map(t => t.trim()).filter(t => t !== "");
+        }
+        return session;
+      });
     }
 
     // Handle uploaded files
     if (req.files && req.files.length > 0) {
       req.files.forEach((file) => {
         if (file.fieldname === "image") {
-          data.image = `/uploads/${file.filename}`;
+          data.image = file.path; // Cloudinary URL
         } else if (file.fieldname.startsWith("audio_")) {
-          const index = parseInt(file.fieldname.split("_")[1]);
-          if (data.sessions && data.sessions[index]) {
-            data.sessions[index].audioUrl = `/uploads/${file.filename}`;
+          const part = file.fieldname.split("_")[1];
+          const index = parseInt(part);
+
+          if (!isNaN(index) && data.sessions && data.sessions[index]) {
+            data.sessions[index].audioUrl = file.path; // Cloudinary URL
           }
         }
       });

@@ -1,47 +1,28 @@
 import multer from "multer";
-import path from "path";
-import fs from "fs";
-import { fileURLToPath } from "url";
+import { storage } from "../config/cloudinaryConfig.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Ensure uploads directory exists
-const uploadDir = path.join(__dirname, "../uploads");
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
-
-// Set up storage engine
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, uploadDir);
-  },
-  filename: (req, file, cb) => {
-    // Create a unique filename: fieldname-timestamp.extension
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname));
-  }
-});
-
-// File filter (optional: only allow images and audio)
+// File filter for images and audio
 const fileFilter = (req, file, cb) => {
   const allowedMimeTypes = [
     "image/jpeg",
     "image/png",
     "image/webp",
-    "audio/mpeg",
-    "audio/wav",
-    "audio/ogg",
-    "audio/mp3",
-    "audio/x-m4a",
-    "audio/aac",
-    "audio/mp4"
+    "audio/mpeg",   // .mp3
+    "audio/mp3",    // .mp3 alternate
+    "audio/wav",    // .wav
+    "audio/x-wav",  // .wav alternate
+    "audio/ogg",    // .ogm, .ogg
+    "audio/m4a",    // .m4a
+    "audio/x-m4a",  // .m4a alternate
+    "audio/aac",    // .aac
+    "audio/mp4",    // .mp4 audio
+    "audio/x-aac"   // .aac alternate
   ];
-  if (allowedMimeTypes.includes(file.mimetype)) {
+
+  if (allowedMimeTypes.includes(file.mimetype) || file.mimetype.startsWith("audio/")) {
     cb(null, true);
   } else {
-    cb(new Error("Invalid file type. Only JPEG, PNG, WEBP images and MP3, WAV, OGG audio files are allowed."), false);
+    cb(new Error(`Invalid file type (${file.mimetype}). Please upload a valid Image or Audio file.`), false);
   }
 };
 
