@@ -21,10 +21,15 @@ export const createChallenge = async (req, res) => {
 
     // Parse JSON strings from FormData
     try {
-      if (typeof data.sessions === "string") data.sessions = JSON.parse(data.sessions);
-      if (typeof data.hosts === "string") data.hosts = JSON.parse(data.hosts);
+      if (typeof data.sessions === "string") {
+        data.sessions = JSON.parse(data.sessions);
+        console.log("Parsed sessions:", data.sessions.length);
+      }
+      if (typeof data.hosts === "string") {
+        data.hosts = JSON.parse(data.hosts);
+      }
     } catch (parseErr) {
-      console.error("JSON Parsing Error:", parseErr);
+      console.error("JSON Parsing Error:", parseErr.message);
       return res.status(400).json({ success: false, message: "Invalid JSON format for sessions or hosts" });
     }
 
@@ -40,15 +45,20 @@ export const createChallenge = async (req, res) => {
 
     // Handle uploaded files
     if (req.files && req.files.length > 0) {
+      console.log(`Processing ${req.files.length} uploaded files`);
       req.files.forEach((file) => {
         if (file.fieldname === "image") {
-          data.image = file.path; // Cloudinary URL
+          data.image = file.path;
+          console.log("Main image assigned:", data.image);
         } else if (file.fieldname.startsWith("audio_")) {
           const part = file.fieldname.split("_")[1];
           const index = parseInt(part);
           
           if (!isNaN(index) && data.sessions && data.sessions[index]) {
-            data.sessions[index].audioUrl = file.path; // Cloudinary URL
+            data.sessions[index].audioUrl = file.path;
+            console.log(`Audio for session ${index} assigned:`, file.path);
+          } else {
+            console.warn(`Warning: Could not assign file ${file.fieldname} - session index ${index} invalid or missing.`);
           }
         }
       });
@@ -57,8 +67,12 @@ export const createChallenge = async (req, res) => {
     const challenge = await Challenge.create(data);
     res.status(201).json({ success: true, data: challenge });
   } catch (err) {
-    console.error("Create Challenge Error:", err);
-    res.status(400).json({ success: false, message: err.message });
+    console.error("CRITICAL Create Challenge Error:", err);
+    res.status(500).json({ 
+      success: false, 
+      message: err.name === "ValidationError" ? err.message : "Internal server error during creation",
+      errorDetails: process.env.NODE_ENV === "production" ? undefined : err.message
+    });
   }
 };
 
@@ -91,13 +105,13 @@ export const updateChallenge = async (req, res) => {
     if (req.files && req.files.length > 0) {
       req.files.forEach((file) => {
         if (file.fieldname === "image") {
-          data.image = file.path; // Cloudinary URL
+          data.image = file.path;
         } else if (file.fieldname.startsWith("audio_")) {
           const part = file.fieldname.split("_")[1];
           const index = parseInt(part);
 
           if (!isNaN(index) && data.sessions && data.sessions[index]) {
-            data.sessions[index].audioUrl = file.path; // Cloudinary URL
+            data.sessions[index].audioUrl = file.path;
           }
         }
       });
