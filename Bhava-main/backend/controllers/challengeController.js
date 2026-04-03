@@ -175,3 +175,48 @@ export const deleteChallenge = async (req, res) => {
     res.status(400).json({ success: false, message: err.message });
   }
 };
+
+// @desc    Join a challenge
+// @route   POST /api/challenges/:id/join
+// @access  Private
+export const joinChallenge = async (req, res) => {
+  try {
+    const challenge = await Challenge.findById(req.params.id);
+    if (!challenge) {
+      return res.status(404).json({ success: false, message: "Challenge not found" });
+    }
+
+    const User = (await import("../models/User.js")).default;
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    // Check if already joined
+    const isAlreadyJoined = user.joinedChallenges.includes(req.params.id);
+    if (isAlreadyJoined) {
+      return res.status(400).json({ success: false, message: "Already joined this challenge" });
+    }
+
+    // Add to user's joined challenges
+    user.joinedChallenges.push(req.params.id);
+    await user.save();
+
+    // Increment challenge joined count (as a number if possible, or just string append)
+    // Looking at the model, joinedCount is a String. Let's try to parse and increment.
+    let count = parseInt(challenge.joinedCount) || 0;
+    challenge.joinedCount = (count + 1).toString();
+    await challenge.save();
+
+    res.status(200).json({ 
+      success: true, 
+      message: "Successfully joined the challenge",
+      data: user.joinedChallenges 
+    });
+
+  } catch (err) {
+    console.error("Join Challenge Error:", err);
+    res.status(500).json({ success: false, message: "Error joining challenge" });
+  }
+};

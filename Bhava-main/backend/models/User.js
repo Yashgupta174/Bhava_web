@@ -56,6 +56,12 @@ const userSchema = new mongoose.Schema(
     },
     resetPasswordToken:   String,
     resetPasswordExpires: Date,
+    joinedChallenges: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Challenge",
+      },
+    ],
   },
   { timestamps: true }
 );
