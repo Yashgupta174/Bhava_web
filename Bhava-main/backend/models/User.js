@@ -32,6 +32,19 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    bio: {
+      type: String,
+      default: "",
+      maxlength: [160, "Bio cannot exceed 160 characters"],
+    },
+    phoneNumber: {
+      type: String,
+      default: "",
+    },
+    location: {
+      type: String,
+      default: "",
+    },
     role: {
       type: String,
       enum: ["user", "admin"],

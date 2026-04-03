@@ -38,5 +38,8 @@ const challengeSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
+challengeSchema.index({ category: 1 });
+challengeSchema.index({ createdAt: -1 });
+
 const Challenge = mongoose.model("Challenge", challengeSchema);
 export default Challenge;

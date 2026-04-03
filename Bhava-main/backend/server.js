@@ -12,6 +12,7 @@ import contactRoutes from "./routes/contactRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import challengeRoutes from "./routes/challengeRoutes.js";
+import inspirationRoutes from "./routes/inspirationRoutes.js";
 
 // Load environment variables
 dotenv.config();
@@ -57,6 +58,7 @@ app.use("/api/contact", contactRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/challenges", challengeRoutes);
+app.use("/api/inspirations", inspirationRoutes);
 
 // Health check JSON
 app.get("/api/health", (req, res) => {
@@ -100,8 +102,12 @@ app.use((err, req, res, next) => {
 const MONGO_URI = process.env.MONGODB_URL || process.env.MONGO_URI;
 
 if (!MONGO_URI) {
-  console.error("FATAL ERROR: MONGO_URI is not defined in environment variables.");
+  console.error("❌ FATAL: MONGODB_URL is not defined in environment variables!");
   process.exit(1);
+} else {
+  // Log a masked version for security
+  const maskedURI = MONGO_URI.replace(/:([^@]+)@/, ':****@');
+  console.log(`📡 Attempting to connect to MongoDB...`);
 }
 
 mongoose
@@ -115,6 +121,7 @@ mongoose
   })
   .catch((err) => {
     console.error("❌ MongoDB connection failed:", err.message);
+    console.error("👉 Tip: If this is on Render, ensure 'MONGODB_URL' is added to Environment Variables.");
   });
 
 export default app;

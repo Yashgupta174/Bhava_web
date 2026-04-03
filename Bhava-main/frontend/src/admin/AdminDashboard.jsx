@@ -7,7 +7,8 @@ const CATEGORIES = [
   "Daily Practise",
   "Learning Path",
   "Timeless Wisdom",
-  "Latest Teachings"
+  "Latest Teachings",
+  "Daily Inspiration"
 ];
 
 function AdminDashboard() {
@@ -16,6 +17,7 @@ function AdminDashboard() {
 
   const [activeTab, setActiveTab] = useState(CATEGORIES[0]);
   const [challenges, setChallenges] = useState([]);
+  const [inspirations, setInspirations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -76,8 +78,33 @@ function AdminDashboard() {
     }
   };
 
+  const fetchInspirations = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const BASE = import.meta.env.VITE_API_URL || "";
+      const token = localStorage.getItem("bhava_token");
+      const res = await fetch(`${BASE}/api/inspirations`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const data = await res.json();
+      if (data.success) {
+        setInspirations(data.data);
+      } else {
+        setError(data.message || "Failed to fetch inspirations");
+      }
+    } catch (err) {
+      setError("Error connecting to server");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    if (isLoggedIn) fetchChallenges();
+    if (isLoggedIn) {
+      fetchChallenges();
+      fetchInspirations();
+    }
   }, [isLoggedIn]);
 
   const handleLoginChange = (e) => {
@@ -143,6 +170,11 @@ function AdminDashboard() {
 
   const handleAddTile = async (e) => {
     e.preventDefault();
+    
+    if (activeTab === "Daily Inspiration") {
+      return handleAddInspiration(e);
+    }
+
     if (!formData.title) return setError("Title is required");
 
     setLoading(true);
@@ -214,8 +246,11 @@ function AdminDashboard() {
   };
 
 
-  const handleDeleteTile = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this tile?")) return;
+  const handleAddInspiration = async (e) => {
+    e.preventDefault();
+    if (!formData.title || !formData.description) {
+      return setError("Source (Title) and Content (Description) are required");
+    }
 
     setLoading(true);
     setError("");
@@ -225,26 +260,75 @@ function AdminDashboard() {
     const token = localStorage.getItem("bhava_token");
 
     try {
-      const res = await fetch(`${BASE}/api/challenges/${id}`, {
+      const res = await fetch(`${BASE}/api/inspirations`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          source: formData.title,
+          content: formData.description,
+          author: formData.fullSubtitle || ""
+        })
+      });
+      const resData = await res.json();
+
+      if (resData.success) {
+        setSuccess("Daily Inspiration saved successfully!");
+        setFormData({ 
+          title: "", description: "", image: "", badgeText: "", durationText: "",
+          fullSubtitle: "", detailsLongDescription: "" 
+        });
+        fetchInspirations();
+      } else {
+        setError(resData.message || "Failed to add inspiration");
+      }
+    } catch (err) {
+      setError("Error adding inspiration. Connection failed.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDeleteTile = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this?")) return;
+
+    setLoading(true);
+    setError("");
+    setSuccess("");
+
+    const BASE = import.meta.env.VITE_API_URL || "";
+    const token = localStorage.getItem("bhava_token");
+
+    const endpoint = activeTab === "Daily Inspiration" 
+      ? `${BASE}/api/inspirations/${id}` 
+      : `${BASE}/api/challenges/${id}`;
+
+    try {
+      const res = await fetch(endpoint, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await res.json();
 
       if (data.success) {
-        setSuccess("Tile deleted from MongoDB successfully!");
-        fetchChallenges();
+        setSuccess("Deleted successfully!");
+        if (activeTab === "Daily Inspiration") fetchInspirations();
+        else fetchChallenges();
       } else {
-        setError(data.message || "Failed to delete from database");
+        setError(data.message || "Failed to delete");
       }
     } catch (err) {
-      setError("Error deleting tile. Connection failed.");
+      setError("Error deleting. Connection failed.");
     } finally {
       setLoading(false);
     }
   };
 
-  const filteredChallenges = challenges.filter((c) => c.category === activeTab);
+  const filteredChallenges = activeTab === "Daily Inspiration" 
+    ? inspirations 
+    : challenges.filter((c) => c.category === activeTab);
 
   if (!isLoggedIn) {
     return (
@@ -294,134 +378,177 @@ function AdminDashboard() {
           ))}
         </div>
 
-        <div className={styles.panel}>
+          <div className={styles.panel}>
           <h2>{activeTab} Management</h2>
 
           {error && <div className={styles.errorAlert}>{error}</div>}
           {success && <div className={styles.successAlert}>{success}</div>}
 
           <div className={styles.formCard}>
-            <h3>Configure Dynamic Content</h3>
-            <p className={styles.formHint}>Fill this to generate the Stage 1 (Detail) and Stage 2 (Player) views.</p>
+            <h3>{activeTab === "Daily Inspiration" ? "Add New Quote" : "Configure Dynamic Content"}</h3>
+            <p className={styles.formHint}>
+              {activeTab === "Daily Inspiration" 
+                ? "Manage spiritual quotes that appear in the 'Daily Inspiration' carousel on the app." 
+                : "Fill this to generate the Stage 1 (Detail) and Stage 2 (Player) views."}
+            </p>
             
             <form onSubmit={handleAddTile} className={styles.form}>
               <div className={styles.formSection}>
-                <h4>1. Basic Tile Info</h4>
+                <h4>1. {activeTab === "Daily Inspiration" ? "Inspiration Content" : "Basic Tile Info"}</h4>
                 <div className={styles.inputGroup}>
-                  <label>Content Title *</label>
-                  <input type="text" name="title" value={formData.title} onChange={handleChange} placeholder="e.g. Daily Pooja" required />
+                  <label>{activeTab === "Daily Inspiration" ? "Source/Topic *" : "Content Title *"}</label>
+                  <input type="text" name="title" value={formData.title} onChange={handleChange} placeholder={activeTab === "Daily Inspiration" ? "e.g. BHAGAVAD GITA" : "e.g. Daily Pooja"} required />
                 </div>
-                <div className={styles.inputGroup}>
-                  <label>Detail Page Subtitle</label>
-                  <input type="text" name="fullSubtitle" value={formData.fullSubtitle} onChange={handleChange} placeholder="e.g. Guided Contemplative Prayer · 27 min" />
-                </div>
-                <div className={styles.row}>
-                  <div className={styles.inputGroup}>
-                    <label>Badge Status</label>
-                    <input type="text" name="badgeText" value={formData.badgeText} onChange={handleChange} placeholder="● 1,247 listening now" />
-                  </div>
-                  <div className={styles.inputGroup}>
-                    <label>Duration Info</label>
-                    <input type="text" name="durationText" value={formData.durationText} onChange={handleChange} placeholder="27 min" />
-                  </div>
-                </div>
-                <div className={styles.inputGroup}>
-                  <label>Quick Summary</label>
-                  <textarea name="description" value={formData.description} onChange={handleChange} rows="2" placeholder="Brief hint for the main listing card..." />
-                </div>
-                <div className={styles.inputGroup}>
-                  <label>Background Image {formData.image instanceof File ? "(Selected)" : "URL"}</label>
-                  <div className={styles.row}>
-                    <input type="file" name="image" onChange={handleChange} accept="image/*" />
-                    <input type="text" name="image" value={typeof formData.image === 'string' ? formData.image : ''} onChange={handleChange} placeholder="Or enter URL..." />
-                  </div>
-                </div>
-
-                <div className={styles.inputGroup}>
-                  <label>Full Content Description (Stage 1)</label>
-                  <textarea name="detailsLongDescription" value={formData.detailsLongDescription} onChange={handleChange} rows="4" placeholder="The long text that appears on the Stage 1 Detail page..." />
-                </div>
-              </div>
-
-              <div className={styles.formSection}>
-                <h4>2. Mentors / Guides (Stage 1 "Featuring")</h4>
-                {hosts.map((host, index) => (
-                  <div key={index} className={styles.arrayItem}>
-                    <div className={styles.row}>
-                      <input type="text" name="name" value={host.name} onChange={(e) => handleHostChange(index, e)} placeholder="Name (e.g. Fr. Thomas)" />
-                      <input type="text" name="title" value={host.title} onChange={(e) => handleHostChange(index, e)} placeholder="Title (e.g. Spiritual Director)" />
-                      <input type="text" name="initials" value={host.initials} onChange={(e) => handleHostChange(index, e)} placeholder="Initials" style={{width: '80px'}} />
-                      <button type="button" onClick={() => removeHost(index)} className={styles.removeBtn}>✕</button>
-                    </div>
-                  </div>
-                ))}
-                <button type="button" onClick={addHost} className={styles.addBtn}>+ Add Mentor</button>
-              </div>
-
-              <div className={styles.formSection}>
-                <h4>3. Session / Player Tracks (Stage 2)</h4>
-                {sessions.map((session, index) => (
-                  <div key={index} className={styles.arrayItemCard}>
-                    <div className={styles.itemHeader}>
-                      <span>Track #{index + 1}</span>
-                      <button type="button" onClick={() => removeSession(index)} className={styles.removeBtn}>✕</button>
+                
+                {activeTab === "Daily Inspiration" ? (
+                  <>
+                    <div className={styles.inputGroup}>
+                      <label>Source / Script (e.g. BHAGAVAD GITA) *</label>
+                      <input type="text" name="title" value={formData.title} onChange={handleChange} placeholder="Enter source..." required />
                     </div>
                     <div className={styles.inputGroup}>
-                      <input type="text" name="title" value={session.title} onChange={(e) => handleSessionChange(index, e)} placeholder="Track Title (e.g. Om Namah Shivaya)" />
+                      <label>Author / Speaker (Optional)</label>
+                      <input type="text" name="fullSubtitle" value={formData.fullSubtitle} onChange={handleChange} placeholder="Enter author..." />
                     </div>
                     <div className={styles.inputGroup}>
-                      <input type="text" name="subtitle" value={session.subtitle} onChange={(e) => handleSessionChange(index, e)} placeholder="Sub-subtitle (e.g. 108 Sacred Chants)" />
+                      <label>Spiritual Quote Content *</label>
+                      <textarea name="description" value={formData.description} onChange={handleChange} rows="4" placeholder="Enter the inspiration quote here..." required />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className={styles.inputGroup}>
+                      <label>Detail Page Subtitle</label>
+                      <input type="text" name="fullSubtitle" value={formData.fullSubtitle} onChange={handleChange} placeholder="e.g. Guided Contemplative Prayer · 27 min" />
                     </div>
                     <div className={styles.row}>
                       <div className={styles.inputGroup}>
-                        <label>Audio File {session.audioUrl instanceof File ? "(Selected)" : ""}</label>
-                        <input type="file" name="audioUrl" onChange={(e) => handleSessionChange(index, e)} accept="audio/*,.mp3,.wav,.ogg,.m4a,.aac" />
+                        <label>Badge Status</label>
+                        <input type="text" name="badgeText" value={formData.badgeText} onChange={handleChange} placeholder="● 1,247 listening now" />
                       </div>
                       <div className={styles.inputGroup}>
-                        <label>Or Audio URL</label>
-                        <input type="text" name="audioUrl" value={typeof session.audioUrl === 'string' ? session.audioUrl : ''} onChange={(e) => handleSessionChange(index, e)} placeholder="Audio URL (.mp3)" />
+                        <label>Duration Info</label>
+                        <input type="text" name="durationText" value={formData.durationText} onChange={handleChange} placeholder="27 min" />
                       </div>
                     </div>
                     <div className={styles.inputGroup}>
-                      <input type="text" name="tags" value={session.tags} onChange={(e) => handleSessionChange(index, e)} placeholder="Tags (comma separated e.g. Mantra, 108 BPM)" />
+                      <label>Quick Summary</label>
+                      <textarea name="description" value={formData.description} onChange={handleChange} rows="2" placeholder="Brief hint for the main listing card..." />
                     </div>
-
+                    <div className={styles.inputGroup}>
+                      <label>Background Image {formData.image instanceof File ? "(Selected)" : "URL"}</label>
+                      <div className={styles.row}>
+                        <input type="file" name="image" onChange={handleChange} accept="image/*" />
+                        <input type="text" name="image" value={typeof formData.image === 'string' ? formData.image : ''} onChange={handleChange} placeholder="Or enter URL..." />
+                      </div>
+                    </div>
+                    <div className={styles.inputGroup}>
+                      <label>Full Content Description (Stage 1)</label>
+                      <textarea name="detailsLongDescription" value={formData.detailsLongDescription} onChange={handleChange} rows="4" placeholder="The long text that appears on the Stage 1 Detail page..." />
+                    </div>
+                  </>
+                )}
+                
+                {activeTab === "Daily Inspiration" && (
+                   <div className={styles.inputGroup}>
+                    <label>Author / Chapter (Optional)</label>
+                    <input type="text" name="fullSubtitle" value={formData.fullSubtitle} onChange={handleChange} placeholder="e.g. Lord Krishna" />
                   </div>
-                ))}
-                <button type="button" onClick={addSession} className={styles.addBtn}>+ Add Media Track</button>
+                )}
               </div>
+
+              {activeTab !== "Daily Inspiration" && (
+                <>
+                  <div className={styles.formSection}>
+                    <h4>2. Mentors / Guides (Stage 1 "Featuring")</h4>
+                    {hosts.map((host, index) => (
+                      <div key={index} className={styles.arrayItem}>
+                        <div className={styles.row}>
+                          <input type="text" name="name" value={host.name} onChange={(e) => handleHostChange(index, e)} placeholder="Name (e.g. Fr. Thomas)" />
+                          <input type="text" name="title" value={host.title} onChange={(e) => handleHostChange(index, e)} placeholder="Title (e.g. Spiritual Director)" />
+                          <input type="text" name="initials" value={host.initials} onChange={(e) => handleHostChange(index, e)} placeholder="Initials" style={{width: '80px'}} />
+                          <button type="button" onClick={() => removeHost(index)} className={styles.removeBtn}>✕</button>
+                        </div>
+                      </div>
+                    ))}
+                    <button type="button" onClick={addHost} className={styles.addBtn}>+ Add Mentor</button>
+                  </div>
+
+                  <div className={styles.formSection}>
+                    <h4>3. Session / Player Tracks (Stage 2)</h4>
+                    {sessions.map((session, index) => (
+                      <div key={index} className={styles.arrayItemCard}>
+                        <div className={styles.itemHeader}>
+                          <span>Track #{index + 1}</span>
+                          <button type="button" onClick={() => removeSession(index)} className={styles.removeBtn}>✕</button>
+                        </div>
+                        <div className={styles.inputGroup}>
+                          <input type="text" name="title" value={session.title} onChange={(e) => handleSessionChange(index, e)} placeholder="Track Title (e.g. Om Namah Shivaya)" />
+                        </div>
+                        <div className={styles.inputGroup}>
+                          <input type="text" name="subtitle" value={session.subtitle} onChange={(e) => handleSessionChange(index, e)} placeholder="Sub-subtitle (e.g. 108 Sacred Chants)" />
+                        </div>
+                        <div className={styles.row}>
+                          <div className={styles.inputGroup}>
+                            <label>Audio File {session.audioUrl instanceof File ? "(Selected)" : ""}</label>
+                            <input type="file" name="audioUrl" onChange={(e) => handleSessionChange(index, e)} accept="audio/*,.mp3,.wav,.ogg,.m4a,.aac" />
+                          </div>
+                          <div className={styles.inputGroup}>
+                            <label>Or Audio URL</label>
+                            <input type="text" name="audioUrl" value={typeof session.audioUrl === 'string' ? session.audioUrl : ''} onChange={(e) => handleSessionChange(index, e)} placeholder="Audio URL (.mp3)" />
+                          </div>
+                        </div>
+                        <div className={styles.inputGroup}>
+                          <input type="text" name="tags" value={session.tags} onChange={(e) => handleSessionChange(index, e)} placeholder="Tags (comma separated e.g. Mantra, 108 BPM)" />
+                        </div>
+                      </div>
+                    ))}
+                    <button type="button" onClick={addSession} className={styles.addBtn}>+ Add Media Track</button>
+                  </div>
+                </>
+              )}
 
               <button type="submit" className={styles.submitBtn} disabled={loading}>
-                {loading ? "Syncing with MongoDB..." : "Save Content Tile"}
+                {loading ? "Syncing..." : activeTab === "Daily Inspiration" ? "Save Inspiration" : "Save Content Tile"}
               </button>
             </form>
           </div>
 
           <div className={styles.tilesList}>
-            <h3>Existing Tiles in MongoDB</h3>
+            <h3>{activeTab === "Daily Inspiration" ? "Managed Inspirations" : "Existing Tiles in MongoDB"}</h3>
             {loading && !filteredChallenges.length ? (
               <p>Fetching from database...</p>
             ) : filteredChallenges.length === 0 ? (
-              <p className={styles.emptyText}>No tiles found for this section.</p>
+              <p className={styles.emptyText}>No content found for this section.</p>
             ) : (
               <div className={styles.grid}>
                 {filteredChallenges.map((tile) => (
                   <div key={tile._id} className={styles.tileCard}>
-                    {tile.image ? (
-                      <img src={tile.image.startsWith('/') ? `${import.meta.env.VITE_API_URL || ''}${tile.image}` : tile.image} alt={tile.title} className={styles.tileImg} />
-                    ) : (
-                      <div className={styles.tileImgPlaceholder}>No Image</div>
+                    {activeTab !== "Daily Inspiration" && (
+                      tile.image ? (
+                        <img src={tile.image.startsWith('/') ? `${import.meta.env.VITE_API_URL || ''}${tile.image}` : tile.image} alt={tile.title} className={styles.tileImg} />
+                      ) : (
+                        <div className={styles.tileImgPlaceholder}>No Image</div>
+                      )
                     )}
 
                     <div className={styles.tileBody}>
-                      <h4>{tile.title}</h4>
-                      <p className={styles.tileDesc}>{tile.description?.substring(0, 50)}...</p>
-                      <div className={styles.tileMeta}>
-                        {tile.badgeText && <span>{tile.badgeText}</span>}
-                        {tile.durationText && <span>{tile.durationText}</span>}
-                      </div>
+                      <h4>{activeTab === "Daily Inspiration" ? tile.source : tile.title}</h4>
+                      <p className={styles.tileDesc}>
+                        {activeTab === "Daily Inspiration" ? tile.content : tile.description?.substring(0, 50) + "..."}
+                      </p>
+                      {activeTab === "Daily Inspiration" && tile.author && (
+                         <p className={styles.tileAuthor}>— {tile.author}</p>
+                      )}
+                      
+                      {activeTab !== "Daily Inspiration" && (
+                        <div className={styles.tileMeta}>
+                          {tile.badgeText && <span>{tile.badgeText}</span>}
+                          {tile.durationText && <span>{tile.durationText}</span>}
+                        </div>
+                      )}
                       <button onClick={() => handleDeleteTile(tile._id)} className={styles.deleteBtn} disabled={loading}>
-                        Delete Tile
+                        Delete {activeTab === "Daily Inspiration" ? "Quote" : "Tile"}
                       </button>
                     </div>
                   </div>

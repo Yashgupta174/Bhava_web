@@ -24,6 +24,9 @@ const sendResponse = (res, statusCode, user, message) => {
       email: user.email,
       provider: user.provider,
       avatar: user.avatar,
+      bio: user.bio,
+      phoneNumber: user.phoneNumber,
+      location: user.location,
       createdAt: user.createdAt,
     },
   });
@@ -110,10 +113,13 @@ export const getMe = async (req, res) => {
 // PATCH /api/auth/me  (protected) — update name / avatar
 export const updateMe = async (req, res) => {
   try {
-    const { name, avatar } = req.body;
+    const { name, avatar, bio, phoneNumber, location } = req.body;
     const updates = {};
     if (name && name.trim().length >= 2) updates.name = name.trim();
     if (avatar !== undefined) updates.avatar = avatar;
+    if (bio !== undefined) updates.bio = bio;
+    if (phoneNumber !== undefined) updates.phoneNumber = phoneNumber;
+    if (location !== undefined) updates.location = location;
 
     if (Object.keys(updates).length === 0) {
       return res.status(400).json({ success: false, message: "Nothing to update." });
@@ -136,6 +142,9 @@ export const updateMe = async (req, res) => {
         email: user.email,
         provider: user.provider,
         avatar: user.avatar,
+        bio: user.bio,
+        phoneNumber: user.phoneNumber,
+        location: user.location,
         createdAt: user.createdAt,
       },
     });

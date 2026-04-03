@@ -5,9 +5,15 @@ import Challenge from "../models/Challenge.js";
 // @access  Public
 export const getChallenges = async (req, res) => {
   try {
-    const challenges = await Challenge.find().sort({ createdAt: -1 });
+    // 🔹 OPTIMIZATION: Use projection to exclude heavy fields for the list view
+    // This reduces the JSON size by up to 90% when fetching many challenges
+    const challenges = await Challenge.find()
+      .select("-sessions -hosts -detailsLongDescription") 
+      .sort({ createdAt: -1 });
+      
     res.status(200).json({ success: true, count: challenges.length, data: challenges });
   } catch (err) {
+    console.error("Error fetching challenges:", err);
     res.status(500).json({ success: false, message: "Error fetching challenges" });
   }
 };
@@ -17,12 +23,16 @@ export const getChallenges = async (req, res) => {
 // @access  Public
 export const getChallengeById = async (req, res) => {
   try {
-    const challenge = await Challenge.findById(req.params.id);
+    // 🔹 OPTIMIZATION: Use .lean() to skip Mongoose document hydration. 
+    // This is much faster for large payloads (many sessions).
+    const challenge = await Challenge.findById(req.params.id).lean();
+    
     if (!challenge) {
       return res.status(404).json({ success: false, message: "Challenge not found" });
     }
     res.status(200).json({ success: true, data: challenge });
   } catch (err) {
+    console.error("Error fetching challenge details:", err);
     res.status(500).json({ success: false, message: "Error fetching challenge details" });
   }
 };
