@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const intentionSchema = new mongoose.Schema({
     userId: {
@@ -17,4 +17,5 @@ const intentionSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model("Intention", intentionSchema);
+const Intention = mongoose.model("Intention", intentionSchema);
+export default Intention;

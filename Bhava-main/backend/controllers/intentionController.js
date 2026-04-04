@@ -1,6 +1,6 @@
-const Intention = require("../models/Intention");
+import Intention from "../models/Intention.js";
 
-exports.addIntention = async (req, res) => {
+export const addIntention = async (req, res) => {
     try {
         const { content } = req.body;
         if (!content) {
@@ -25,7 +25,7 @@ exports.addIntention = async (req, res) => {
     }
 };
 
-exports.getIntentions = async (req, res) => {
+export const getIntentions = async (req, res) => {
     try {
         const intentions = await Intention.find({ userId: req.userId }).sort({ createdAt: -1 });
 
@@ -40,7 +40,7 @@ exports.getIntentions = async (req, res) => {
     }
 };
 
-exports.deleteIntention = async (req, res) => {
+export const deleteIntention = async (req, res) => {
     try {
         const { id } = req.params;
         const intention = await Intention.findOneAndDelete({ _id: id, userId: req.userId });
