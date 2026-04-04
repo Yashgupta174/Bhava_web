@@ -17,6 +17,7 @@ import aiRoutes from "./routes/aiRoutes.js";
 import recentRoutes from "./routes/recentRoutes.js";
 import favoriteRoutes from "./routes/favoriteRoutes.js";
 import downloadRoutes from "./routes/downloadRoutes.js";
+import routineRoutes from "./routes/routineRoutes.js";
 
 // Load environment variables
 dotenv.config();
@@ -67,6 +68,7 @@ app.use("/api/ai", aiRoutes);
 app.use("/api/recent", recentRoutes);
 app.use("/api/favorites", favoriteRoutes);
 app.use("/api/downloads", downloadRoutes);
+app.use("/api/routines", routineRoutes);
 
 // Health check JSON
 app.get("/api/health", (req, res) => {
