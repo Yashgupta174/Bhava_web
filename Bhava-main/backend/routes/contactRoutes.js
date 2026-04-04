@@ -1,3 +1,4 @@
+import express from "express";
 import { submitContact, getContacts, deleteContact } from "../controllers/contactController.js";
 import { protect } from "../middleware/authMiddleware.js";
 
