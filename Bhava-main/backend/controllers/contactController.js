@@ -56,3 +56,18 @@ export const getContacts = async (req, res) => {
     res.status(500).json({ success: false, message: "Server error." });
   }
 };
+// DELETE /api/contact/:id — delete a message (protected, admin use)
+export const deleteContact = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const contact = await Contact.findByIdAndDelete(id);
+
+    if (!contact) {
+      return res.status(404).json({ success: false, message: "Contact query not found" });
+    }
+
+    res.status(200).json({ success: true, message: "Query resolved and removed" });
+  } catch (err) {
+    res.status(500).json({ success: false, message: "Server error." });
+  }
+};
