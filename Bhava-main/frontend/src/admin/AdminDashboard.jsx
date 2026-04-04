@@ -8,7 +8,8 @@ const CATEGORIES = [
   "Learning Path",
   "Timeless Wisdom",
   "Latest Teachings",
-  "Daily Inspiration"
+  "Daily Inspiration",
+  "Community Campaign"
 ];
 
 function AdminDashboard() {
