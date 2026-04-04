@@ -187,7 +187,7 @@ export const joinChallenge = async (req, res) => {
     }
 
     const User = (await import("../models/User.js")).default;
-    const user = await User.findById(req.user.id);
+    const user = await User.findById(req.userId);
 
     if (!user) {
       return res.status(404).json({ success: false, message: "User not found" });
@@ -218,5 +218,31 @@ export const joinChallenge = async (req, res) => {
   } catch (err) {
     console.error("Join Challenge Error:", err);
     res.status(500).json({ success: false, message: "Error joining challenge" });
+  }
+};
+
+// @desc    Get challenges joined by current user
+// @route   GET /api/challenges/my/joined
+// @access  Private
+export const getMyJoinedChallenges = async (req, res) => {
+  try {
+    const User = (await import("../models/User.js")).default;
+    const user = await User.findById(req.userId).populate({
+      path: "joinedChallenges",
+      select: "-sessions -hosts -detailsLongDescription"
+    });
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    res.status(200).json({ 
+      success: true, 
+      count: user.joinedChallenges.length, 
+      data: user.joinedChallenges 
+    });
+  } catch (err) {
+    console.error("Get Joined Challenges Error:", err);
+    res.status(500).json({ success: false, message: "Error fetching joined challenges" });
   }
 };

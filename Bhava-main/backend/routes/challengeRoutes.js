@@ -5,7 +5,8 @@ import {
   updateChallenge,
   deleteChallenge,
   getChallengeById,
-  joinChallenge
+  joinChallenge,
+  getMyJoinedChallenges
 } from "../controllers/challengeController.js";
 import { protect, admin } from "../middleware/authMiddleware.js";
 import upload from "../middleware/uploadMiddleware.js";
@@ -14,6 +15,7 @@ import upload from "../middleware/uploadMiddleware.js";
 const router = express.Router();
 
 router.get("/", getChallenges);
+router.get("/my/joined", protect, getMyJoinedChallenges);
 router.get("/:id", getChallengeById);
 router.post("/:id/join", protect, joinChallenge);
 router.post("/", protect, admin, upload.any(), createChallenge);
