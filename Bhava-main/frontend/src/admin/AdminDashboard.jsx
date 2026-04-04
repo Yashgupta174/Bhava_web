@@ -103,6 +103,28 @@ function AdminDashboard() {
     }
   };
 
+  const fetchInspirations = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const BASE = import.meta.env.VITE_API_URL || "";
+      const token = localStorage.getItem("bhava_token");
+      const res = await fetch(`${BASE}/api/inspirations`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const data = await res.json();
+      if (data.success) {
+        setInspirations(data.data);
+      } else {
+        setError(data.message || "Failed to fetch inspirations");
+      }
+    } catch (err) {
+      setError("Error connecting to server");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (isLoggedIn) {
       fetchChallenges();
