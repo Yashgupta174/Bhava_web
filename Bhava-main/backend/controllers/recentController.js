@@ -7,7 +7,7 @@ import Challenge from "../models/Challenge.js";
 export const addToRecent = async (req, res) => {
   try {
     const challengeId = req.params.id;
-    const userId = req.user.id;
+    const userId = req.userId;
 
     // Verify challenge exists
     const challenge = await Challenge.findById(challengeId);
@@ -25,7 +25,7 @@ export const addToRecent = async (req, res) => {
     res.status(200).json({ success: true, data: recent });
   } catch (error) {
     console.error("Error in addToRecent:", error);
-    res.status(500).json({ success: false, message: "Server error tracking recent activity" });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -34,7 +34,7 @@ export const addToRecent = async (req, res) => {
 // @access  Private
 export const getRecents = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.userId;
     const limit = parseInt(req.query.limit) || 20;
 
     const recents = await Recent.find({ user: userId })
@@ -48,6 +48,6 @@ export const getRecents = async (req, res) => {
     res.status(200).json({ success: true, count: data.length, data: data });
   } catch (error) {
     console.error("Error in getRecents:", error);
-    res.status(500).json({ success: false, message: "Server error fetching recent activity" });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
