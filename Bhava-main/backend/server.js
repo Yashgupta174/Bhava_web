@@ -14,6 +14,7 @@ import orderRoutes from "./routes/orderRoutes.js";
 import challengeRoutes from "./routes/challengeRoutes.js";
 import inspirationRoutes from "./routes/inspirationRoutes.js";
 import aiRoutes from "./routes/aiRoutes.js";
+import recentRoutes from "./routes/recentRoutes.js";
 
 // Load environment variables
 dotenv.config();
@@ -61,6 +62,7 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/challenges", challengeRoutes);
 app.use("/api/inspirations", inspirationRoutes);
 app.use("/api/ai", aiRoutes);
+app.use("/api/recent", recentRoutes);
 
 // Health check JSON
 app.get("/api/health", (req, res) => {
