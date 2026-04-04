@@ -7,16 +7,16 @@ import Challenge from "../models/Challenge.js";
 export const addDownload = async (req, res) => {
     try {
         const challengeId = req.params.id;
-        const userId = req.user._id;
+        const userId = req.userId; // Fixed: using req.userId from protect middleware
 
         const challenge = await Challenge.findById(challengeId);
         if (!challenge) {
-            return res.status(404).json({ message: "Challenge not found" });
+            return res.status(404).json({ success: false, message: "Challenge not found" });
         }
 
         const existingDownload = await Download.findOne({ user: userId, challenge: challengeId });
         if (existingDownload) {
-            return res.status(400).json({ message: "Challenge already in downloads" });
+            return res.status(400).json({ success: false, message: "Challenge already in downloads" });
         }
 
         await Download.create({
@@ -24,9 +24,9 @@ export const addDownload = async (req, res) => {
             challenge: challengeId
         });
 
-        res.status(201).json({ message: "Added to downloads" });
+        res.status(201).json({ success: true, message: "Added to downloads" });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ success: false, message: error.message });
     }
 };
 
@@ -35,7 +35,7 @@ export const addDownload = async (req, res) => {
 // @access  Private
 export const getDownloads = async (req, res) => {
     try {
-        const userId = req.user._id;
+        const userId = req.userId; // Fixed: using req.userId from protect middleware
         const downloads = await Download.find({ user: userId })
             .populate("challenge")
             .sort("-createdAt");
@@ -50,7 +50,7 @@ export const getDownloads = async (req, res) => {
             data: challenges
         });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ success: false, message: error.message });
     }
 };
 
@@ -59,16 +59,17 @@ export const getDownloads = async (req, res) => {
 // @access  Private
 export const checkDownload = async (req, res) => {
     try {
-        const userId = req.user._id;
+        const userId = req.userId; // Fixed: using req.userId from protect middleware
         const challengeId = req.params.id;
 
         const download = await Download.findOne({ user: userId, challenge: challengeId });
 
         res.json({
+            success: true,
             isDownloaded: !!download
         });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ success: false, message: error.message });
     }
 };
 
@@ -77,17 +78,17 @@ export const checkDownload = async (req, res) => {
 // @access  Private
 export const removeDownload = async (req, res) => {
     try {
-        const userId = req.user._id;
+        const userId = req.userId; // Fixed: using req.userId from protect middleware
         const challengeId = req.params.id;
 
         const download = await Download.findOneAndDelete({ user: userId, challenge: challengeId });
 
         if (!download) {
-            return res.status(404).json({ message: "Download record not found" });
+            return res.status(404).json({ success: false, message: "Download record not found" });
         }
 
-        res.json({ message: "Removed from downloads" });
+        res.json({ success: true, message: "Removed from downloads" });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ success: false, message: error.message });
     }
 };
