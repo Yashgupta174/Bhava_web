@@ -609,7 +609,7 @@ function AdminDashboard() {
                   )}
                 </div>
 
-                {activeTab !== "Daily Inspiration" && (
+                {activeTab !== "Daily Inspiration" && activeTab !== "Push Notifications" && (
                   <>
                     <div className={styles.formSection}>
                       <h4>2. Mentors / Guides (Stage 1 "Featuring")</h4>
@@ -668,71 +668,73 @@ function AdminDashboard() {
           </div>
 
           <div className={styles.tilesList}>
-            <h3>{activeTab === "User Queries" ? "Pending Customer Queries" : activeTab === "Daily Inspiration" ? "Managed Inspirations" : "Existing Tiles in MongoDB"}</h3>
-            {loading && !filteredChallenges.length ? (
-              <p>Fetching from database...</p>
-            ) : filteredChallenges.length === 0 ? (
-              <p className={styles.emptyText}>No content found for this section.</p>
-            ) : (
-              <div className={activeTab === "User Queries" ? styles.queryList : styles.grid}>
-                {filteredChallenges.map((item) => (
-                  <div key={item._id} className={activeTab === "User Queries" ? styles.queryCard : styles.tileCard}>
-                    {activeTab === "User Queries" ? (
-                      <>
-                        <div className={styles.queryHeader}>
-                          <span className={styles.queryName}>{item.name}</span>
-                          <span className={styles.queryDate}>{new Date(item.createdAt).toLocaleDateString()}</span>
-                        </div>
-                        <div className={styles.queryContact}>
-                          <span>{item.mobile}</span> | <span>{item.email}</span>
-                        </div>
-                        <p className={styles.queryText}>{item.description}</p>
-                        <button onClick={() => handleResolveContact(item._id)} className={styles.resolveBtn} disabled={loading}>
-                          Mark as Resolved
-                        </button>
-                      </>
-                    ) : (
-                      <>
-                        {activeTab !== "Daily Inspiration" && (
-                          item.image ? (
-                            <img src={item.image.startsWith('/') ? `${import.meta.env.VITE_API_URL || ''}${item.image}` : item.image} alt={item.title} className={styles.tileImg} />
-                          ) : (
-                            <div className={styles.tileImgPlaceholder}>No Image</div>
-                          )
-                        )}
-
-                        <div className={styles.tileBody}>
-                          <h4>{activeTab === "Daily Inspiration" ? item.source : item.title}</h4>
-                          <p className={styles.tileDesc}>
-                            {activeTab === "Daily Inspiration" ? item.content : item.description?.substring(0, 50) + "..."}
-                          </p>
-                          {activeTab === "Daily Inspiration" && item.author && (
-                             <p className={styles.tileAuthor}>— {item.author}</p>
-                          )}
-                          
-                          {activeTab !== "Daily Inspiration" && (
-                            <div className={styles.tileMeta}>
-                              {item.badgeText && <span>{item.badgeText}</span>}
-                              {item.durationText && <span>{item.durationText}</span>}
-                              {item.isHero && <span className={styles.heroBadge}>⭐ MAIN HERO</span>}
-                            </div>
-                          )}
-                          <div className={styles.actionRow}>
-                            <button onClick={() => handleDeleteTile(item._id)} className={styles.deleteBtn} disabled={loading}>
-                              Delete {activeTab === "Daily Inspiration" ? "Quote" : "Tile"}
-                            </button>
-                            {activeTab === "Active Challenges" && !item.isHero && (
-                              <button onClick={() => handleSetHero(item._id)} className={styles.heroBtn} disabled={loading}>
-                                Set as Main Hero
-                              </button>
-                            )}
+            <h3>{activeTab === "User Queries" ? "Pending Customer Queries" : activeTab === "Daily Inspiration" ? "Managed Inspirations" : activeTab === "Push Notifications" ? "" : "Existing Tiles in MongoDB"}</h3>
+            {activeTab !== "Push Notifications" && (
+              loading && !filteredChallenges.length ? (
+                <p>Fetching from database...</p>
+              ) : filteredChallenges.length === 0 ? (
+                <p className={styles.emptyText}>No content found for this section.</p>
+              ) : (
+                <div className={activeTab === "User Queries" ? styles.queryList : styles.grid}>
+                  {filteredChallenges.map((item) => (
+                    <div key={item._id} className={activeTab === "User Queries" ? styles.queryCard : styles.tileCard}>
+                      {activeTab === "User Queries" ? (
+                        <>
+                          <div className={styles.queryHeader}>
+                            <span className={styles.queryName}>{item.name}</span>
+                            <span className={styles.queryDate}>{new Date(item.createdAt).toLocaleDateString()}</span>
                           </div>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                ))}
-              </div>
+                          <div className={styles.queryContact}>
+                            <span>{item.mobile}</span> | <span>{item.email}</span>
+                          </div>
+                          <p className={styles.queryText}>{item.description}</p>
+                          <button onClick={() => handleResolveContact(item._id)} className={styles.resolveBtn} disabled={loading}>
+                            Mark as Resolved
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          {activeTab !== "Daily Inspiration" && (
+                            item.image ? (
+                              <img src={item.image.startsWith('/') ? `${import.meta.env.VITE_API_URL || ''}${item.image}` : item.image} alt={item.title} className={styles.tileImg} />
+                            ) : (
+                              <div className={styles.tileImgPlaceholder}>No Image</div>
+                            )
+                          )}
+
+                          <div className={styles.tileBody}>
+                            <h4>{activeTab === "Daily Inspiration" ? item.source : item.title}</h4>
+                            <p className={styles.tileDesc}>
+                              {activeTab === "Daily Inspiration" ? item.content : item.description?.substring(0, 50) + "..."}
+                            </p>
+                            {activeTab === "Daily Inspiration" && item.author && (
+                               <p className={styles.tileAuthor}>— {item.author}</p>
+                            )}
+                            
+                            {activeTab !== "Daily Inspiration" && (
+                              <div className={styles.tileMeta}>
+                                {item.badgeText && <span>{item.badgeText}</span>}
+                                {item.durationText && <span>{item.durationText}</span>}
+                                {item.isHero && <span className={styles.heroBadge}>⭐ MAIN HERO</span>}
+                              </div>
+                            )}
+                            <div className={styles.actionRow}>
+                              <button onClick={() => handleDeleteTile(item._id)} className={styles.deleteBtn} disabled={loading}>
+                                Delete {activeTab === "Daily Inspiration" ? "Quote" : "Tile"}
+                              </button>
+                              {activeTab === "Active Challenges" && !item.isHero && (
+                                <button onClick={() => handleSetHero(item._id)} className={styles.heroBtn} disabled={loading}>
+                                  Set as Main Hero
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )
             )}
           </div>
         </div>
