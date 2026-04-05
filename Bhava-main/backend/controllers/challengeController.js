@@ -18,6 +18,23 @@ export const getChallenges = async (req, res) => {
   }
 };
 
+// @desc    Get the current hero challenge
+// @route   GET /api/challenges/hero
+// @access  Public
+export const getHeroChallenge = async (req, res) => {
+  try {
+    const hero = await Challenge.findOne({ isHero: true }).lean();
+    if (!hero) {
+      // Return 200 with success:false so the app can fallback to default UI
+      return res.status(200).json({ success: false, message: "No hero challenge set" });
+    }
+    res.status(200).json({ success: true, data: hero });
+  } catch (err) {
+    console.error("Error fetching hero:", err);
+    res.status(500).json({ success: false, message: "Error fetching hero" });
+  }
+};
+
 // @desc    Get single challenge by ID
 // @route   GET /api/challenges/:id
 // @access  Public
@@ -173,6 +190,32 @@ export const deleteChallenge = async (req, res) => {
     res.status(200).json({ success: true, message: "Challenge removed" });
   } catch (err) {
     res.status(400).json({ success: false, message: err.message });
+  }
+};
+
+// @desc    Set a challenge as hero
+// @route   PATCH /api/challenges/:id/hero
+// @access  Private/Admin
+export const setHeroChallenge = async (req, res) => {
+  try {
+    // 1. Unset any existing hero
+    await Challenge.updateMany({ isHero: true }, { isHero: false });
+
+    // 2. Set the new hero
+    const challenge = await Challenge.findByIdAndUpdate(
+      req.params.id, 
+      { isHero: true }, 
+      { new: true }
+    );
+
+    if (!challenge) {
+      return res.status(404).json({ success: false, message: "Challenge not found" });
+    }
+
+    res.status(200).json({ success: true, message: "New hero challenge set", data: challenge });
+  } catch (err) {
+    console.error("Set Hero Error:", err);
+    res.status(500).json({ success: false, message: "Error setting hero" });
   }
 };
 

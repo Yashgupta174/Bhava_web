@@ -35,9 +35,11 @@ const challengeSchema = new mongoose.Schema({
   startDate: { type: Date },
   hosts: [hostSchema],
   sessions: [sessionSchema],
+  isHero: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now }
 });
 
+challengeSchema.index({ isHero: 1 });
 challengeSchema.index({ category: 1 });
 challengeSchema.index({ createdAt: -1 });
 

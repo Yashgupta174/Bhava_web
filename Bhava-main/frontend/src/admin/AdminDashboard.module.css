@@ -283,6 +283,16 @@
   font-weight: 600;
 }
 
+.heroBadge {
+  background-color: #fff9c4;
+  color: #fbc02d;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border: 1px solid #fdd835;
+}
+
 .deleteBtn {
   background-color: #ffebee;
   color: #c62828;
@@ -297,6 +307,32 @@
 
 .deleteBtn:hover:not(:disabled) {
   background-color: #ffcdd2;
+}
+
+.actionRow {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.heroBtn {
+  flex: 1;
+  background-color: #e65100;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.heroBtn:hover:not(:disabled) {
+  background-color: #bf4300;
+}
+
+.deleteBtn {
+  flex: 1;
 }
 
 .deleteBtn:disabled {

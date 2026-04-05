@@ -382,6 +382,36 @@ function AdminDashboard() {
     }
   };
 
+  const handleSetHero = async (id) => {
+    if (!window.confirm("Set this as the main Home Hero challenge? This will replace the current one.")) return;
+
+    setLoading(true);
+    setError("");
+    setSuccess("");
+
+    const BASE = import.meta.env.VITE_API_URL || "";
+    const token = localStorage.getItem("bhava_token");
+
+    try {
+      const res = await fetch(`${BASE}/api/challenges/${id}/hero`, {
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        setSuccess("New Home Hero set successfully!");
+        fetchChallenges();
+      } else {
+        setError(data.message || "Failed to set hero");
+      }
+    } catch (err) {
+      setError("Error setting hero. Connection failed.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const filteredChallenges = activeTab === "Daily Inspiration" 
     ? inspirations 
     : activeTab === "User Queries"
@@ -621,11 +651,19 @@ function AdminDashboard() {
                             <div className={styles.tileMeta}>
                               {item.badgeText && <span>{item.badgeText}</span>}
                               {item.durationText && <span>{item.durationText}</span>}
+                              {item.isHero && <span className={styles.heroBadge}>⭐ MAIN HERO</span>}
                             </div>
                           )}
-                          <button onClick={() => handleDeleteTile(item._id)} className={styles.deleteBtn} disabled={loading}>
-                            Delete {activeTab === "Daily Inspiration" ? "Quote" : "Tile"}
-                          </button>
+                          <div className={styles.actionRow}>
+                            <button onClick={() => handleDeleteTile(item._id)} className={styles.deleteBtn} disabled={loading}>
+                              Delete {activeTab === "Daily Inspiration" ? "Quote" : "Tile"}
+                            </button>
+                            {activeTab === "Active Challenges" && !item.isHero && (
+                              <button onClick={() => handleSetHero(item._id)} className={styles.heroBtn} disabled={loading}>
+                                Set as Main Hero
+                              </button>
+                            )}
+                          </div>
                         </div>
                       </>
                     )}
