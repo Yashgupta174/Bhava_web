@@ -113,7 +113,7 @@ export const createChallenge = async (req, res) => {
     console.error("CRITICAL Create Challenge Error:", err);
     
     // Better Mongoose error handling to reveal exactly what's failing (e.g. enum validation)
-    let message = "Internal server error during creation";
+    let message = err.message || "Internal server error during creation";
     if (err.name === "ValidationError") {
       message = Object.values(err.errors).map(val => val.message).join(", ");
     } else if (err.code === 11000) {

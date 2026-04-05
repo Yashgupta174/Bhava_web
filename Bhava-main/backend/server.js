@@ -19,6 +19,7 @@ import favoriteRoutes from "./routes/favoriteRoutes.js";
 import downloadRoutes from "./routes/downloadRoutes.js";
 import routineRoutes from "./routes/routineRoutes.js";
 import intentionRoutes from "./routes/intentionRoutes.js";
+import notificationRoutes from "./routes/notificationRoutes.js";
 
 // Load environment variables
 dotenv.config();
@@ -71,6 +72,7 @@ app.use("/api/favorites", favoriteRoutes);
 app.use("/api/downloads", downloadRoutes);
 app.use("/api/routines", routineRoutes);
 app.use("/api/intentions", intentionRoutes);
+app.use("/api/notifications", notificationRoutes);
 
 // Health check JSON
 app.get("/api/health", (req, res) => {

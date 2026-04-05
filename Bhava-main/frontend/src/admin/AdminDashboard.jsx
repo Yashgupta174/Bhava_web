@@ -10,7 +10,8 @@ const CATEGORIES = [
   "Latest Teachings",
   "Daily Inspiration",
   "Community Campaign",
-  "User Queries"
+  "User Queries",
+  "Push Notifications"
 ];
 
 function AdminDashboard() {
@@ -193,10 +194,54 @@ function AdminDashboard() {
     }
   };
 
+  const handleSendNotification = async (e) => {
+    e.preventDefault();
+    if (!formData.title || !formData.description) {
+      return setError("Notification Title and Message Body are required");
+    }
+
+    setLoading(true);
+    setError("");
+    setSuccess("");
+
+    const BASE = import.meta.env.VITE_API_URL || "";
+    const token = localStorage.getItem("bhava_token");
+
+    try {
+      const res = await fetch(`${BASE}/api/notifications/send`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          title: formData.title,
+          body: formData.description
+        })
+      });
+      const resData = await res.json();
+
+      if (resData.success) {
+        setSuccess("Push notification sent successfully to all users!");
+        setFormData((prev) => ({ ...prev, title: "", description: "" }));
+      } else {
+        setError(resData.message || "Failed to send notification. Ensure firebase-admin.json is configured.");
+      }
+    } catch (err) {
+      setError("Error sending notification. Connection failed.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   const handleAddTile = async (e) => {
     e.preventDefault();
     
+    if (activeTab === "Push Notifications") {
+      return handleSendNotification(e);
+    }
+
     if (activeTab === "Daily Inspiration") {
       return handleAddInspiration(e);
     }
@@ -251,6 +296,7 @@ function AdminDashboard() {
         body: data
       });
       const resData = await res.json();
+      console.log("Creation Response:", resData);
 
       if (resData.success) {
         setSuccess("Tile saved successfully into MongoDB!");
@@ -262,10 +308,12 @@ function AdminDashboard() {
         setSessions([{ title: "", subtitle: "", audioUrl: "", tags: "" }]);
         fetchChallenges();
       } else {
-        setError(resData.message || "Failed to add tile");
+        setError(resData.message || "Server Error: See console for details");
+        console.error("Creation Failure:", resData);
       }
     } catch (err) {
-      setError("Error adding tile. Ensure backend is running.");
+      console.error("Network or Parsing Error:", err);
+      setError("Error adding tile. " + err.message);
     } finally {
       setLoading(false);
     }
@@ -416,6 +464,8 @@ function AdminDashboard() {
     ? inspirations 
     : activeTab === "User Queries"
     ? contacts
+    : activeTab === "Push Notifications"
+    ? []
     : challenges.filter((c) => c.category === activeTab);
 
   if (!isLoggedIn) {
@@ -477,6 +527,8 @@ function AdminDashboard() {
             <p className={styles.formHint}>
               {activeTab === "Daily Inspiration" 
                 ? "Manage spiritual quotes that appear in the 'Daily Inspiration' carousel on the app." 
+                : activeTab === "Push Notifications"
+                ? "Send a real-time push notification to every user who has the Bhava app installed."
                 : "Fill this to generate the Stage 1 (Detail) and Stage 2 (Player) views."}
             </p>
             
@@ -502,6 +554,17 @@ function AdminDashboard() {
                       <div className={styles.inputGroup}>
                         <label>Spiritual Quote Content *</label>
                         <textarea name="description" value={formData.description} onChange={handleChange} rows="4" placeholder="Enter the inspiration quote here..." required />
+                      </div>
+                    </>
+                  ) : activeTab === "Push Notifications" ? (
+                    <>
+                      <div className={styles.inputGroup}>
+                        <label>Notification Title *</label>
+                        <input type="text" name="title" value={formData.title} onChange={handleChange} placeholder="e.g. New Challenge Available!" required />
+                      </div>
+                      <div className={styles.inputGroup}>
+                        <label>Message Body *</label>
+                        <textarea name="description" value={formData.description} onChange={handleChange} rows="4" placeholder="Enter the message you want users to see..." required />
                       </div>
                     </>
                   ) : (
@@ -598,7 +661,7 @@ function AdminDashboard() {
                 )}
 
                 <button type="submit" className={styles.submitBtn} disabled={loading}>
-                  {loading ? "Syncing..." : activeTab === "Daily Inspiration" ? "Save Inspiration" : "Save Content Tile"}
+                  {loading ? "Syncing..." : activeTab === "Daily Inspiration" ? "Save Inspiration" : activeTab === "Push Notifications" ? "Push to All Users" : "Save Content Tile"}
                 </button>
               </form>
             )}
