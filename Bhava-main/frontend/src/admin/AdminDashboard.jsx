@@ -225,10 +225,13 @@ function AdminDashboard() {
         setSuccess("Push notification sent successfully to all users!");
         setFormData((prev) => ({ ...prev, title: "", description: "" }));
       } else {
-        setError(resData.message || "Failed to send notification. Ensure firebase-admin.json is configured.");
+        setError(resData.message || "Failed to send notification.");
+        if (resData.error) {
+          setError(resData.message + ": " + resData.error);
+        }
       }
     } catch (err) {
-      setError("Error sending notification. Connection failed.");
+      setError("Error sending notification. Connection failed. " + err.message);
     } finally {
       setLoading(false);
     }
