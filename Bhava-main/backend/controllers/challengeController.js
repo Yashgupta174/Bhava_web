@@ -28,7 +28,8 @@ export const getHeroChallenge = async (req, res) => {
       // Return 200 with success:false so the app can fallback to default UI
       return res.status(200).json({ success: false, message: "No hero challenge set" });
     }
-    res.status(200).json({ success: true, data: hero });
+    // Return inside an array to match ChallengesResponse model
+    res.status(200).json({ success: true, data: [hero] });
   } catch (err) {
     console.error("Error fetching hero:", err);
     res.status(500).json({ success: false, message: "Error fetching hero" });
@@ -110,9 +111,20 @@ export const createChallenge = async (req, res) => {
     res.status(201).json({ success: true, data: challenge });
   } catch (err) {
     console.error("CRITICAL Create Challenge Error:", err);
+    
+    // Better Mongoose error handling to reveal exactly what's failing (e.g. enum validation)
+    let message = "Internal server error during creation";
+    if (err.name === "ValidationError") {
+      message = Object.values(err.errors).map(val => val.message).join(", ");
+    } else if (err.code === 11000) {
+      message = "Duplicate key error: A challenge with this unique property already exists.";
+    } else if (err.name === "CastError") {
+      message = `Invalid data format for field: ${err.path}`;
+    }
+
     res.status(500).json({ 
       success: false, 
-      message: err.name === "ValidationError" ? err.message : "Internal server error during creation",
+      message: message,
       errorDetails: process.env.NODE_ENV === "production" ? undefined : err.message
     });
   }

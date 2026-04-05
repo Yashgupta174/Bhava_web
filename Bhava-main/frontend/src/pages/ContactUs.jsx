@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import styles from "./ContactUs.module.css";
 
 const BASE = import.meta.env.VITE_API_URL || "";
@@ -122,10 +123,15 @@ function ContactUs() {
 
   return (
     <div className={styles.page}>
-      <div className={styles.card}>
+      <motion.div 
+        className={styles.card}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
 
         <button className={styles.backArrow} onClick={() => navigate(-1)}>
-          ← Back
+          <span>←</span> Back
         </button>
 
         <div className={styles.header}>
@@ -247,7 +253,7 @@ function ContactUs() {
           </button>
 
         </form>
-      </div>
+      </motion.div>
     </div>
   );
 }
