@@ -124,8 +124,31 @@ if (!MONGO_URI) {
 
 mongoose
   .connect(MONGO_URI)
-  .then(() => {
+  .then(async () => {
     console.log("✅ Successfully connected to MongoDB Atlas");
+    try {
+      const { default: User } = await import("./models/User.js");
+      const adminData = {
+          name: "admin",
+          email: "admin123@gmail.com",
+          password: "admin123",
+          role: "admin",
+          isVerified: true
+      };
+      const existingUser = await User.findOne({ email: adminData.email });
+      if (existingUser) {
+          existingUser.role = "admin";
+          existingUser.password = adminData.password;
+          await existingUser.save();
+          console.log("Admin account updated successfully!");
+      } else {
+          await User.create(adminData);
+          console.log("Admin account created successfully!");
+      }
+    } catch (err) {
+      console.error("Failed to seed admin:", err.message);
+    }
+
     app.listen(PORT, () => {
       console.log(`🚀 Server is live on port ${PORT}`);
       console.log(`📡 URL: http://localhost:${PORT}`);
