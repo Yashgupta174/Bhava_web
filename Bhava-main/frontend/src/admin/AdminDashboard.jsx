@@ -10,6 +10,7 @@ const CATEGORIES = [
   "Latest Teachings",
   "Daily Inspiration",
   "Community Campaign",
+  "Community Groups",
   "User Queries",
   "Push Notifications"
 ];
@@ -22,6 +23,7 @@ function AdminDashboard() {
   const [challenges, setChallenges] = useState([]);
   const [inspirations, setInspirations] = useState([]);
   const [contacts, setContacts] = useState([]);
+  const [communities, setCommunities] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -38,6 +40,7 @@ function AdminDashboard() {
 
   const [hosts, setHosts] = useState([{ name: "", title: "", initials: "" }]);
   const [sessions, setSessions] = useState([{ title: "", subtitle: "", audioUrl: "", tags: "" }]);
+  const [contentBlocks, setContentBlocks] = useState([{ type: "text", value: "" }]);
 
   // ── Host Handlers ──
   const addHost = () => setHosts([...hosts, { name: "", title: "", initials: "" }]);
@@ -60,6 +63,16 @@ function AdminDashboard() {
       newSessions[index][name] = value;
     }
     setSessions(newSessions);
+  };
+
+  // ── Community Block Handlers ──
+  const addBlock = () => setContentBlocks([...contentBlocks, { type: "text", value: "" }]);
+  const removeBlock = (index) => setContentBlocks(contentBlocks.filter((_, i) => i !== index));
+  const handleBlockChange = (index, e) => {
+    const { name, value } = e.target;
+    const newBlocks = [...contentBlocks];
+    newBlocks[index][name] = value;
+    setContentBlocks(newBlocks);
   };
 
 
@@ -104,20 +117,17 @@ function AdminDashboard() {
     }
   };
 
-  const fetchInspirations = async () => {
+  const fetchCommunities = async () => {
     setLoading(true);
     setError("");
     try {
       const BASE = import.meta.env.VITE_API_URL || "";
-      const token = localStorage.getItem("bhava_token");
-      const res = await fetch(`${BASE}/api/inspirations`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const res = await fetch(`${BASE}/api/community`);
       const data = await res.json();
       if (data.success) {
-        setInspirations(data.data);
+        setCommunities(data.data);
       } else {
-        setError(data.message || "Failed to fetch inspirations");
+        setError(data.message || "Failed to fetch communities");
       }
     } catch (err) {
       setError("Error connecting to server");
@@ -131,6 +141,7 @@ function AdminDashboard() {
       fetchChallenges();
       fetchInspirations();
       fetchContacts();
+      fetchCommunities();
     }
   }, [isLoggedIn]);
 
@@ -238,9 +249,55 @@ function AdminDashboard() {
   };
 
 
+  const handleAddCommunity = async (e) => {
+    e.preventDefault();
+    if (!formData.title) return setError("Community Name is required");
+
+    setLoading(true);
+    setError("");
+    setSuccess("");
+
+    const BASE = import.meta.env.VITE_API_URL || "";
+    const token = localStorage.getItem("bhava_token");
+
+    try {
+      const res = await fetch(`${BASE}/api/community`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          name: formData.title,
+          description: formData.description,
+          coverImage: formData.image, // Use URL variant for simplicity for now
+          contentBlocks: contentBlocks
+        })
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        setSuccess("Community Group created successfully!");
+        setFormData({ title: "", description: "", image: "", badgeText: "", durationText: "", fullSubtitle: "", detailsLongDescription: "" });
+        setContentBlocks([{ type: "text", value: "" }]);
+        fetchCommunities();
+      } else {
+        setError(data.message || "Failed to create community");
+      }
+    } catch (err) {
+      setError("Error creating community. Connection failed.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleAddTile = async (e) => {
     e.preventDefault();
     
+    if (activeTab === "Community Groups") {
+      return handleAddCommunity(e);
+    }
+
     if (activeTab === "Push Notifications") {
       return handleSendNotification(e);
     }
@@ -465,6 +522,8 @@ function AdminDashboard() {
 
   const filteredChallenges = activeTab === "Daily Inspiration" 
     ? inspirations 
+    : activeTab === "Community Groups"
+    ? communities
     : activeTab === "User Queries"
     ? contacts
     : activeTab === "Push Notifications"
@@ -544,7 +603,53 @@ function AdminDashboard() {
                     <input type="text" name="title" value={formData.title} onChange={handleChange} placeholder={activeTab === "Daily Inspiration" ? "e.g. BHAGAVAD GITA" : "e.g. Daily Pooja"} required />
                   </div>
                   
-                  {activeTab === "Daily Inspiration" ? (
+                  {activeTab === "Community Groups" ? (
+                    <>
+                      <div className={styles.inputGroup}>
+                        <label>Group Name *</label>
+                        <input type="text" name="title" value={formData.title} onChange={handleChange} placeholder="e.g. Daily Meditation Sangha" required />
+                      </div>
+                      <div className={styles.inputGroup}>
+                        <label>Short Description</label>
+                        <textarea name="description" value={formData.description} onChange={handleChange} rows="2" placeholder="Tell people what this group is about..." />
+                      </div>
+                      <div className={styles.inputGroup}>
+                        <label>Cover Image URL</label>
+                        <input type="text" name="image" value={typeof formData.image === 'string' ? formData.image : ''} onChange={handleChange} placeholder="https://..." />
+                      </div>
+
+                      <div className={styles.formSection}>
+                        <h4>Content Blocks (Detailed Page)</h4>
+                        {contentBlocks.map((block, index) => (
+                          <div key={index} className={styles.arrayItemCard}>
+                            <div className={styles.itemHeader}>
+                              <span>Block #{index + 1}</span>
+                              <button type="button" onClick={() => removeBlock(index)} className={styles.removeBtn}>✕</button>
+                            </div>
+                            <div className={styles.row}>
+                              <div className={styles.inputGroup}>
+                                <label>Type</label>
+                                <select name="type" value={block.type} onChange={(e) => handleBlockChange(index, e)}>
+                                  <option value="text">Paragraph / Text</option>
+                                  <option value="image">Image URL</option>
+                                  <option value="video">Video URL (MP4/YouTube)</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div className={styles.inputGroup}>
+                              <label>{block.type === 'text' ? 'Content Text' : 'Media URL'}</label>
+                              {block.type === 'text' ? (
+                                <textarea name="value" value={block.value} onChange={(e) => handleBlockChange(index, e)} rows="3" placeholder="Enter text content..." />
+                              ) : (
+                                <input type="text" name="value" value={block.value} onChange={(e) => handleBlockChange(index, e)} placeholder="https://..." />
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                        <button type="button" onClick={addBlock} className={styles.addBtn}>+ Add Content Block</button>
+                      </div>
+                    </>
+                  ) : activeTab === "Daily Inspiration" ? (
                     <>
                       <div className={styles.inputGroup}>
                         <label>Source / Script (e.g. BHAGAVAD GITA) *</label>
@@ -664,7 +769,7 @@ function AdminDashboard() {
                 )}
 
                 <button type="submit" className={styles.submitBtn} disabled={loading}>
-                  {loading ? "Syncing..." : activeTab === "Daily Inspiration" ? "Save Inspiration" : activeTab === "Push Notifications" ? "Push to All Users" : "Save Content Tile"}
+                  {loading ? "Syncing..." : activeTab === "Community Groups" ? "Post Community Group" : activeTab === "Daily Inspiration" ? "Save Inspiration" : activeTab === "Push Notifications" ? "Push to All Users" : "Save Content Tile"}
                 </button>
               </form>
             )}
@@ -706,31 +811,49 @@ function AdminDashboard() {
                           )}
 
                           <div className={styles.tileBody}>
-                            <h4>{activeTab === "Daily Inspiration" ? item.source : item.title}</h4>
-                            <p className={styles.tileDesc}>
-                              {activeTab === "Daily Inspiration" ? item.content : item.description?.substring(0, 50) + "..."}
-                            </p>
-                            {activeTab === "Daily Inspiration" && item.author && (
-                               <p className={styles.tileAuthor}>— {item.author}</p>
+                            {activeTab === "Community Groups" ? (
+                              <>
+                                <h4>{item.name}</h4>
+                                <p className={styles.tileDesc}>{item.description}</p>
+                                <div className={styles.tileMeta}>
+                                  <span>{item.contentBlocks?.length || 0} Content Blocks</span>
+                                  <span>Invite Link: {item.shareLink?.substring(0, 8)}...</span>
+                                </div>
+                                <div className={styles.actionRow}>
+                                  <button onClick={() => handleDeleteTile(item._id)} className={styles.deleteBtn} disabled={loading}>
+                                    Delete Group
+                                  </button>
+                                </div>
+                              </>
+                            ) : (
+                              <>
+                                <h4>{activeTab === "Daily Inspiration" ? item.source : item.title}</h4>
+                                <p className={styles.tileDesc}>
+                                  {activeTab === "Daily Inspiration" ? item.content : item.description?.substring(0, 50) + "..."}
+                                </p>
+                                {activeTab === "Daily Inspiration" && item.author && (
+                                   <p className={styles.tileAuthor}>— {item.author}</p>
+                                )}
+                                
+                                {activeTab !== "Daily Inspiration" && (
+                                  <div className={styles.tileMeta}>
+                                    {item.badgeText && <span>{item.badgeText}</span>}
+                                    {item.durationText && <span>{item.durationText}</span>}
+                                    {item.isHero && <span className={styles.heroBadge}>⭐ MAIN HERO</span>}
+                                  </div>
+                                )}
+                                <div className={styles.actionRow}>
+                                  <button onClick={() => handleDeleteTile(item._id)} className={styles.deleteBtn} disabled={loading}>
+                                    Delete {activeTab === "Daily Inspiration" ? "Quote" : "Tile"}
+                                  </button>
+                                  {activeTab === "Active Challenges" && !item.isHero && (
+                                    <button onClick={() => handleSetHero(item._id)} className={styles.heroBtn} disabled={loading}>
+                                      Set as Main Hero
+                                    </button>
+                                  )}
+                                </div>
+                              </>
                             )}
-                            
-                            {activeTab !== "Daily Inspiration" && (
-                              <div className={styles.tileMeta}>
-                                {item.badgeText && <span>{item.badgeText}</span>}
-                                {item.durationText && <span>{item.durationText}</span>}
-                                {item.isHero && <span className={styles.heroBadge}>⭐ MAIN HERO</span>}
-                              </div>
-                            )}
-                            <div className={styles.actionRow}>
-                              <button onClick={() => handleDeleteTile(item._id)} className={styles.deleteBtn} disabled={loading}>
-                                Delete {activeTab === "Daily Inspiration" ? "Quote" : "Tile"}
-                              </button>
-                              {activeTab === "Active Challenges" && !item.isHero && (
-                                <button onClick={() => handleSetHero(item._id)} className={styles.heroBtn} disabled={loading}>
-                                  Set as Main Hero
-                                </button>
-                              )}
-                            </div>
                           </div>
                         </>
                       )}

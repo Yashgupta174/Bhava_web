@@ -28,6 +28,7 @@ const sendResponse = (res, statusCode, user, message) => {
       phoneNumber: user.phoneNumber,
       location: user.location,
       createdAt: user.createdAt,
+      streakCount: user.streakCount || 0,
     },
   });
 };
@@ -104,8 +105,80 @@ export const getMe = async (req, res) => {
     if (!user) {
       return res.status(404).json({ success: false, message: "User not found" });
     }
+
+    // --- Streak Reset Logic ---
+    const today = new Date().toISOString().split("T")[0];
+    const lastStreak = user.lastStreakDate;
+    
+    if (lastStreak && lastStreak !== today) {
+        const lastDate = new Date(lastStreak);
+        const todayDate = new Date(today);
+        const diffDays = Math.floor((todayDate - lastDate) / (1000 * 60 * 60 * 24));
+        
+        if (diffDays > 1) {
+            user.streakCount = 0;
+            await user.save({ validateBeforeSave: false });
+        }
+    }
+
     res.status(200).json({ success: true, user });
   } catch (err) {
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+// PATCH /api/auth/activity (protected)
+export const updateActivity = async (req, res) => {
+  try {
+    const { minutes } = req.body;
+    if (minutes === undefined) {
+        return res.status(400).json({ success: false, message: "Minutes required" });
+    }
+
+    const user = await User.findById(req.userId);
+    if (!user) {
+        return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    const today = new Date().toISOString().split("T")[0];
+
+    // Reset daily minutes if it's a new day
+    if (user.lastActiveDate !== today) {
+        user.dailyActiveMinutes = 0;
+        user.lastActiveDate = today;
+    }
+
+    user.dailyActiveMinutes += minutes;
+
+    // Check for streak goal (20 minutes)
+    if (user.dailyActiveMinutes >= 20 && user.lastStreakDate !== today) {
+        const lastStreak = user.lastStreakDate;
+        if (lastStreak) {
+            const lastDate = new Date(lastStreak);
+            const todayDate = new Date(today);
+            const diffDays = Math.floor((todayDate - lastDate) / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 1) {
+                user.streakCount += 1;
+            } else if (diffDays > 1) {
+                user.streakCount = 1;
+            }
+            // if diffDays is 0, already set for today, handled by user.lastStreakDate !== today
+        } else {
+            user.streakCount = 1;
+        }
+        user.lastStreakDate = today;
+    }
+
+    await user.save({ validateBeforeSave: false });
+
+    res.status(200).json({ 
+        success: true, 
+        streakCount: user.streakCount,
+        dailyActiveMinutes: user.dailyActiveMinutes 
+    });
+  } catch (err) {
+    console.error("Activity Update Error:", err);
     res.status(500).json({ success: false, message: "Server error" });
   }
 };
@@ -146,6 +219,7 @@ export const updateMe = async (req, res) => {
         phoneNumber: user.phoneNumber,
         location: user.location,
         createdAt: user.createdAt,
+        streakCount: user.streakCount || 0,
       },
     });
   } catch (err) {

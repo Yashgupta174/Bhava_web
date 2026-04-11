@@ -62,6 +62,22 @@ const userSchema = new mongoose.Schema(
         ref: "Challenge",
       },
     ],
+    streakCount: {
+      type: Number,
+      default: 0,
+    },
+    lastStreakDate: {
+      type: String, // format YYYY-MM-DD
+      default: "",
+    },
+    dailyActiveMinutes: {
+      type: Number,
+      default: 0,
+    },
+    lastActiveDate: {
+      type: String, // format YYYY-MM-DD
+      default: "",
+    },
   },
   { timestamps: true }
 );
