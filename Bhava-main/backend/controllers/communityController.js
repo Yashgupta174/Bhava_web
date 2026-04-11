@@ -31,7 +31,7 @@ export const createCommunity = async (req, res) => {
       description,
       coverImage,
       contentBlocks,
-      postedBy: req.user._id,
+      postedBy: req.userId,
       shareLink: uuidv4()
     });
 
