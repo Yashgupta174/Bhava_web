@@ -34,24 +34,25 @@ export const addDownload = async (req, res) => {
 // @route   GET /api/downloads
 // @access  Private
 export const getDownloads = async (req, res) => {
-    try {
-        const userId = req.userId; // Fixed: using req.userId from protect middleware
-        const downloads = await Download.find({ user: userId })
-            .populate("challenge")
-            .sort("-createdAt");
+  try {
+    const userId = req.userId;
+    const downloads = await Download.find({ user: userId })
+      .sort({ createdAt: -1 })
+      .populate("challenge");
 
-        const challenges = downloads
-            .filter(d => d.challenge != null)
-            .map(d => d.challenge);
+    console.log(`[DOWNLOADS] Found ${downloads.length} records for user ${userId}`);
 
-        res.json({
-            success: true,
-            count: challenges.length,
-            data: challenges
-        });
-    } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
-    }
+    const data = downloads
+      .filter(d => d.challenge != null)
+      .map(d => d.challenge);
+
+    console.log(`[DOWNLOADS] Returning ${data.length} valid challenges`);
+
+    res.status(200).json({ success: true, count: data.length, data: data });
+  } catch (error) {
+    console.error("[DOWNLOADS ERROR]", error);
+    res.status(500).json({ success: false, message: error.message });
+  }
 };
 
 // @desc    Check if a challenge is downloaded

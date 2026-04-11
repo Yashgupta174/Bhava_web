@@ -58,12 +58,18 @@ export const getFavorites = async (req, res) => {
       .sort({ createdAt: -1 })
       .populate("challenge");
 
-    // Map to just return challenge objects
-    const data = favorites.filter(f => f.challenge != null).map(f => f.challenge);
+    console.log(`[FAVORITES] Found ${favorites.length} records for user ${userId}`);
+
+    // Map to just return challenge objects, ensuring no nulls reach the client
+    const data = favorites
+      .filter(f => f.challenge != null)
+      .map(f => f.challenge);
+
+    console.log(`[FAVORITES] Returning ${data.length} valid challenges`);
 
     res.status(200).json({ success: true, count: data.length, data: data });
   } catch (error) {
-    console.error("Error in getFavorites:", error);
+    console.error("[FAVORITES ERROR]", error);
     res.status(500).json({ success: false, message: error.message });
   }
 };

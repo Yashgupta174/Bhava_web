@@ -42,12 +42,18 @@ export const getRecents = async (req, res) => {
       .limit(limit)
       .populate("challenge");
 
+    console.log(`[RECENT] Found ${recents.length} records for user ${userId}`);
+
     // Map to just return challenge objects (flattening the relationship for the UI)
-    const data = recents.filter(r => r.challenge != null).map(r => r.challenge);
+    const data = recents
+      .filter(r => r.challenge != null)
+      .map(r => r.challenge);
+
+    console.log(`[RECENT] Returning ${data.length} valid challenges`);
 
     res.status(200).json({ success: true, count: data.length, data: data });
   } catch (error) {
-    console.error("Error in getRecents:", error);
+    console.error("[RECENT ERROR]", error);
     res.status(500).json({ success: false, message: error.message });
   }
 };

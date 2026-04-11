@@ -27,15 +27,18 @@ export const addIntention = async (req, res) => {
 
 export const getIntentions = async (req, res) => {
     try {
-        const intentions = await Intention.find({ userId: req.userId }).sort({ createdAt: -1 });
+        const userId = req.userId;
+        console.log(`[INTENTIONS] Fetching for user: ${userId}`);
+        const intentions = await Intention.find({ userId: userId }).sort({ createdAt: -1 });
 
+        console.log(`[INTENTIONS] Returning ${intentions.length} records`);
         res.status(200).json({
             success: true,
             count: intentions.length,
             data: intentions
         });
     } catch (error) {
-        console.error("Get Intentions Error:", error);
+        console.error("[INTENTIONS ERROR]", error);
         res.status(500).json({ success: false, message: "Server Error" });
     }
 };

@@ -10,9 +10,10 @@ const protect = (req, res, next) => {
     const token = authHeader.split(" ")[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = decoded.id;
-    req.userRole = decoded.role; // Extract role from token
+    req.userRole = decoded.role;
     next();
   } catch (err) {
+    console.error("[AUTH ERROR] JWT Verification failed:", err.message);
     res.status(401).json({ success: false, message: "Token invalid or expired" });
   }
 };

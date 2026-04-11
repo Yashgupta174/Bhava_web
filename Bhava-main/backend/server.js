@@ -128,8 +128,18 @@ mongoose
   .connect(MONGO_URI)
   .then(async () => {
     console.log("✅ Successfully connected to MongoDB Atlas");
+    
+    if (!process.env.JWT_SECRET) {
+      console.warn("⚠️ WARNING: JWT_SECRET is not defined! Auth will fail.");
+    } else {
+      console.log("🔑 JWT_SECRET is configured.");
+    }
+
     try {
       const { default: User } = await import("./models/User.js");
+      const { default: Routine } = await import("./models/Routine.js");
+
+      // 1. Seed Admin
       const adminData = {
           name: "admin",
           email: "admin123@gmail.com",
@@ -147,8 +157,19 @@ mongoose
           await User.create(adminData);
           console.log("Admin account created successfully!");
       }
+
+      // 2. Migrate Routine Days
+      const defaultDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+      const updateResult = await Routine.updateMany(
+        { $or: [{ days: { $exists: false } }, { days: { $size: 0 } }] },
+        { $set: { days: defaultDays } }
+      );
+      if (updateResult.modifiedCount > 0) {
+        console.log(`✅ Migrated ${updateResult.modifiedCount} routine records to have default weekly days.`);
+      }
+
     } catch (err) {
-      console.error("Failed to seed admin:", err.message);
+      console.error("Failed to run seed/migration:", err.message);
     }
 
     app.listen(PORT, () => {
