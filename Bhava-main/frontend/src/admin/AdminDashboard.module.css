@@ -196,6 +196,29 @@
   cursor: not-allowed;
 }
 
+.formActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.cancelBtn {
+  flex: 1;
+  background-color: #f4f4f4;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 14px 20px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cancelBtn:hover {
+  background-color: #e0e0e0;
+}
+
 /* List Styles */
 .tilesList h3 {
   margin-bottom: 20px;
@@ -329,6 +352,22 @@
 
 .heroBtn:hover:not(:disabled) {
   background-color: #bf4300;
+}
+
+.editBtn {
+  flex: 1;
+  background-color: #e3f2fd;
+  color: #1565c0;
+  border: 1px solid #bbdefb;
+  border-radius: 6px;
+  padding: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.editBtn:hover:not(:disabled) {
+  background-color: #bbdefb;
 }
 
 .deleteBtn {

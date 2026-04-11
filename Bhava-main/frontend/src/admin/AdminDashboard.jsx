@@ -27,6 +27,8 @@ function AdminDashboard() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+  const [editId, setEditId] = useState(null);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -282,9 +284,12 @@ function AdminDashboard() {
     const BASE = import.meta.env.VITE_API_URL || "";
     const token = localStorage.getItem("bhava_token");
 
+    const endpoint = isEditing ? `${BASE}/api/community/${editId}` : `${BASE}/api/community`;
+    const method = isEditing ? "PATCH" : "POST";
+
     try {
-      const res = await fetch(`${BASE}/api/community`, {
-        method: "POST",
+      const res = await fetch(endpoint, {
+        method: method,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`
@@ -292,25 +297,47 @@ function AdminDashboard() {
         body: JSON.stringify({
           name: formData.title,
           description: formData.description,
-          coverImage: formData.image, // Use URL variant for simplicity for now
+          coverImage: formData.image,
           contentBlocks: contentBlocks
         })
       });
       const data = await res.json();
 
       if (data.success) {
-        setSuccess("Community Group created successfully!");
+        setSuccess(isEditing ? "Community Group updated successfully!" : "Community Group created successfully!");
         setFormData({ title: "", description: "", image: "", badgeText: "", durationText: "", fullSubtitle: "", detailsLongDescription: "" });
         setContentBlocks([{ type: "text", value: "" }]);
+        setIsEditing(false);
+        setEditId(null);
         fetchCommunities();
       } else {
-        setError(data.message || "Failed to create community");
+        setError(data.message || "Operation failed");
       }
     } catch (err) {
-      setError("Error creating community. Connection failed.");
+      setError("Error connecting to server: " + err.message);
     } finally {
       setLoading(false);
     }
+  };
+
+  const startEditingCommunity = (c) => {
+    setFormData({
+      ...formData,
+      title: c.name,
+      description: c.description || "",
+      image: c.coverImage || ""
+    });
+    setContentBlocks(c.contentBlocks && c.contentBlocks.length > 0 ? c.contentBlocks : [{ type: "text", value: "" }]);
+    setIsEditing(true);
+    setEditId(c._id);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const cancelEditCommunity = () => {
+    setFormData({ title: "", description: "", image: "", badgeText: "", durationText: "", fullSubtitle: "", detailsLongDescription: "" });
+    setContentBlocks([{ type: "text", value: "" }]);
+    setIsEditing(false);
+    setEditId(null);
   };
 
   const handleAddTile = async (e) => {
@@ -790,9 +817,16 @@ function AdminDashboard() {
                   </>
                 )}
 
-                <button type="submit" className={styles.submitBtn} disabled={loading}>
-                  {loading ? "Syncing..." : activeTab === "Community Groups" ? "Post Community Group" : activeTab === "Daily Inspiration" ? "Save Inspiration" : activeTab === "Push Notifications" ? "Push to All Users" : "Save Content Tile"}
-                </button>
+                <div className={styles.formActions}>
+                  <button type="submit" className={styles.submitBtn} disabled={loading}>
+                    {loading ? "Syncing..." : isEditing ? "Update Community Group" : activeTab === "Community Groups" ? "Post Community Group" : activeTab === "Daily Inspiration" ? "Save Inspiration" : activeTab === "Push Notifications" ? "Push to All Users" : "Save Content Tile"}
+                  </button>
+                  {isEditing && (
+                    <button type="button" onClick={cancelEditCommunity} className={styles.cancelBtn}>
+                      Cancel Edit
+                    </button>
+                  )}
+                </div>
               </form>
             )}
           </div>
@@ -842,6 +876,9 @@ function AdminDashboard() {
                                   <span>Invite Link: {item.shareLink?.substring(0, 8)}...</span>
                                 </div>
                                 <div className={styles.actionRow}>
+                                  <button onClick={() => startEditingCommunity(item)} className={styles.editBtn} disabled={loading}>
+                                    Edit Content
+                                  </button>
                                   <button onClick={() => handleDeleteTile(item._id)} className={styles.deleteBtn} disabled={loading}>
                                     Delete Group
                                   </button>

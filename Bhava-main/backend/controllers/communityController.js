@@ -52,3 +52,23 @@ export const deleteCommunity = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+export const updateCommunity = async (req, res) => {
+  try {
+    const { name, description, coverImage, contentBlocks } = req.body;
+    const community = await Community.findById(req.params.id);
+
+    if (!community) {
+      return res.status(404).json({ success: false, message: "Community not found" });
+    }
+
+    community.name = name || community.name;
+    community.description = description || community.description;
+    community.coverImage = coverImage || community.coverImage;
+    community.contentBlocks = contentBlocks || community.contentBlocks;
+
+    await community.save();
+    res.status(200).json({ success: true, data: community });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
